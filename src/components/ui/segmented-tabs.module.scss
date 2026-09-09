@@ -1,0 +1,70 @@
+/* tabs/segmented 1:58385 — tabs/segmented/fill-master on an 8px-radius track,
+   2px inset, no outline. The track is the recessed surface and the active tab
+   is the white chip raised out of it, not the other way round. */
+.track {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 2px;
+  background: var(--sb-surface-secondary);
+  border-radius: var(--sb-radius-8);
+  width: var(--tabs-width, 370px);
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+/* .Segmented Tabs Items — 40 tall, 6px radius, 12px of label padding. */
+.tab {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  max-height: 40px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: var(--sb-radius-6);
+  background: none;
+  font-family: var(--sb-font-data);
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--sb-text-tertiary);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.tab:hover {
+  color: var(--sb-text-display);
+}
+
+/* tabs/segmented/fill-active — white, hairlined and dropped, so it lifts off
+   the track rather than sinking into it. */
+.active {
+  background: var(--sb-neutral-00);
+  border-color: var(--sb-stroke-default);
+  color: var(--sb-text-display);
+  filter: drop-shadow(0 10px 10px var(--sb-elevation-01));
+}
+
+@media (max-width: 767px) {
+  /* The mobile frames size the track to the full 328 column — Segmented Tabs
+     0:58394 and its counterparts. Learn is the exception: its four tabs are
+     543 wide and scroll (0:66071), so the tabs grow to fill the column but
+     never shrink below their labels, which lets that one overflow instead. */
+  .track {
+    width: var(--tabs-width, 100%);
+    max-width: 100%;
+  }
+
+  .tab {
+    flex: 1 0 auto;
+  }
+}

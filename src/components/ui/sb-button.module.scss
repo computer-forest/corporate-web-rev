@@ -1,0 +1,71 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 0;
+  border-radius: var(--sb-radius-8);
+  font-family: var(--sb-font-body);
+  font-weight: 400;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: filter 0.18s ease, background-color 0.18s ease;
+}
+
+.button:hover {
+  filter: brightness(1.06);
+}
+
+.l {
+  min-height: 44px;
+  max-height: 44px;
+  padding: 12px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.m {
+  min-height: 36px;
+  max-height: 36px;
+  padding: 10px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.block {
+  width: 100%;
+}
+
+.primary {
+  background: var(--sb-gradient-primary);
+  color: #f6f6ff;
+  box-shadow: var(--sb-shadow-05);
+}
+
+.secondary {
+  background: var(--sb-gradient-secondary);
+  color: var(--sb-text-display);
+  box-shadow: var(--sb-shadow-05);
+}
+
+.tertiary {
+  background: none;
+  color: var(--sb-primary-1000);
+  box-shadow: none;
+}
+
+.tertiary:hover {
+  color: var(--sb-text-hover);
+  filter: none;
+}
+
+/* The mobile frames size the large button 45 rather than the desktop's 44 —
+   Button Set 0:56167 in the hero form and Buttons 0:58537 in Other offering
+   both measure 45, and the 1px shows up as a card that misses its 344. */
+@media (max-width: 767px) {
+  .l {
+    min-height: 45px;
+    max-height: 45px;
+  }
+}

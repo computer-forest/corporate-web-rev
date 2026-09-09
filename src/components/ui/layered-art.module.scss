@@ -1,0 +1,21 @@
+.art {
+  position: relative;
+  width: 100%;
+}
+
+.box,
+.bleed {
+  position: absolute;
+}
+
+/* Default bleed fills its box; a layer overrides it with negative insets. */
+.bleed {
+  inset: 0;
+}
+
+.bleed img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}

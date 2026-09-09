@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+  body{margin:0;background:#888} iframe{width:360px;height:14200px;border:0;display:block;background:#fff}
+  .wrap{width:360px;margin:0 auto}
+</style></head><body>
+<div class="wrap"><iframe src="/home" id="f"></iframe></div>
+<script>
+const D=()=>document.getElementById('f').contentDocument;
+const H=e=>+e.getBoundingClientRect().height.toFixed(1), W=e=>+e.getBoundingClientRect().width.toFixed(1);
+window.__learn = () => {
+  const sec = D().querySelector('#investor-awareness'); if(!sec) return 'missing';
+  const rail = sec.querySelector('[role="group"]');
+  const card = sec.querySelector('article');
+  const activeTab = sec.querySelector('[role="tab"][aria-selected="true"]');
+  return { section:H(sec), card:{w:W(card),h:H(card)}, img:H(card.querySelector('img')),
+    railScrollW:rail.scrollWidth, railClientW:rail.clientWidth,
+    tabsTrackW:W(sec.querySelector('[role="tablist"]')), tabsScrollW:sec.querySelector('[role="tablist"]').scrollWidth,
+    activeTab: activeTab && activeTab.textContent.trim(),
+    headHref: sec.querySelector('a[href^="#learn"]') && sec.querySelector('a[href^="#learn"]').getAttribute('href'),
+    cardHref: card.querySelector('a').getAttribute('href'),
+    docOverflow: D().documentElement.scrollWidth > D().documentElement.clientWidth };
+};
+window.__scrollRail = (n) => { const sec=D().querySelector('#investor-awareness');
+  const rail=sec.querySelector('[role="group"]'); const c=rail.firstElementChild;
+  const step=c.offsetWidth+parseFloat(getComputedStyle(rail).columnGap||'0');
+  rail.scrollTo({left: step*n}); return 'scrolled '+n; };
+</script>
+</body></html>

@@ -1,0 +1,139 @@
+.section {
+  /* Lilac-to-blush ground, sampled from the Figma render. */
+  background: var(--sb-gradient-lilac);
+}
+
+.inner {
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 40px var(--sb-gutter);
+}
+
+.tabs {
+  margin: 24px 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Blogs card 1:58413 — a 12px stack of a 237-tall art tile, SH1 title,
+   two-line B2 body and a full-width 44px button. */
+.desktopOnly {
+  display: inline;
+}
+
+.mobileOnly {
+  display: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* The art tile clips to 12px; the illustration itself runs 220 square. */
+.art {
+  display: block;
+  width: 100%;
+  height: 237px;
+  max-height: 237px;
+  object-fit: contain;
+  border-radius: var(--sb-radius-12);
+  margin-bottom: 12px;
+}
+
+/* Pre Login/Sub-heading SH1 Med — 20/28, indigo. */
+.cardTitle {
+  margin: 0 0 12px;
+  font-family: var(--sb-font-subheading);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--sb-text-display);
+}
+
+/* Pre Login/Body B2 Reg — 16/24 on text/secondary. */
+.cardBody {
+  flex: 1;
+  margin: 0 0 12px;
+  font-family: var(--sb-font-body);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--sb-text-secondary);
+}
+
+.cardBody strong {
+  font-weight: 600;
+  color: var(--sb-text-display);
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Other offering 0:58386 — 56 of head room on mobile, not 24. */
+  .inner {
+    padding: 56px var(--sb-gutter);
+  }
+
+  /* Segmented Tabs sit 18 under the 96-tall head block. */
+  .tabs {
+    margin: 18px 0 24px;
+  }
+
+  /* Container 0:58395 — the cards run down the page separated by a 1px rule
+     with 24 either side, rather than the desktop's plain gap. */
+  .grid {
+    gap: 24px;
+  }
+
+  /* Mobile leads with a different card, so the rule cannot key off DOM order:
+     every card carries the divider and the one shown first drops it. */
+  .card {
+    order: var(--mobile-order, 0);
+    padding-top: 24px;
+    border-top: 1px solid rgba(151, 171, 195, 0.4);
+  }
+
+  .mobileFirst {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  /* Card 0:58396 — 344 tall: 205 of art, 12, a 70 text block, 12, a 45 button.
+     The text block is its own 22 + 8 + 40. */
+  .art {
+    height: 205px;
+    margin-bottom: 12px;
+  }
+
+  .cardTitle {
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .cardBody {
+    margin-bottom: 12px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .desktopOnly {
+    display: none;
+  }
+
+  .mobileOnly {
+    display: inline;
+  }
+}

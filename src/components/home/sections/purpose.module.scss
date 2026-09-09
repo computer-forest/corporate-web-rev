@@ -1,0 +1,113 @@
+.section {
+  background: var(--sb-neutral-00);
+}
+
+.inner {
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 40px var(--sb-gutter);
+}
+
+/* Component Width/DT 3 grid — four 310 columns with a 24px gutter. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Art tile — 310x174 on surface/secondary, 16px radius, illustration 154 tall
+   and centred rather than filling the tile. */
+.art {
+  display: block;
+  width: 100%;
+  height: 174px;
+  padding: 10px 0;
+  object-fit: contain;
+  background: var(--sb-surface-secondary);
+  border-radius: var(--sb-radius-16);
+  margin-bottom: 12px;
+}
+
+/* Pre Login/Sub-heading SH1 Med — 20/28, tight against the lede below. */
+.cardTitle {
+  margin: 0;
+  font-family: var(--sb-font-subheading);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--sb-text-display);
+}
+
+/* Pre Login/Body B3 Reg — 14/20. The Figma sets these on one line in a 322
+   box inside a 310 column, so they run a little into the gutter rather than
+   wrapping and pushing every card in the row 20px taller. */
+.lede {
+  margin: 0 0 12px;
+  font-family: var(--sb-font-body);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-text-secondary);
+  white-space: nowrap;
+}
+
+.points {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+
+/* Tag — 24 tall, 6/4 padding, primary/300 at 40%. */
+.points li {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px;
+  border-radius: var(--sb-radius-4);
+  background: rgba(197, 196, 253, 0.4);
+  font-family: var(--sb-font-body);
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--sb-text-display);
+}
+
+.tick {
+  flex-shrink: 0;
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lede {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 767px) {
+  .inner {
+    padding: 24px var(--sb-gutter);
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-top: 24px;
+  }
+}

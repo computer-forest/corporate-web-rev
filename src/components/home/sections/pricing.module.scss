@@ -1,0 +1,175 @@
+.section {
+  background: var(--sb-surface-tertiary);
+}
+
+.inner {
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 40px var(--sb-gutter);
+}
+
+/* Three 328 cards centred on the 1024 band in the design. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 328px));
+  justify-content: center;
+  gap: 20px;
+  margin: 42px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* plan 1:59744 — 328x260, 16 of padding, 12px radius, 8 between blocks, over
+   a primary/50-to-white ground with a warm inner glow. */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 260px;
+  padding: 16px;
+  border-radius: var(--sb-radius-12);
+  background: linear-gradient(180deg, var(--sb-primary-50) 0%, var(--sb-neutral-00) 98.604%);
+  box-shadow: inset 0 26px 40px 11px rgba(245, 210, 220, 0.2);
+}
+
+/* Each plan carries its own gradient hairline, painted as a masked ring so the
+   stroke can run pink-to-indigo the way the Figma does. */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: var(--plan-stroke);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.suvidha {
+  --plan-stroke: linear-gradient(180deg, #f67fa1 0%, #4f45e4 100%);
+}
+
+.prozero {
+  --plan-stroke: linear-gradient(180deg, #eacafe 0%, #b03f74 100%);
+}
+
+.women {
+  --plan-stroke: #4f45e4;
+}
+
+.cardHead {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--sb-stroke-default);
+}
+
+/* Pre Login/Heading H4 Reg — 20/28, -1px, next to a 30px badge. */
+.name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-family: var(--sb-font-heading);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -1px;
+  color: var(--sb-text-display);
+}
+
+.name img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+/* Frame 1000005326 — the ₹ hangs at 20/27 beside the 32/42 figure and the tax
+   note is set 12/16 a little below the cap line. */
+.price {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin: 0;
+  font-family: var(--sb-font-heading);
+  color: var(--sb-text-display);
+}
+
+.currency {
+  margin-top: 4px;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 27px;
+}
+
+.amount {
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 42px;
+}
+
+.note {
+  margin: 15px 0 0 5px;
+  font-family: var(--sb-font-body);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--sb-text-display);
+}
+
+/* Frame 2147226234 — four 24-tall rows, 12 apart. */
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.features li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 24px;
+  font-family: var(--sb-font-body);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-text-display);
+}
+
+.tick {
+  flex-shrink: 0;
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 328px));
+  }
+}
+
+@media (max-width: 767px) {
+  /* Pricing Plans 0:66157 — 40 of head room on mobile, not 24. */
+  .inner {
+    padding: 40px var(--sb-gutter);
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    margin-top: 24px;
+  }
+
+  .card {
+    height: auto;
+  }
+}

@@ -1,0 +1,28 @@
+.heading {
+  max-width: 62ch;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--current);
+  margin: 0 0 1rem;
+}
+
+.lede {
+  margin: 1.35rem 0 0;
+  font-size: clamp(1.02rem, 1.5vw, 1.22rem);
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.onInk .eyebrow {
+  color: var(--beacon);
+}
+
+.onInk .lede {
+  color: var(--text-on-ink-muted);
+}

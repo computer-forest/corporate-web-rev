@@ -1,0 +1,192 @@
+.section {
+  background: var(--sb-neutral-00);
+}
+
+.inner {
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 40px var(--sb-gutter);
+}
+
+.tabs {
+  margin: 24px 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Component 2 1:59610 — 310x183 with a 12px clip. */
+.cover {
+  display: block;
+  width: 100%;
+  height: 183px;
+  object-fit: cover;
+  border-radius: var(--sb-radius-12);
+  margin-bottom: 8px;
+}
+
+/* Content 1:59611 — SH2 Med over B3 Reg, 2px apart. */
+.title {
+  position: relative;
+  flex: 1;
+  margin: 0 0 2px;
+  font-family: var(--sb-font-subheading);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--sb-text-display);
+}
+
+.date {
+  margin: 0;
+  font-family: var(--sb-font-body);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-text-secondary);
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Pagination 0:66038 — mobile only; the desktop grid shows every card. */
+.footer {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  /* Research & Insights 0:59772 — 40 of head room on mobile, not 24. */
+  .inner {
+    padding: 40px var(--sb-gutter) 20px;
+  }
+
+  .tabs {
+    margin: 24px 0;
+  }
+
+  /* Research cards 0:59780 — an 806-wide rail of 258x220 cards on a 16 gap
+     inside the 328 column, so the next card peeks and the row scrolls. */
+  .grid {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    /* A flex/grid item defaults to min-width:auto, which would size the rail
+       to its content and push the page sideways instead of scrolling. */
+    min-width: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Research card 0:59781 — 258x220: 154 of art, 8, then a 58 content block. */
+  .card {
+    flex: 0 0 258px;
+    width: 258px;
+    height: 220px;
+    gap: 0;
+    scroll-snap-align: start;
+  }
+
+  .cover {
+    height: 154px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+  }
+
+  /* Content 0:62768 — a 14/20 title 2 clear of a 12/16 date. */
+  .title {
+    flex: 0 0 auto;
+    margin-bottom: 2px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .date {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 32px;
+    margin-top: 24px;
+  }
+
+  .rule {
+    flex: 1;
+    height: 2.5px;
+    background-image: radial-gradient(circle, var(--sb-primary-400) 1.25px, transparent 1.25px);
+    background-size: 5px 2.5px;
+    background-repeat: repeat-x;
+  }
+
+  /* Arrows and Page Numbers 0:66042 — 122 wide, all gaps 4. */
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* arrow-up-right 1 / 2 — a 24 glyph in a 32-tall box. */
+  .pageArrow {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--sb-primary-1000);
+    cursor: pointer;
+  }
+
+  .pageArrow svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Pill 0:66046 — 66x28 around a 38x20 indicator. */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    margin: 0;
+    padding: 4px 14px;
+    border: 1.429px solid var(--sb-neutral-200);
+    border-radius: 42.857px;
+    background: var(--sb-surface-secondary);
+    font-family: var(--sb-font-data);
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .current {
+    color: var(--sb-primary-800);
+  }
+
+  .total {
+    color: var(--sb-text-secondary);
+  }
+}

@@ -1,0 +1,607 @@
+/* Hero Section Main — Sprint 2 0:64970, a 1440x671 canvas.
+   Copy at x64/y68 (503 wide, 350 tall including the KPI row), form at
+   x1038/y68 (338 wide), the phone centred between them, and TRADE / INVEST
+   set at y455 behind it. */
+
+.hero {
+  background: var(--sb-neutral-00);
+  overflow: hidden;
+}
+
+.inner {
+  position: relative;
+  max-width: var(--sb-page);
+  min-height: 671px;
+  margin: 0 auto;
+  padding: 68px var(--sb-gutter) 0;
+  display: grid;
+  grid-template-columns: minmax(0, 503px) minmax(0, 1fr) minmax(0, 338px);
+  column-gap: 16px;
+  /* Stats sits 20 under the copy, as the third block of Title + sutext.
+     align-content keeps the min-height off the row track, so the KPI row
+     lands on the Figma's y=346 rather than being pushed down by free space. */
+  row-gap: 20px;
+  align-items: start;
+  align-content: start;
+}
+
+/* --- headline ------------------------------------------------------------ */
+
+.copy {
+  position: relative;
+  z-index: 2;
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--sb-font-heading);
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -1px;
+  color: var(--sb-text-display);
+}
+
+.titleLead {
+  font-weight: 400;
+}
+
+/* Hero Banner Text — a 118 window the 112-tall claims scroll through on a
+   127 pitch, exactly as the Figma frame stacks them. */
+.rotator {
+  --rotator-step: 127px;
+  --rotator-window: 118px;
+  display: block;
+  height: var(--rotator-window);
+  overflow: hidden;
+}
+
+.rotatorTrack {
+  display: block;
+  animation: rotate-claims 12s infinite;
+}
+
+.rotatorItem {
+  display: block;
+  height: var(--rotator-step);
+  font-weight: 600;
+  letter-spacing: -1px;
+}
+
+@keyframes rotate-claims {
+  0%,
+  26% {
+    transform: translateY(0);
+  }
+  33%,
+  59% {
+    transform: translateY(calc(-1 * var(--rotator-step)));
+  }
+  66%,
+  92% {
+    transform: translateY(calc(-2 * var(--rotator-step)));
+  }
+  100% {
+    transform: translateY(calc(-3 * var(--rotator-step)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rotatorTrack {
+    animation: none;
+  }
+}
+
+.subtext {
+  margin: 0;
+  font-family: var(--sb-font-body);
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--sb-text-secondary);
+}
+
+/* --- phone mockup -------------------------------------------------------- */
+
+.mockup {
+  position: absolute;
+  z-index: 1;
+  /* 536 / 1440 and 414 / 1440 — exact at the design width, proportional below. */
+  top: 38px;
+  left: 37.22%;
+  width: 28.75%;
+  max-width: 414px;
+}
+
+.mockup img {
+  display: block;
+  width: 100%;
+}
+
+/* --- watermark ----------------------------------------------------------- */
+
+.watermarks {
+  position: absolute;
+  /* Above the mockup: the phone's exported bounds are a white rectangle whose
+     right edge reaches under INVEST, though the artwork itself never does. */
+  z-index: 3;
+  top: 455px;
+  left: var(--sb-gutter);
+  right: var(--sb-gutter);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.watermark {
+  flex: 0 0 auto;
+  margin: 0;
+  font-family: var(--sb-font-heading);
+  font-weight: 600;
+  font-size: clamp(72px, 8.9vw, 128px);
+  line-height: 1;
+  opacity: 0.2;
+  white-space: nowrap;
+  background: linear-gradient(0deg, #d71e53 59.796%, var(--sb-primary-1000) 115.63%),
+    linear-gradient(90deg, #dbdbfe 0%, #dbdbfe 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.watermark:last-child {
+  letter-spacing: 6px;
+}
+
+/* --- form ---------------------------------------------------------------- */
+
+/* The form spans both rows so the copy column alone sizes row one — the KPI
+   row then lands 20 under the subtext rather than under the taller form. */
+.form {
+  position: relative;
+  z-index: 2;
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Desktop asks for the phone number first — mobile flips the two. */
+.fieldMobile {
+  order: -1;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Title Container — 20 tall. */
+.field label {
+  font-family: var(--sb-font-body);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-text-primary);
+}
+
+/* Input Field — 44 tall; Figma strokes sit inside, so the 12 of padding
+   absorbs the 1px border. */
+.field input {
+  padding: 11px 12px;
+  background: var(--sb-neutral-00);
+  border: 1px solid var(--sb-stroke-default);
+  border-radius: var(--sb-radius-8);
+  font-family: var(--sb-font-body);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-text-primary);
+}
+
+.field input::placeholder {
+  color: var(--sb-text-secondary);
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--sb-stroke-hover);
+}
+
+/* Help Container — 20 tall, a 16px info mark 4 clear of 12/16 copy, and 8
+   rather than the field's 12 below the input. */
+.help {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 20px;
+  margin: -4px 0 0;
+  font-family: var(--sb-font-body);
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--sb-text-secondary);
+}
+
+/* Selection-List sits 8 below its FormField, not the 16 the stack uses. */
+.consent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: -8px;
+  font-family: var(--sb-font-body);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--sb-text-secondary);
+  cursor: pointer;
+}
+
+.consent input {
+  position: absolute;
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border: 1px solid var(--sb-text-tertiary);
+  border-radius: var(--sb-radius-4);
+}
+
+.consent input:not(:checked) + .checkbox img {
+  visibility: hidden;
+}
+
+.consent input:focus-visible + .checkbox {
+  outline: 2px solid var(--sb-primary-700);
+  outline-offset: 2px;
+}
+
+/* --- KPI row ------------------------------------------------------------- */
+
+/* Stats 7961:315575 — Sprint 2 moved the KPIs into the copy column as three
+   hugging 72-tall tiles, 11 apart, under the subtext. */
+.kpis {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 0;
+}
+
+.kpi {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: 72px;
+  padding: 12px;
+  background: var(--sb-primary-50);
+  border-radius: 7.691px;
+  text-align: left;
+}
+
+/* The Figma sizes the three tiles by hand — 140 / 157 / 142 across the 461
+   row — rather than letting them all hug, so the widths are pinned here. */
+.kpi:nth-child(1) {
+  min-width: 140px;
+}
+
+.kpi:nth-child(2) {
+  min-width: 157px;
+}
+
+.kpi:nth-child(3) {
+  min-width: 142px;
+}
+
+/* Inter SemiBold 24 in the same indigo gradient the 4x uses. */
+.kpiValue {
+  margin: 0;
+  height: 28px;
+  font-family: var(--sb-font-data);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 28px;
+  white-space: nowrap;
+  background: linear-gradient(0deg, var(--sb-primary-600) 0%, var(--sb-primary-1000) 115.63%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.kpiRating {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.kpiRating img {
+  flex-shrink: 0;
+  width: 25.64px;
+  height: 25.64px;
+}
+
+.kpiLogo {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  height: 28px;
+}
+
+.kpiLogo img {
+  display: block;
+  height: 28px;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+}
+
+/* Poppins 14/20 on text/display. */
+.kpiLabel {
+  font-family: var(--sb-font-body);
+  font-size: 14px;
+  line-height: 20px;
+  white-space: nowrap;
+  color: var(--sb-text-display);
+}
+
+.desktopOnly {
+  display: inline;
+}
+
+.mobileOnly {
+  display: none;
+}
+
+/* --- tablet -------------------------------------------------------------- */
+
+@media (max-width: 1199px) {
+  .inner {
+    min-height: 0;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 32px;
+    padding-bottom: 40px;
+  }
+
+  .copy {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .mockup {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    max-width: none;
+    grid-column: 2;
+    grid-row: 1 / span 3;
+  }
+
+  .mockup img {
+    max-width: 414px;
+    margin: 0 auto;
+  }
+
+  .kpis {
+    grid-column: 1;
+    grid-row: 2;
+    flex-wrap: wrap;
+  }
+
+  .form {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .watermarks {
+    position: static;
+    grid-column: 1 / -1;
+    grid-row: 4;
+  }
+
+  .watermark {
+    font-size: clamp(56px, 7vw, 88px);
+  }
+
+  /* The narrower copy column would wrap the claims onto a third line and
+     overflow the rotator window, so the display scale steps down with it. */
+  .title {
+    font-size: 36px;
+    line-height: 44px;
+  }
+
+  .rotator {
+    --rotator-step: 88px;
+  }
+}
+
+/* --- mobile -------------------------------------------------------------- */
+
+@media (max-width: 767px) {
+  .inner {
+    display: flex;
+    flex-direction: column;
+    /* The desktop grid sets align-items: start, which on a flex column shrinks
+       every child to its content instead of filling the 328 column — it is why
+       the form and the headline came out narrower than the gutter allows. */
+    align-items: stretch;
+    gap: 24px;
+    padding: 24px var(--sb-gutter) 32px;
+    /* Faint dotted ground behind the mobile hero. */
+    background-image: radial-gradient(circle, rgba(41, 32, 117, 0.06) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+
+  .copy {
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  /* Hero Text 0:43024 — 328x124: a 40-tall lead, 4 clear of an 80 claim
+     window. Both are Heading H1 at 32/40, the lead Regular and the claims
+     SemiBold — not the 28/36 the rest of the mobile headings use. */
+  .title {
+    gap: 4px;
+    font-size: 32px;
+    line-height: 40px;
+    align-items: center;
+  }
+
+  /* Claims are 80 tall (two 40 lines) on a 98 pitch, so the window is shorter
+     than the step exactly as on desktop: the 18 of slack is the gap between
+     claims, not something the window should ever show. */
+  .rotator {
+    --rotator-step: 98px;
+    --rotator-window: 80px;
+  }
+
+  /* Mockup 0:43024 — 360x500, full bleed, so it escapes the 16 gutter. */
+  .mockup {
+    width: calc(100% + 2 * var(--sb-gutter));
+    margin: 0 calc(-1 * var(--sb-gutter));
+  }
+
+  .subtext {
+    display: none;
+  }
+
+  /* Form Section 0:56167 — 328x282 on a 16 gap. Inside each block the parts
+     sit 8 apart rather than the desktop's 12, and the type steps to 14/21,
+     which is also what takes the input from 44 to its 45 (21 + 22 + 2). */
+  .field {
+    gap: 8px;
+  }
+
+  .field label,
+  .field input {
+    line-height: 21px;
+  }
+
+  /* Selection-List 0:56167 — a 20 checkbox, 10 clear of a 14/21 label. */
+  .consent {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  /* FormField is 102 — its 74 of title+input, 8, then a 20 help row. The
+     desktop pulls the help up 4 to close that gap; mobile does not. */
+  .help {
+    margin-top: 0;
+  }
+
+  /* The mobile hero sets TRADE & INVEST as one centred line under the phone. */
+  .watermarks {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .watermark {
+    font-size: 40px;
+    line-height: 48px;
+  }
+
+  .watermark:first-child::after {
+    content: " &";
+  }
+
+  .watermark:last-child {
+    letter-spacing: 0;
+  }
+
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin: 0;
+  }
+
+  .kpi,
+  .kpi:nth-child(1),
+  .kpi:nth-child(2),
+  .kpi:nth-child(3) {
+    min-width: 0;
+    height: auto;
+    padding: 12px 8px;
+    gap: 2px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .kpiValue {
+    height: auto;
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .kpiRating {
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .kpiRating img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .kpiLogo {
+    justify-content: center;
+    height: 32px;
+  }
+
+  .kpiLogo img {
+    height: auto;
+    max-width: 100%;
+  }
+
+  .kpiLabel {
+    white-space: normal;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .form {
+    order: 1;
+    /* The desktop grid pins the form to the top of its track with align-self;
+       on the mobile column that same rule keeps it at its content width. */
+    align-self: stretch;
+  }
+
+  .consent {
+    margin-top: 0;
+  }
+
+  .fieldName {
+    order: -1;
+  }
+
+  .fieldMobile {
+    order: 0;
+  }
+
+  .desktopOnly {
+    display: none;
+  }
+
+  .mobileOnly {
+    display: inline;
+  }
+}

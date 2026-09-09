@@ -1,0 +1,160 @@
+.section {
+  background: var(--sb-surface-secondary);
+}
+
+.inner {
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 40px var(--sb-gutter);
+}
+
+.tabs {
+  margin: 24px 0;
+}
+
+/* IPO card 1:8581 — 421 wide, 291 tall, 16px radius. */
+.card {
+  width: 421px;
+  max-width: 82vw;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--sb-radius-16);
+  overflow: hidden;
+}
+
+/* IPO 1:8582 — white, 0.5px hairline, 16px padding and 16px between blocks. */
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background: var(--sb-surface-primary);
+  border: 0.5px solid var(--sb-stroke-default);
+  border-bottom: 0;
+  border-radius: var(--sb-radius-16) var(--sb-radius-16) 0 0;
+}
+
+.cardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Post Login/Body B2 Med — Inter 16/24 on text/primary. */
+.name {
+  margin: 0;
+  font-family: var(--sb-font-data);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--sb-text-primary);
+}
+
+/* chip/tag/green — 24 tall, 4px radius, 8/4 padding. */
+.chip {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  /* Figma strokes sit inside the frame, so the 8/4 padding absorbs the 1px. */
+  padding: 3px 7px;
+  border: 1px solid var(--sb-chip-green-stroke);
+  border-radius: var(--sb-radius-4);
+  background: var(--sb-chip-green-bg);
+  font-family: var(--sb-font-data);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--sb-text-success);
+}
+
+/* divider 1:8587 — a 1px rule on divider/divider. */
+.divider {
+  height: 1px;
+  border-radius: var(--sb-radius-2);
+  background: var(--sb-divider);
+}
+
+/* Info 1:8588 — two 48-tall rows, 8px apart. */
+.facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+  margin: 0;
+}
+
+.facts > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+}
+
+.end {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.facts dt {
+  font-family: var(--sb-font-data);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-text-tertiary);
+}
+
+.facts dd {
+  margin: 0;
+  font-family: var(--sb-font-data);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-text-primary);
+}
+
+.unit {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--sb-text-tertiary);
+}
+
+/* CTAs 1:8603 — two equal 44-tall buttons, 8px apart. */
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+/* Bottom Highlight 1:8606 — primary/100 strip, 10/8 padding. */
+.listing {
+  margin: 0;
+  padding: 8px 10px;
+  background: var(--sb-primary-100);
+  font-family: var(--sb-font-data);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-text-tertiary);
+  text-align: center;
+}
+
+.listing strong {
+  font-weight: 500;
+  color: var(--sb-text-display);
+}
+
+@media (max-width: 767px) {
+  /* IPO's 0:58747 — 40 of head room on mobile, not 24. */
+  .inner {
+    padding: 40px var(--sb-gutter) 20px;
+  }
+
+  .tabs {
+    margin: 16px 0;
+  }
+
+  .card {
+    width: 300px;
+  }
+}

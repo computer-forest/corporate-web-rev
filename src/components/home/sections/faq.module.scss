@@ -1,0 +1,133 @@
+.section {
+  background: var(--sb-neutral-00);
+}
+
+/* FAQ 1:60054 — a 533 heading column, 24 gutter, 755 of questions, all set
+   100 from the top and bottom of the 640-tall band. */
+.inner {
+  display: grid;
+  grid-template-columns: 533fr 755fr;
+  gap: 24px;
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 100px var(--sb-gutter);
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+/* Pre Login/Heading H1 Reg — 48/56, -1px. */
+.title {
+  margin: 0;
+  font-family: var(--sb-font-heading);
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -1px;
+  color: var(--sb-text-display);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Accordion Line — a hairline with 8px clear above and below it. */
+.row + .row {
+  margin-top: 8px;
+  padding-top: 7px;
+  border-top: 1px solid var(--sb-divider);
+}
+
+.row h3 {
+  margin: 0;
+}
+
+/* FAQ-item — 24 either side, 16 top and bottom while collapsed. */
+.question {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  padding: 16px 24px;
+  border: 0;
+  background: none;
+  font-family: var(--sb-font-subheading);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--sb-text-display);
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Opening the row lifts the padding to the 24 the expanded item uses. */
+.open .question {
+  padding: 24px 24px 0;
+}
+
+.sign {
+  flex-shrink: 0;
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+/* Pre Login/Body B2 Reg — 16/24, 16 below the question. The extra right inset
+   keeps the measure clear of the 24px toggle, as the Figma Text column does. */
+.answer {
+  padding: 16px 48px 24px 24px;
+}
+
+.answer p {
+  margin: 0;
+  font-family: var(--sb-font-body);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--sb-text-secondary);
+}
+
+@media (max-width: 1023px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 48px var(--sb-gutter);
+  }
+}
+
+@media (max-width: 767px) {
+  /* FAQ 0:66310 — 40 of head room on mobile, not 24. */
+  .inner {
+    padding: 40px var(--sb-gutter);
+  }
+
+  .title {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .question {
+    padding: 16px 0;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .open .question {
+    padding: 16px 0 0;
+  }
+
+  .answer {
+    padding: 12px 0 16px;
+  }
+
+  .answer p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+}

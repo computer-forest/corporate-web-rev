@@ -1,0 +1,422 @@
+.section {
+  background: var(--sb-neutral-00);
+}
+
+.inner {
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 40px var(--sb-gutter);
+}
+
+/* Title + sutext 1:58375 — 90 tall (H1 56 + 6 + SH1 28), 24 clear of Fold 1. */
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* Pre Login/Heading H1 Reg — 48/56, -1px. */
+.title {
+  margin: 0;
+  font-family: var(--sb-font-heading);
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -1px;
+  color: var(--sb-text-display);
+}
+
+.subtext {
+  margin: 0;
+  font-family: var(--sb-font-body);
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--sb-text-secondary);
+}
+
+/* Row one is 755 + 533, row two mirrors it — 1312 across with a 24px gutter. */
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.row {
+  display: grid;
+  gap: 24px;
+}
+
+.rowOne {
+  grid-template-columns: 755fr 533fr;
+}
+
+.rowTwo {
+  grid-template-columns: 533fr 755fr;
+}
+
+/* Card frame — 378 tall, 12px radius, white-to-primary/200 ground. */
+.card {
+  position: relative;
+  height: 378px;
+  padding: 32px;
+  overflow: hidden;
+  border-radius: var(--sb-radius-12);
+  background-color: var(--sb-neutral-00);
+  background-image: linear-gradient(180deg, #ffffff 0%, var(--sb-primary-200) 100%);
+}
+
+/* Only the margin-trading card carries the dot grid in the Figma. */
+.dotted {
+  background-image: radial-gradient(
+      circle,
+      rgba(110, 103, 238, 0.28) 1px,
+      transparent 1px
+    ),
+    linear-gradient(180deg, #ffffff 0%, var(--sb-primary-200) 100%);
+  background-size: 19.71px 19.71px, 100% 100%;
+}
+
+.cardHead {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* Heading H4 — 28/36. */
+.cardTitle {
+  margin: 0;
+  font-family: var(--sb-font-heading);
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: -1px;
+  color: var(--sb-text-display);
+}
+
+.arrow {
+  flex-shrink: 0;
+  display: inline-flex;
+  color: var(--sb-primary-1000);
+  transition: transform 0.2s ease;
+}
+
+.arrow:hover {
+  transform: translateX(4px);
+}
+
+/* --- margin trading ------------------------------------------------------ */
+
+/* Group 1171274801 — 187 tall, starting 44 below the 72-tall card header so
+   its top lands on the Figma's y=148 inside the card. */
+.leverage {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  margin: 44px 0 0;
+  font-family: var(--sb-font-heading);
+  color: var(--sb-text-display);
+}
+
+.leverageSmall {
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: -1px;
+}
+
+/* 127.27/154.5 in Figma, but the line box is allowed to bleed over the labels
+   above and below it, which nets the 187 the group actually occupies. */
+.leverageBig {
+  font-weight: 600;
+  font-size: 127.273px;
+  line-height: 115px;
+  background: linear-gradient(0deg, var(--sb-primary-600) 0%, var(--sb-primary-1000) 115.63%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.scaleArt {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 439px;
+  max-width: 62%;
+}
+
+/* --- NRI demat ----------------------------------------------------------- */
+
+.nriGlobe {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.nriPhone {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 352px;
+  max-width: 68%;
+}
+
+/* --- instant support ----------------------------------------------------- */
+
+.branches {
+  position: absolute;
+  left: 24px;
+  bottom: 30px;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+}
+
+.branches > div {
+  padding: 0 16px;
+}
+
+.branches > div:first-child {
+  padding-left: 8px;
+}
+
+.branches > div + div {
+  border-left: 1px solid var(--sb-primary-300);
+}
+
+.branches dd {
+  margin: 0;
+  font-family: var(--sb-font-heading);
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -1px;
+  color: var(--sb-text-display);
+}
+
+.branches dt {
+  font-family: var(--sb-font-body);
+  font-size: 16px;
+  line-height: 23px;
+  color: var(--sb-text-secondary);
+}
+
+.indiaArt {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 256px;
+  max-width: 52%;
+}
+
+/* --- MTF baskets --------------------------------------------------------- */
+
+.basketChart {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.basketPhone {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 406px;
+  max-width: 56%;
+}
+
+/* --- arrival ------------------------------------------------------------- *
+ * Animations file qhMawKd24Am4bVJ8p4O8dK, Bento 3:81824: both folds carry
+ * SMART_ANIMATE 0.5s EASE_IN, with the art starting off its own card edge.
+ * Figma hangs it on MOUSE_ENTER only because a prototype has no other way to
+ * start it — repeating it on every hover leaves the cards empty whenever the
+ * pointer is elsewhere, so it runs once on arrival and then stays put.
+ *
+ * Figma's own travels, where the layers line up with ours: the margin art
+ * moves 731.3px left and 11px down, the baskets phone 420px left. The rest are
+ * offset by their own size on the same axis — the exported art is not sized
+ * like the Figma layers, so borrowing those px would land it in the wrong
+ * place. The art starts off-card on every page load and `.shown` is added once
+ * the section is in view, so the entrance plays once per load and then holds.
+ * The reduced-motion branch below wins over both, so that path never depends on
+ * the class being applied at all.
+ */
+.card img {
+  transition: transform 0.5s ease-in;
+  /* Cards arrive in reading order, a card at a time — see --card-delay in
+     BentoSection. Figma animates both folds at once, so the stagger is ours. */
+  transition-delay: var(--card-delay, 0ms);
+}
+
+.scaleArt {
+  transform: translate(731.3px, -11px);
+}
+
+.basketPhone {
+  transform: translateX(420px);
+}
+
+.nriPhone,
+.indiaArt {
+  transform: translateX(100%);
+}
+
+.nriGlobe,
+.basketChart {
+  transform: translateY(100%);
+}
+
+/* Kept at one class deep so the reduced-motion rule below, which matches at the
+   same weight but sits later, still wins. */
+.shown img {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card img {
+    transition: none;
+    transform: none;
+  }
+}
+
+.desktopOnly {
+  display: inline;
+}
+
+.mobileOnly {
+  display: none;
+}
+
+/* --- tablet -------------------------------------------------------------- */
+
+@media (max-width: 1023px) {
+  .rowOne,
+  .rowTwo {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- mobile -------------------------------------------------------------- */
+
+@media (max-width: 767px) {
+  /* Our Products 0:43003 — the title sits 40 down, then 24 clear of the deck,
+     which puts Products on the frame's y136. */
+  .inner {
+    padding: 40px var(--sb-gutter) 24px;
+  }
+
+  .head {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .title {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .subtext {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .grid {
+    gap: 16px;
+  }
+
+  /* Products 0:95082 — the mobile frame parks all four cards on one origin and
+     offsets their bodies 190 / 216 / 241, i.e. 25px apart, which is the deck
+     they settle into once "stacked on top of one another as the user scrolls"
+     (0:95087). Sticky tops reproduce that: each card pins 25px below the one
+     before it, so the later ones ride up and over the earlier ones. */
+  .row {
+    display: contents;
+  }
+
+  .card {
+    position: sticky;
+    top: calc(16px + var(--stack-index, 0) * 25px);
+    height: 400px;
+    padding: 20px;
+  }
+
+  /* Each card triggers on its own arrival here, so the desktop wave's offsets
+     would only show up as lag before a card that is already on screen. */
+  .card img {
+    transition-delay: 0ms;
+  }
+
+  .cardTitle {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .arrow svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .leverage {
+    margin-top: 16px;
+  }
+
+  .leverageSmall {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .leverageBig {
+    font-size: 76px;
+    line-height: 92px;
+    letter-spacing: -2px;
+  }
+
+  /* Keep the art clear of the stat block sitting to its left. */
+  .scaleArt {
+    max-width: 58%;
+  }
+
+  .indiaArt {
+    max-width: 50%;
+  }
+
+  .nriPhone,
+  .basketPhone {
+    max-width: 74%;
+  }
+
+  .leverage {
+    max-width: 42%;
+  }
+
+  .branches {
+    left: 12px;
+    bottom: 20px;
+  }
+
+  .branches dd {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .branches dt {
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .desktopOnly {
+    display: none;
+  }
+
+  .mobileOnly {
+    display: inline;
+  }
+}

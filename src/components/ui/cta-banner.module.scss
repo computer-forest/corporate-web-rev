@@ -1,0 +1,32 @@
+.banner {
+  background: var(--ink);
+  color: var(--text-on-ink);
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+  border-top: 1px solid var(--ink-line);
+}
+
+.inner {
+  display: grid;
+  gap: 2.5rem;
+  align-items: end;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4rem;
+  }
+}
+
+.title {
+  font-size: clamp(1.8rem, 3.6vw, 2.9rem);
+  max-width: 20ch;
+  margin-bottom: 1.1rem;
+}
+
+.body {
+  color: var(--text-on-ink-muted);
+  max-width: 52ch;
+  margin: 0;
+}

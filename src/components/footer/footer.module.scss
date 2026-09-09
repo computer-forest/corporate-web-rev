@@ -1,0 +1,550 @@
+.footer {
+  background: var(--sb-surface-footer);
+  color: var(--sb-neutral-200);
+}
+
+/* --- download-the-app band ------------------------------------------------ */
+
+/* The white shoulder the indigo footer curves up behind — Subtract 18361:5907
+   is 60 tall, so the band clears the gradient card by that much. */
+.ctaWrap {
+  background: var(--sb-neutral-00);
+  /* The 162 of clearance the Figma page leaves between the FAQ and the band is
+     what the phone's overhang runs into. */
+  padding: 162px var(--sb-gutter) 60px;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+
+/* Boiler Plate 18563:5387 — 1312x391, 40px radius, the copy block centred at
+   x80 and the primary/1000 → primary/pink ground running past its foot. */
+.cta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: var(--sb-content);
+  height: 391px;
+  margin: 0 auto;
+  padding: 0 80px;
+  border-radius: 40px;
+  background: linear-gradient(
+    180deg,
+    var(--sb-primary-1000) 0%,
+    var(--sb-primary-pink) 137.92%
+  );
+}
+
+/* Overlay 18563:5350 — a 65px magenta fade sat on the bottom edge. */
+.cta::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 65px;
+  border-radius: 0 0 40px 40px;
+  background: linear-gradient(0deg, #9d1f5e 0%, rgba(157, 31, 94, 0) 100%);
+  pointer-events: none;
+}
+
+/* Container 18563:5345 — 674 wide, the button 32 below the copy. */
+.ctaCopy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 674px;
+  max-width: 100%;
+}
+
+/* Title + sutext — the subtext sits just 4 under the heading. */
+.ctaText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Pre + Post/Heading H1 Reg — Inter 48/56, -1px, white. */
+.ctaText h2 {
+  margin: 0;
+  font-family: var(--sb-font-data);
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -1px;
+  color: #ffffff;
+}
+
+/* Pre + Post/Sub-heading SH1 Reg — Inter 18/24 on text/secondary. */
+.ctaText p {
+  margin: 0;
+  font-family: var(--sb-font-data);
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--sb-neutral-200);
+}
+
+/* Buttons 18563:5347 — 228x44 on its own white-to-primary/300 fill, which is
+   lighter than the shared secondary button, over a dark elevation. */
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 228px;
+  height: 44px;
+  padding: 12px;
+  border-radius: var(--sb-radius-8);
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    var(--sb-primary-100) 25%,
+    var(--sb-primary-200) 70%,
+    var(--sb-primary-300) 100%
+  );
+  box-shadow: 0 10px 20px 4px rgba(5, 8, 15, 0.2);
+  font-family: var(--sb-font-data);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-text-display);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: filter 0.18s ease;
+}
+
+.ctaButton:hover {
+  filter: brightness(1.03);
+}
+
+.ctaButton img {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+/* Frame 2147226100 — a 724x651 window on the phone, hung 260 above the band
+   and running 71 past its right edge, so the band must not clip it. The
+   export is already cropped and rotated to that frame. */
+.ctaPhone {
+  position: absolute;
+  left: 50.23%;
+  top: -260px;
+  width: 55.18%;
+  height: auto;
+  pointer-events: none;
+}
+
+/* --- body ---------------------------------------------------------------- */
+
+/* Footer 18333:21674 — the rules run 140 either side, the content 175. */
+.body {
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 0 140px;
+}
+
+/* Container — the brand block sits 64 from the top, the columns beside it. */
+.top {
+  display: grid;
+  grid-template-columns: 310px 1fr;
+  gap: 48px;
+  padding: 64px 35px 51px;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  width: 310px;
+  max-width: 100%;
+  height: 273px;
+  justify-content: space-between;
+}
+
+.address {
+  margin: 0;
+  font-family: var(--sb-font-data);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-neutral-200);
+}
+
+.contact {
+  margin: 0;
+  font-family: var(--sb-font-data);
+  font-size: 14px;
+  line-height: 20px;
+  color: #ffffff;
+}
+
+.contact + .contact {
+  margin-top: 4px;
+}
+
+.contact span {
+  color: var(--sb-neutral-200);
+}
+
+/* SM — the label, then five 24px handles 14.5 apart. */
+.social {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 0;
+  font-family: var(--sb-font-data);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-neutral-200);
+}
+
+.social a {
+  display: inline-flex;
+}
+
+.social a + a {
+  margin-left: -9.5px;
+}
+
+.social img {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.help {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 310px;
+  height: 44px;
+  padding: 12px;
+  border-radius: var(--sb-radius-8);
+  background: var(--sb-gradient-secondary);
+  font-family: var(--sb-font-data);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-text-display);
+  text-decoration: none;
+}
+
+/* Content Section — two 199 columns, 24 apart, pushed to the right. */
+.topColumns {
+  display: grid;
+  grid-template-columns: 199px 199px;
+  gap: 24px;
+  justify-content: end;
+}
+
+.rule {
+  height: 1px;
+  margin: 0;
+  border: 0;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* List — five 199 columns, 24 apart, 20 below the rule. */
+.columns {
+  display: grid;
+  grid-template-columns: repeat(5, 199px);
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 35px 40px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Pre + Post/Body B2 Med — Inter 16/24 in a 44-tall tab. */
+.column h3 {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  margin: 0;
+  font-family: var(--sb-font-data);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+}
+
+.column ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each link sits in its own 24-tall row. */
+.column li {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  margin: 0;
+}
+
+.columns .column li {
+  height: 28px;
+}
+
+/* Pre + Post/Body B3 Reg — Inter 14/20. */
+.column a,
+.stockLinks a,
+.letters a {
+  font-family: var(--sb-font-data);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-neutral-200);
+  text-decoration: none;
+}
+
+.column a:hover,
+.stockLinks a:hover,
+.letters a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* --- A-Z index ----------------------------------------------------------- */
+
+/* Container 18333:21986 — a 100-tall band, the label at 140 and the A-Z at 194. */
+.index {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+  min-height: 100px;
+}
+
+.indexLabel {
+  width: 54px;
+  font-family: var(--sb-font-data);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #ffffff;
+}
+
+.letters {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.letters li {
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.letters li:last-child {
+  border-right: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+/* Link — 40 square with the letter set 12/16 in the middle. */
+.letters a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* Footer Section 18333:22047 — five 198.8 buttons, 24 apart both ways. */
+.stockLinks {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 198.8px));
+  justify-content: space-between;
+  gap: 24px;
+  margin: 0;
+  padding: 0 35px 20px;
+  list-style: none;
+}
+
+.stockLinks a {
+  display: block;
+  height: 44px;
+  padding: 12px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: var(--sb-radius-8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- statutory ----------------------------------------------------------- */
+
+.legal {
+  padding: 0 35px 80px;
+}
+
+.legal p {
+  margin: 0 0 16px;
+  font-family: var(--sb-font-data);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--sb-neutral-200);
+}
+
+/* --- responsive ---------------------------------------------------------- */
+
+@media (max-width: 1439px) {
+  .body {
+    padding: 0 var(--sb-gutter);
+  }
+
+  .top,
+  .columns,
+  .stockLinks,
+  .legal {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .columns {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .stockLinks {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1023px) {
+  .cta {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 32px;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  .cta::after {
+    border-radius: 0 0 24px 24px;
+  }
+
+  .ctaWrap {
+    padding-top: 48px;
+  }
+
+  .ctaText h2 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .ctaPhone {
+    position: static;
+    width: 300px;
+    height: auto;
+    max-width: 100%;
+    margin-top: 8px;
+    align-self: center;
+  }
+
+  .top {
+    grid-template-columns: 1fr;
+  }
+
+  .brand {
+    height: auto;
+    gap: 18px;
+  }
+
+  .topColumns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: stretch;
+  }
+
+  .columns,
+  .stockLinks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .ctaWrap {
+    padding: 0 var(--sb-gutter);
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+  }
+
+  .cta {
+    padding: 24px;
+    border-radius: 20px;
+  }
+
+  .cta::after {
+    border-radius: 0 0 20px 20px;
+  }
+
+  .ctaCopy {
+    gap: 24px;
+  }
+
+  .ctaText h2 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .ctaText p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .ctaButton {
+    width: 100%;
+  }
+
+  .body {
+    padding: 0 var(--sb-gutter);
+  }
+
+  .top {
+    padding: 40px 0 32px;
+  }
+
+  .columns {
+    padding: 32px 0;
+  }
+
+  .stockLinks {
+    padding: 0 0 24px;
+  }
+
+  .legal {
+    padding: 0 0 40px;
+  }
+
+  .top,
+  .columns,
+  .stockLinks {
+    grid-template-columns: 1fr;
+  }
+
+  .topColumns {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .group {
+    gap: 32px;
+  }
+
+  .index {
+    min-height: 0;
+    padding: 8px 0 16px;
+  }
+
+  .brand {
+    max-width: none;
+  }
+
+  .help {
+    max-width: none;
+  }
+}

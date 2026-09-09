@@ -1,0 +1,75 @@
+.section {
+  background: var(--sb-surface-secondary);
+}
+
+.inner {
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 40px var(--sb-gutter);
+}
+
+.tabs {
+  margin: 24px 0;
+}
+
+/* Component Width/DT 3 grid — 310. */
+.card {
+  width: 310px;
+  max-width: 78vw;
+}
+
+.link {
+  /* Contains the visually-hidden runtime, which would otherwise anchor to the
+     page and stretch it as the rail scrolls. */
+  position: relative;
+  display: block;
+  text-decoration: none;
+}
+
+/* Image & Icon 1:59653 — 310x174.375 with a 12px clip, 12 above the title. */
+.link img {
+  display: block;
+  width: 100%;
+  height: 174.375px;
+  object-fit: cover;
+  border-radius: var(--sb-radius-12);
+  margin-bottom: 12px;
+}
+
+/* Poppins Medium 18/26 on text/primary. */
+.link h3 {
+  margin: 0;
+  font-family: var(--sb-font-subheading);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  color: var(--sb-text-primary);
+}
+
+.link:hover h3 {
+  color: var(--sb-text-hover);
+}
+
+@media (max-width: 767px) {
+  /* Learn & Educate 0:66064 — 40 of head room on mobile, not 24. */
+  .inner {
+    padding: 40px var(--sb-gutter);
+  }
+
+  .tabs {
+    margin: 16px 0;
+  }
+
+  /* Blogs card 0:66073 — 258x237: 145 of art, 16, then a 76 text block. */
+  .card {
+    width: 258px;
+  }
+
+  .link {
+    gap: 16px;
+  }
+
+  .link img {
+    height: 145px;
+  }
+}

@@ -1,0 +1,194 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.railRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rail {
+  display: flex;
+  column-gap: 24px;
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+/* Figma runs the rail out to the page edge so the next card peeks in. */
+.bleed {
+  margin-right: calc(-1 * var(--sb-gutter));
+  padding-right: var(--sb-gutter);
+}
+
+.rail:focus-visible {
+  outline: 2px solid var(--sb-primary-700);
+  outline-offset: 4px;
+  border-radius: var(--sb-radius-12);
+}
+
+.rail > * {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+}
+
+/* Pagination 1:58391 — the dotted rule and the controls sit 4px apart. */
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 40.43px;
+}
+
+/* Vector 899 / 898 — a 2.5px round-capped dash on a 5px pitch, indigo where
+   the rail has been read and primary/400 for the rest. */
+.progress {
+  position: relative;
+  flex: 1;
+  height: 2.5px;
+  background-image: radial-gradient(circle, var(--sb-primary-400) 1.25px, transparent 1.25px);
+  background-size: 5px 2.5px;
+  background-repeat: repeat-x;
+}
+
+.progressFill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background-image: radial-gradient(circle, var(--sb-primary-800) 1.25px, transparent 1.25px);
+  background-size: 5px 2.5px;
+  background-repeat: repeat-x;
+  transition: width 0.3s ease;
+}
+
+.centeredControls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+
+.progressShort {
+  flex: 1;
+  height: 2.5px;
+  background-image: radial-gradient(circle, var(--sb-primary-400) 1.25px, transparent 1.25px);
+  background-size: 5px 2.5px;
+  background-repeat: repeat-x;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--sb-primary-1000);
+  cursor: pointer;
+  transition: opacity 0.18s ease;
+}
+
+.arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* The previous arrow draws its own mirrored path, so it must not be rotated —
+   rotating would run the dash pattern backwards along it. */
+.prev {
+  transform: none;
+}
+
+.flank {
+  flex-shrink: 0;
+}
+
+/* Pagination pill — 20px Inter, active page in indigo. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 5.714px 20px;
+  border: 1.429px solid var(--sb-neutral-200);
+  border-radius: 42.857px;
+  background: var(--sb-surface-secondary);
+  font-family: var(--sb-font-data);
+  font-size: 20px;
+  line-height: 28.571px;
+}
+
+.current {
+  color: var(--sb-primary-800);
+}
+
+.total {
+  color: var(--sb-text-secondary);
+}
+
+.dark .arrow {
+  color: #ffffff;
+}
+
+.dark .pill {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.dark .current {
+  color: #ffffff;
+}
+
+.dark .total {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 767px) {
+  .wrap {
+    gap: 16px;
+  }
+
+  /* Learn and educate 0:66072 — the cards sit 16 apart on mobile (258 wide
+     at x0 / 274 / 548 / 822), not the 12 the rail used. */
+  .rail {
+    column-gap: 16px;
+  }
+
+  .footer {
+    gap: 8px;
+  }
+
+  .arrow {
+    width: 32px;
+    height: 32px;
+  }
+
+  .arrow svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .pill {
+    padding: 4px 14px;
+    font-size: 16px;
+    line-height: 22px;
+  }
+}

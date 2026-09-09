@@ -1,0 +1,473 @@
+.section {
+  background: var(--sb-neutral-00);
+}
+
+.inner {
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 40px var(--sb-gutter);
+}
+
+/* Pre Login/Heading H1 Reg — 48/56, 24 clear of the stage. */
+.title {
+  margin: 0 0 24px;
+  font-family: var(--sb-font-heading);
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -1px;
+  color: var(--sb-text-display);
+  text-align: center;
+}
+
+/* Testimonial Interaction 0:64622 — a fixed 340 box with 32 of top padding.
+   The Container inside is only 287 tall (the card box), so the last 21px are
+   deliberate slack that the overhanging cards fall into. */
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 340px;
+  padding-top: 32px;
+}
+
+/* Container I0:64622;2598:51906 — arrows and the card box 60 apart, the
+   arrows centred on the box rather than on the padded stage. */
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+}
+
+/* Sub Container I0:64622;2598:51911 — 774x287; the front card is 714 and
+   centred, so the two resting cards show 30px of themselves either side.
+   All three cards are taller than the box and overhang it top and bottom. */
+.stack {
+  position: relative;
+  width: 774px;
+  max-width: 100%;
+  height: 287px;
+}
+
+/* The three slots the cards rotate through. Smart Animate interpolates a card
+   from one slot to the next, so every property that differs between them is
+   transitioned rather than swapped: box, padding, fill, radius and the avatar.
+   0.3s linear is the transition set on each edge of the variant cycle.
+
+   Slot geometry is in percentages of the 774 box so it survives the stack
+   being narrower than 774 on a small desktop. */
+.card {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
+  border-style: solid;
+  border-color: #dee5ed;
+  overflow: hidden;
+  transition:
+    left 0.3s linear,
+    top 0.3s linear,
+    width 0.3s linear,
+    height 0.3s linear,
+    padding 0.3s linear,
+    background-color 0.3s linear,
+    border-radius 0.3s linear,
+    border-width 0.3s linear,
+    box-shadow 0.3s linear;
+}
+
+/* Card in the front slot — 714x300 at x30, y4. */
+.front {
+  left: 3.876%;
+  top: 4px;
+  width: 92.248%;
+  height: 300px;
+  padding: 40px;
+  background: var(--sb-neutral-00);
+  border-width: 1px;
+  border-radius: var(--sb-radius-12);
+  box-shadow:
+    0 12px 20px 0 rgba(106, 114, 128, 0.05),
+    0 6px 6px 0 rgba(106, 114, 128, 0.08),
+    0 4px 8px 0 rgba(106, 114, 128, 0.05),
+    0 1px 1px 0 rgba(106, 114, 128, 0.25);
+  z-index: 2;
+}
+
+/* Resting slots — 578.763 wide, centred on the box then nudged 10 and 20 down
+   (top = 143.5 + nudge - height/2), so they trail the quote by 6 and 17px. */
+.left,
+.right {
+  width: 74.775%;
+  height: 285.907px;
+  padding: 32.424px;
+  background: #f6f6ff;
+  border-width: 0.811px;
+  border-radius: 9.727px;
+  box-shadow:
+    0 9.727px 16.212px 0 rgba(106, 114, 128, 0.05),
+    0 4.864px 4.864px 0 rgba(106, 114, 128, 0.08),
+    0 3.242px 6.485px 0 rgba(106, 114, 128, 0.05),
+    0 0.811px 0.811px 0 rgba(106, 114, 128, 0.25);
+  z-index: 1;
+}
+
+.left {
+  left: 0;
+  top: 10.547px;
+}
+
+.right {
+  left: 25.194%;
+  top: 21px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}
+
+.card blockquote {
+  margin: 0;
+}
+
+/* Pre Login/Heading H5 Reg — 20/30, -1px. */
+.card blockquote p {
+  margin: 0;
+  font-family: var(--sb-font-heading);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: -1px;
+  color: var(--sb-text-display);
+}
+
+.cardRule {
+  display: block;
+  height: 1px;
+  background: var(--sb-stroke-default);
+}
+
+.card figcaption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--sb-font-subheading);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--sb-text-display);
+  transition: gap 0.3s linear;
+}
+
+.avatar {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--sb-radius-6);
+  background: var(--sb-primary-800);
+  font-family: var(--sb-font-subheading);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1;
+  color: #ffffff;
+  transition:
+    width 0.3s linear,
+    height 0.3s linear,
+    border-radius 0.3s linear;
+}
+
+/* The author row scales with the card: 32.424 avatar on a 9.727 gap in the
+   resting slots against 40 on 12 at the front. */
+.left figcaption,
+.right figcaption {
+  gap: 9.727px;
+}
+
+.left .avatar,
+.right .avatar {
+  width: 32.424px;
+  height: 32.424px;
+  border-radius: 4.864px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card figcaption,
+  .avatar {
+    transition: none;
+  }
+}
+
+/* arrow-up-right 2/3 — 46 square. */
+.arrow {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--sb-primary-1000);
+  cursor: pointer;
+}
+
+.arrow svg {
+  width: 46px;
+  height: 46px;
+}
+
+/* Mirrored path, not a rotation — see card-rail. */
+.prev {
+  transform: none;
+}
+
+/* Pagination 1:59723 — 774 wide, 24 below the stage, rules either side. */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 774px;
+  max-width: 100%;
+  min-height: 40.43px;
+  margin: 24px auto 0;
+}
+
+/* Arrows and Page Numbers 0:64625 — chevrons and pill, all gaps 4. */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* arrow-up-right 1 / 2 — the 40px pair, same indigo as the 46px pair. */
+.pageArrow {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--sb-primary-1000);
+  cursor: pointer;
+}
+
+.pageArrow svg {
+  width: 40px;
+  height: 40px;
+}
+
+.rule {
+  flex: 1;
+  height: 2.5px;
+  background-image: radial-gradient(circle, var(--sb-primary-400) 1.25px, transparent 1.25px);
+  background-size: 5px 2.5px;
+  background-repeat: repeat-x;
+}
+
+/* Pill 0:64629 — 40.429 tall. Figma draws the stroke inside the frame, so the
+   height has to be stated rather than left to grow out of the line box, which
+   lands 1.5px over and drags the whole section with it. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40.429px;
+  margin: 0;
+  padding: 5.714px 20px;
+  border: 1.429px solid var(--sb-neutral-200);
+  border-radius: 42.857px;
+  background: var(--sb-surface-secondary);
+  font-family: var(--sb-font-data);
+  font-size: 20px;
+  line-height: 28.571px;
+}
+
+.current {
+  color: var(--sb-primary-800);
+}
+
+.total {
+  color: var(--sb-text-secondary);
+}
+
+@media (max-width: 1023px) {
+  /* No resting cards to overhang the box, so the fixed 340 goes with them. */
+  .stage {
+    height: auto;
+  }
+
+  .row {
+    gap: 16px;
+  }
+
+  .stack {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Only the quote on show survives, so there is nothing left to rotate
+     between slots and the card sits in flow. */
+  .left,
+  .right {
+    display: none;
+  }
+
+  .card {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    transition: none;
+  }
+
+  .card figcaption,
+  .avatar {
+    transition: none;
+  }
+}
+
+@media (max-width: 767px) {
+  /* What our client say 0:66110 — 40 of head room on mobile, not 24. */
+  .inner {
+    padding: 40px var(--sb-gutter) 20px;
+  }
+
+  /* Head 0:66111 — 328x42, the title alone; mobile carries no subtext here. */
+  .title {
+    margin-bottom: 32px;
+    font-size: 28px;
+    line-height: 36px;
+    text-align: left;
+  }
+
+  /* The desktop stage centres its row, which lets the row size to the rail's
+     809 of content. Mobile needs it to fill the 328 column so the rail has
+     something narrower to scroll inside. */
+  .stage {
+    align-items: stretch;
+    padding-top: 0;
+  }
+
+  .row {
+    gap: 0;
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* The 46px stage arrows are desktop only — mobile pages from the pagination
+     row, which carries the only pair of arrows in the frame. */
+  .arrow {
+    display: none;
+  }
+
+  /* Testimonials 0:66113 — 809 wide inside a 360 frame: three 259x288 cards on
+     a 16 gap, so the third sits past the edge and the row scrolls. The deck's
+     slot geometry is dropped; here the cards are simply a rail. */
+  .stack {
+    display: flex;
+    gap: 16px;
+    /* A flex item defaults to min-width:auto, which would size the rail to its
+       809 of content and push the page sideways instead of scrolling inside. */
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    height: auto;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .stack::-webkit-scrollbar {
+    display: none;
+  }
+
+  .left,
+  .right {
+    display: block;
+  }
+
+  .card {
+    position: relative;
+    left: auto;
+    top: auto;
+    flex: 0 0 259px;
+    width: 259px;
+    height: 288px;
+    padding: 24px;
+    scroll-snap-align: start;
+    background: var(--sb-neutral-00);
+    border-width: 1px;
+    border-radius: var(--sb-radius-12);
+    box-shadow: none;
+    transition: none;
+    z-index: auto;
+  }
+
+  .card blockquote p {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0;
+  }
+
+  /* Sub Container 0:66117 — a 32 avatar on a 12 gap, 211 wide. */
+  .card figcaption,
+  .left figcaption,
+  .right figcaption {
+    gap: 12px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .avatar,
+  .left .avatar,
+  .right .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--sb-radius-6);
+    font-size: 15px;
+  }
+
+  /* Pagination 0:66144 — 328x32, 32 below the rail. One dotted rule on the
+     left only, then the arrows and pill hard against the right edge. */
+  .footer {
+    width: 100%;
+    min-height: 32px;
+    margin-top: 32px;
+  }
+
+  .rule + .controls + .rule {
+    display: none;
+  }
+
+  /* arrow-up-right 1 / 2 — a 24 glyph in a 32-tall box. */
+  .pageArrow {
+    width: 24px;
+    height: 32px;
+  }
+
+  .pageArrow svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Pill 0:66152 — 66x28 around a 38x20 indicator. */
+  .pill {
+    height: 28px;
+    padding: 4px 14px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+}

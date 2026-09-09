@@ -1,0 +1,10 @@
+{
+  "name": "Fathom Grid",
+  "short_name": "Fathom Grid",
+  "description": "Offshore power, engineered to landfall.",
+  "start_url": "/home",
+  "display": "standalone",
+  "background_color": "#071b24",
+  "theme_color": "#071b24",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

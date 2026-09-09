@@ -1,0 +1,172 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ChevronLeftIcon, ChevronRightIcon } from "./SbIcons";
+import styles from "./card-rail.module.scss";
+
+interface CardRailProps {
+  children: React.ReactNode;
+  /** Total cards on the rail — drives the NN/NN pill. */
+  count: number;
+  /** Names the rail for assistive tech, e.g. "Open IPOs". */
+  label: string;
+  /** The dotted progress rule that runs left of the controls. */
+  showProgress?: boolean;
+  /** Places the arrows either side of the rail instead of after it. */
+  arrows?: "inline" | "flanking";
+  /**
+   * Fires with the 1-based card now in view. Learn before you invest uses it
+   * to move its tabs as the rail scrolls, per the Figma note "The tabs changes
+   * on scroll".
+   */
+  onPageChange?: (page: number) => void;
+  tone?: "light" | "dark";
+}
+
+function pad(n: number) {
+  return String(n).padStart(2, "0");
+}
+
+/**
+ * The horizontal card carousel used by IPOs, Learn before you invest,
+ * Testimonials and the mobile card sections. Scroll-snaps natively so a
+ * trackpad or touch drag stays in sync with the arrows and the page pill.
+ */
+export default function CardRail({
+  children,
+  count,
+  label,
+  showProgress = false,
+  arrows = "inline",
+  tone = "light",
+  onPageChange,
+}: CardRailProps) {
+  const railRef = useRef<HTMLDivElement>(null);
+  const [page, setPage] = useState(1);
+  const pageRef = useRef(1);
+
+  // Held in a ref so a caller passing an inline arrow does not resubscribe the
+  // scroll listener on every render.
+  const onPageChangeRef = useRef(onPageChange);
+  onPageChangeRef.current = onPageChange;
+
+  const syncPage = useCallback(() => {
+    const rail = railRef.current;
+    if (!rail) return;
+    const first = rail.firstElementChild as HTMLElement | null;
+    if (!first) return;
+    const step = first.offsetWidth + parseFloat(getComputedStyle(rail).columnGap || "0");
+    if (!step) return;
+    const index = Math.round(rail.scrollLeft / step);
+    const next = Math.min(count, Math.max(1, index + 1));
+    // Compared against a ref rather than inside the setState updater, so the
+    // callback cannot fire twice when React re-invokes the updater.
+    if (pageRef.current === next) return;
+    pageRef.current = next;
+    setPage(next);
+    onPageChangeRef.current?.(next);
+  }, [count]);
+
+  useEffect(() => {
+    const rail = railRef.current;
+    if (!rail) return;
+    rail.addEventListener("scroll", syncPage, { passive: true });
+    return () => rail.removeEventListener("scroll", syncPage);
+  }, [syncPage]);
+
+  const move = (direction: -1 | 1) => {
+    const rail = railRef.current;
+    if (!rail) return;
+    const first = rail.firstElementChild as HTMLElement | null;
+    if (!first) return;
+    const step = first.offsetWidth + parseFloat(getComputedStyle(rail).columnGap || "0");
+    rail.scrollBy({ left: step * direction, behavior: "smooth" });
+  };
+
+  const controls = (
+    <div className={styles.controls}>
+      <button
+        type="button"
+        className={`${styles.arrow} ${styles.prev}`}
+        onClick={() => move(-1)}
+        aria-label={`Previous, ${label}`}
+        disabled={page <= 1}
+      >
+        <ChevronLeftIcon />
+      </button>
+      <p className={styles.pill}>
+        <span className={styles.current}>{pad(page)}</span>
+        <span className={styles.total}>/{pad(count)}</span>
+      </p>
+      <button
+        type="button"
+        className={styles.arrow}
+        onClick={() => move(1)}
+        aria-label={`Next, ${label}`}
+        disabled={page >= count}
+      >
+        <ChevronRightIcon />
+      </button>
+    </div>
+  );
+
+  return (
+    <div className={`${styles.wrap} ${tone === "dark" ? styles.dark : ""}`}>
+      <div className={styles.railRow}>
+        {arrows === "flanking" ? (
+          <button
+            type="button"
+            className={`${styles.arrow} ${styles.prev} ${styles.flank}`}
+            onClick={() => move(-1)}
+            aria-label={`Previous, ${label}`}
+            disabled={page <= 1}
+          >
+            <ChevronLeftIcon />
+          </button>
+        ) : null}
+
+        <div
+          className={arrows === "inline" ? `${styles.rail} ${styles.bleed}` : styles.rail}
+          ref={railRef}
+          role="group"
+          aria-label={label}
+          tabIndex={0}
+        >
+          {children}
+        </div>
+
+        {arrows === "flanking" ? (
+          <button
+            type="button"
+            className={`${styles.arrow} ${styles.flank}`}
+            onClick={() => move(1)}
+            aria-label={`Next, ${label}`}
+            disabled={page >= count}
+          >
+            <ChevronRightIcon />
+          </button>
+        ) : null}
+      </div>
+
+      <div className={styles.footer}>
+        {showProgress ? (
+          <span className={styles.progress} aria-hidden="true">
+            <span
+              className={styles.progressFill}
+              style={{ width: `${(page / count) * 100}%` }}
+            />
+          </span>
+        ) : null}
+        {arrows === "flanking" ? (
+          <div className={styles.centeredControls}>
+            <span className={styles.progressShort} aria-hidden="true" />
+            {controls}
+            <span className={styles.progressShort} aria-hidden="true" />
+          </div>
+        ) : (
+          controls
+        )}
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,26 @@
+{
+  "name": "corporate-website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NEXT_PUBLIC_ENV=development next dev",
+    "build": "cross-env NEXT_PUBLIC_ENV=development next build",
+    "build:uat": "cross-env NEXT_PUBLIC_ENV=uat next build",
+    "build:prod": "cross-env NEXT_PUBLIC_ENV=production next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "next": "^15.5.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.6",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "sass": "^1.83.0",
+    "typescript": "^5.7.2"
+  }
+}
