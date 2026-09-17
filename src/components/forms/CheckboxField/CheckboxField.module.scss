@@ -1,0 +1,41 @@
+
+.field {
+  margin-bottom: 20px;
+}
+
+.checkboxWrapper {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.checkbox {
+  flex-shrink: 0;
+  margin-top: 4px;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+  }
+}
+
+.label {
+  margin-bottom: 0;
+  color: var(--color-text);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.requiredIndicator {
+  margin-left: 4px;
+  color: #c1121f;
+}
+
+.errorMessage {
+  margin-top: 6px;
+  margin-bottom: 0;
+  color: #c1121f;
+  font-size: 0.875rem;
+  font-weight: 600;
+}

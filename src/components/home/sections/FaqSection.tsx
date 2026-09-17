@@ -18,7 +18,11 @@ export default function FaqSection() {
             <br />
             Questions
           </h2>
-          <SbButton href="#faqs">View All FAQs →</SbButton>
+          <SbButton href="#faqs" className={styles.cta}>
+            View All FAQs
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/figma/faq/arrow-right.svg" alt="" width={16} height={16} />
+          </SbButton>
         </div>
 
         <ul className={styles.list}>
@@ -47,7 +51,7 @@ export default function FaqSection() {
                 </button>
               </h3>
               <div id={`faq-answer-${i}`} className={styles.answer} hidden={open !== i}>
-                <p>{faq.answer}</p>
+                <p className={styles.answerText}>{faq.answer}</p>
               </div>
             </li>
           ))}

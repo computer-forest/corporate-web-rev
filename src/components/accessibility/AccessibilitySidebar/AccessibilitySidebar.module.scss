@@ -1,0 +1,64 @@
+.sidebarPanel {
+    color: var(--color-text);
+    background-color: var(--color-body-bg);
+}
+
+.sidebarTitle {
+    color: var(--color-text);
+}
+
+.closeButton {
+    filter: none;
+}
+
+:global([data-theme="dark"]) {
+    .closeButton {
+        filter: invert(1) grayscale(100%) brightness(200%);
+    }
+}
+
+// =====================================
+.section {
+    margin-bottom: 24px;
+}
+
+.sectionTitle {
+    margin-bottom: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.helperText {
+    margin-bottom: 12px;
+    color: var(--color-secondary);
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 8px;
+}
+
+.controlButton,
+.themeButton {
+    min-height: 40px;
+    padding: 6px 14px;
+    color: var(--color-text);
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+}
+
+.controlButton:hover,
+.controlButton:focus,
+.themeButton:hover,
+.themeButton:focus {
+    color: #ffffff;
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.themeButton {
+    width: 100%;
+    text-align: center;
+}

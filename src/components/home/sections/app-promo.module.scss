@@ -1,0 +1,221 @@
+/* Boiler Plate 0:64968 — a 1312x391 card on a 40px radius, with the handset
+   breaking 159 out over its top edge. The Figma leaves 162 of clearance between
+   the FAQ band and the footer for exactly that, so the room is reserved as
+   padding here; letting the image overflow instead would have it hang into the
+   FAQ answers on a short viewport. */
+.promo {
+  padding: 159px var(--sb-gutter) 49px;
+  background: var(--sb-neutral-00);
+}
+
+.card {
+  position: relative;
+  max-width: var(--sb-content);
+  height: 391px;
+  margin: 0 auto;
+  border-radius: 40px;
+  background: linear-gradient(
+    180deg,
+    var(--sb-primary-1000) 0%,
+    var(--sb-primary-pink) 137.92%
+  );
+}
+
+.copy {
+  position: absolute;
+  top: 50%;
+  left: 80px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  width: 674px;
+  max-width: calc(100% - 160px);
+}
+
+/* Pre + Post/Heading H1 — Inter here rather than the Poppins the pre-login
+   headings use, as the Figma text style on this node is the shared body face. */
+.title {
+  margin: 0;
+  font-family: var(--sb-font-data);
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -1px;
+  color: #ffffff;
+}
+
+/* Title and body sit 8 apart inside the 32 the column puts between that pair
+   and the button, so the difference is folded back out of the paragraph. */
+.body {
+  margin: -24px 0 0;
+  font-family: var(--sb-font-data);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--sb-neutral-200);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 228px;
+  height: 44px;
+  padding: 12px;
+  border-radius: var(--sb-radius-8);
+  background: var(--sb-gradient-secondary);
+  box-shadow: 0 10px 20px 4px rgba(5, 8, 15, 0.2);
+  font-family: var(--sb-font-data);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-primary-1000);
+  text-decoration: none;
+  transition: filter 0.18s ease;
+}
+
+.cta:hover {
+  filter: brightness(1.04);
+}
+
+/* The handset comes from node I0:64968;18563:5387;18563:5348, which is a chain
+   rather than a plain image: a 724x651 window pinned to the card's bottom edge
+   and reaching 260 above it, holding a 593.305x817.397 frame turned -4.78deg,
+   inside which the 4:3 export is blown up to 278.75% x 151.75% and pulled left
+   and up so only the part of it the frame wants is visible. Sizing the export
+   by its own bounds instead renders the handset small and shows its lower
+   bezel, which the frame never does. The numbers are the frame's own. */
+.phoneWindow {
+  position: absolute;
+  /* The frame states left 659 / top -260 on a 1312 card; anchoring from the
+     right and bottom instead is the same place there and holds as the card
+     narrows, which lets the whole chain scale as one below. The frame's window
+     is 724 wide and so runs 71 past the card — trimmed to stop at the card's
+     edge, since the handset ends well short of it and the extra would push a
+     horizontal scrollbar onto the page. */
+  right: 0;
+  bottom: 0;
+  width: 653px;
+  height: 651px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.phoneStage {
+  position: absolute;
+  left: 15.72px;
+  top: 36.44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 659.318px;
+  height: 863.969px;
+}
+
+.phoneFrame {
+  position: relative;
+  flex: none;
+  width: 593.305px;
+  height: 817.397px;
+  overflow: hidden;
+  transform: rotate(-4.78deg);
+}
+
+/* Qualified by the frame on purpose: sbi-home.scss carries
+   `.sb-scope img { max-width: 100% }` at (0,1,1), which outranks a lone class
+   and would clamp this 1653px image back to the frame's 593 — putting it
+   wholly outside the window, so the handset renders as nothing at all. */
+.phoneFrame .phone {
+  position: absolute;
+  left: -112.75%;
+  top: -51.75%;
+  width: 278.75%;
+  height: 151.75%;
+  max-width: none;
+}
+
+/* Overlay I0:64968;18563:5387;18563:5350 — 1296x65, pinned to the card's
+   bottom, fading up from the ground colour so the handset dissolves into it. */
+.fade {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 1296px;
+  max-width: 100%;
+  height: 65px;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  background: linear-gradient(to top, #9d1f5e 0%, rgba(157, 31, 94, 0) 100%);
+  pointer-events: none;
+}
+
+@media (max-width: 1199px) {
+  .promo {
+    padding-top: 120px;
+  }
+
+  .copy {
+    left: 48px;
+    max-width: calc(100% - 96px);
+  }
+
+  .title {
+    font-size: 36px;
+    line-height: 44px;
+  }
+
+  /* Scaling the window scales the rotated frame and its oversized image with
+     it, so the composition holds rather than needing the chain re-derived. */
+  .phoneWindow {
+    transform: scale(0.78);
+    transform-origin: right bottom;
+  }
+}
+
+@media (max-width: 767px) {
+  .promo {
+    padding: 0 var(--sb-gutter) 32px;
+  }
+
+  .card {
+    height: auto;
+    padding: 32px 20px 250px;
+    border-radius: 24px;
+  }
+
+  .copy {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    gap: 24px;
+  }
+
+  .title {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .body {
+    margin-top: -16px;
+  }
+
+  .cta {
+    width: 100%;
+  }
+
+  .phoneWindow {
+    right: auto;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%) scale(0.42);
+    transform-origin: bottom center;
+  }
+
+  .fade {
+    height: 48px;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+  }
+}

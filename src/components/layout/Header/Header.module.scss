@@ -1,0 +1,39 @@
+.siteHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  background-color: var(--color-body-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.logo {
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+}
+
+.navLink {
+  color: var(--color-text);
+
+  &:hover,
+  &:focus {
+    color: var(--color-primary);
+  }
+}
+
+.activeNavLink {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.accessibilityButton {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}

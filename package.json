@@ -1,26 +1,41 @@
 {
-  "name": "corporate-website",
-  "version": "1.0.0",
+  "name": "sbisecurities-web",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NEXT_PUBLIC_ENV=development next dev",
-    "build": "cross-env NEXT_PUBLIC_ENV=development next build",
-    "build:uat": "cross-env NEXT_PUBLIC_ENV=uat next build",
-    "build:prod": "cross-env NEXT_PUBLIC_ENV=production next build",
+    "validate:local": "env-cmd -f .env.local node scripts/validate-env.mjs",
+    "validate:uat": "env-cmd -f .env.uat node scripts/validate-env.mjs",
+    "validate:prod": "env-cmd -f .env.production node scripts/validate-env.mjs",
+    "dev": "npm run validate:local && next dev",
+    "dev:uat": "npm run validate:uat && env-cmd -f .env.uat next dev",
+    "build": "npm run validate:local && next build",
+    "build:uat": "npm run validate:uat && env-cmd -f .env.uat next build",
+    "build:prod": "npm run validate:prod && env-cmd -f .env.production next build",
     "start": "next start",
-    "lint": "next lint"
+    "start:uat": "env-cmd -f .env.uat next start",
+    "start:prod": "env-cmd -f .env.production next start",
+    "lint": "eslint"
   },
   "dependencies": {
-    "cross-env": "^7.0.3",
-    "next": "^15.5.4",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "@hookform/resolvers": "^5.4.0",
+    "axios": "^1.18.1",
+    "bootstrap": "^5.3.8",
+    "crypto-js": "^4.2.0",
+    "next": "16.2.9",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-hook-form": "^7.82.0",
+    "sass": "^1.101.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@types/node": "^20.17.6",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "sass": "^1.83.0",
-    "typescript": "^5.7.2"
+    "@types/crypto-js": "^4.2.2",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "env-cmd": "^11.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.9",
+    "typescript": "^5"
   }
 }

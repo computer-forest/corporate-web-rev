@@ -31,6 +31,13 @@
   color: var(--sb-text-display);
 }
 
+/* Buttons 0:64957 — the Figma pins this CTA to 228 wide rather than letting it
+   hug its label, and pairs the label with a 16px ArrowRight at the button's
+   own 6px gap (not a "92" glyph, which sets in Poppins and reads heavier). */
+.cta {
+  width: 228px;
+}
+
 .list {
   margin: 0;
   padding: 0;
@@ -85,7 +92,7 @@
   padding: 16px 48px 24px 24px;
 }
 
-.answer p {
+.answerText {
   margin: 0;
   font-family: var(--sb-font-body);
   font-size: 16px;
@@ -126,7 +133,7 @@
     padding: 12px 0 16px;
   }
 
-  .answer p {
+  .answerText {
     font-size: 14px;
     line-height: 22px;
   }

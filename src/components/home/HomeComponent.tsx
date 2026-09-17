@@ -1,3 +1,5 @@
+import { Inter, Poppins } from "next/font/google";
+
 import HeroSection from "./sections/HeroSection";
 import MarketPulse from "./sections/MarketPulse";
 import BentoSection from "./sections/BentoSection";
@@ -11,7 +13,27 @@ import LearnSection from "./sections/LearnSection";
 import TestimonialsSection from "./sections/TestimonialsSection";
 import PricingSection from "./sections/PricingSection";
 import FaqSection from "./sections/FaqSection";
+import AppPromo from "./sections/AppPromo";
 import StickyNudge from "./sections/StickyNudge";
+
+import "./sbi-home.scss";
+
+/* Typography/Family/Pre Login/* is Poppins; Typography/Family/Body, the
+   shared Pre + Post library, is Inter. Both are attached to the .sb-scope
+   wrapper rather than the document, so no other route loads them. */
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  variable: "--font-poppins",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 /**
  * SBI Securities pre-login home page, in the section order of the Figma
@@ -19,7 +41,7 @@ import StickyNudge from "./sections/StickyNudge";
  */
 export default function HomeComponent() {
   return (
-    <div className="sb-scope">
+    <div className={`sb-scope ${poppins.variable} ${inter.variable}`}>
       <HeroSection />
       <MarketPulse />
       <BentoSection />
@@ -33,6 +55,7 @@ export default function HomeComponent() {
       <TestimonialsSection />
       <PricingSection />
       <FaqSection />
+      <AppPromo />
       <StickyNudge />
     </div>
   );

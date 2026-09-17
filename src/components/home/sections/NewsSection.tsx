@@ -51,7 +51,7 @@ export default function NewsSection() {
           <article className={styles.lead} style={{ transitionDelay: "0ms" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/figma/news/lead.png" alt="" aria-hidden="true" />
-            <h3>{NEWS.lead.title}</h3>
+            <h3 className={styles.leadTitle}>{NEWS.lead.title}</h3>
             <p className={styles.stamp}>{NEWS.lead.timestamp}</p>
           </article>
 

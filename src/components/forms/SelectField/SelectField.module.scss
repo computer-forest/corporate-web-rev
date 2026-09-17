@@ -1,0 +1,35 @@
+
+.field {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.requiredIndicator {
+  margin-left: 4px;
+  color: #c1121f;
+}
+
+.select {
+  color: var(--color-text);
+  background-color: var(--color-body-bg);
+  border-color: var(--color-border);
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+  }
+}
+
+.errorMessage {
+  margin-top: 6px;
+  margin-bottom: 0;
+  color: #c1121f;
+  font-size: 0.875rem;
+  font-weight: 600;
+}

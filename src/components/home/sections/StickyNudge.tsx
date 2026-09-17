@@ -43,7 +43,11 @@ export default function StickyNudge() {
           tabIndex={shown ? undefined : -1}
         />
         <SbButton variant="secondary" type="submit">
-          {STICKY_NUDGE.cta} →
+          {STICKY_NUDGE.cta}
+          {/* Buttons 0:64981 pairs the label with a 16px ArrowRight at the
+              button's own 6px gap, not a "→" glyph. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/figma/sticky/arrow-right.svg" alt="" width={16} height={16} />
         </SbButton>
       </form>
     </div>

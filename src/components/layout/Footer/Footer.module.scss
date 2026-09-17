@@ -1,0 +1,436 @@
+/* ---------------------------------------------------------------------------
+   Footer — Figma `Footer` 0:64968 (Pre-Login Home Page Sprint 2).
+
+   Values come from the node's own code plus a 1:1 render of the frame. The
+   content column is 1091 wide because that is what the lower band's five 199px
+   groups and their four 24px gutters add up to.
+
+   Literal hex rather than the `--sb-*` tokens: those are declared in
+   `sbi-home.scss`, which only reaches routes rendering HomeComponent, while
+   this footer renders on every marketing route.
+
+   The app-download card that sits above this band in the Figma frame lives in
+   `components/home/sections/AppPromo` — it is home-page content, not chrome,
+   and would otherwise follow the footer onto /blogs, /calculators and the rest.
+--------------------------------------------------------------------------- */
+
+$indigo: #292075;
+$line: #97abc3;
+$on-dark: #f7fbff;
+$muted: #ccd9e8;
+
+.siteFooter {
+  --footer-rules: 1160px;
+  --footer-inner: 1091px;
+
+  padding: 67px 16px 80px;
+  background: $indigo;
+  font-family: var(--footer-font-inter), "Segoe UI", -apple-system, sans-serif;
+}
+
+/* Two widths run down this band. The dividers are 1160 (x 140..1299 on the
+   1440 frame); everything else sits on the 1091 the five 199px groups and
+   their four 24px gutters come to, centred inside it. */
+.inner {
+  max-width: var(--footer-rules);
+  margin: 0 auto;
+}
+
+.band {
+  max-width: var(--footer-inner);
+  margin: 0 auto;
+}
+
+.rule {
+  height: 1px;
+  margin: 0;
+  border: 0;
+  background: $line;
+}
+
+/* Frame positions: the upper divider lands 48 under the contact block, the
+   columns open 37 below it; the lower divider sits 59 under the columns. */
+.ruleUpper {
+  margin-top: 48px;
+}
+
+.ruleLower {
+  margin-top: 37px;
+}
+
+/* --- upper band: contact block + the two lead groups ---------------------- */
+
+.top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 310px;
+  flex: 0 0 auto;
+}
+
+.logo {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.logo img {
+  display: block;
+  width: 148px;
+  height: auto;
+}
+
+.address {
+  margin: 0 0 14px;
+  font-family: var(--footer-font-poppins), "Segoe UI", -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-style: normal;
+  color: $on-dark;
+}
+
+.contactLine {
+  display: flex;
+  gap: 6px;
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 20px;
+  color: $on-dark;
+}
+
+.contactLine a {
+  color: $on-dark;
+  text-decoration: none;
+}
+
+.contactLine a:hover {
+  text-decoration: underline;
+}
+
+.contactLabel {
+  color: $muted;
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.socialList {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.socialLink {
+  display: block;
+  opacity: 0.9;
+  transition: opacity 0.18s ease;
+}
+
+.socialLink:hover {
+  opacity: 1;
+}
+
+.socialLink img {
+  display: block;
+}
+
+/* Buttons 0:64968 — the pale chip runs the full width of the 310 column. */
+.support {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 44px;
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #f7fbff 20%, #dbdbfe 100%);
+  font-size: 14px;
+  line-height: 20px;
+  color: $indigo;
+  text-decoration: none;
+  transition: filter 0.18s ease;
+}
+
+.support:hover {
+  filter: brightness(1.04);
+}
+
+.primaryGroups {
+  display: flex;
+  gap: 24px;
+}
+
+/* --- link groups ---------------------------------------------------------- */
+
+.group {
+  width: 199px;
+  flex: 0 0 auto;
+}
+
+.groupHeading {
+  margin: 0;
+  padding: 10px 8px 10px 0;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.groupLinks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 28 to a row in the five lower groups. Stated rather than left to the li's
+   own 16/1.5 strut, which happened to land on 28 but would drift with any
+   change to the inherited type. */
+.groupLinks li {
+  padding: 4px 0;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* The two groups beside the contact block run tighter, at 24. */
+.primaryGroups .groupLinks li {
+  padding: 2px 0;
+}
+
+.link {
+  font-size: 14px;
+  line-height: 20px;
+  color: $muted;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* --- lower band: five columns -------------------------------------------- */
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 27px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Inside the grid a group takes its track rather than its own fixed 199. */
+.columns .group {
+  width: 100%;
+}
+
+/* --- stocks index --------------------------------------------------------- */
+
+.stocks {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.stocksHeading {
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.letters {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The 28 entries share the row evenly, as the Figma spaces them, rather than
+   each hugging its label — a fixed min-width tips "0-9" and "All" onto a
+   second line once the divider borders are counted in. */
+.letters li {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  border-left: 1px solid $line;
+}
+
+.letters li:last-child {
+  border-right: 1px solid $line;
+}
+
+.letter {
+  display: inline-flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 0 4px;
+  font-size: 14px;
+  line-height: 20px;
+  color: $muted;
+  text-decoration: none;
+}
+
+.letter:hover {
+  color: #ffffff;
+}
+
+/* --- stock chips ---------------------------------------------------------- */
+
+.chips {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  column-gap: 30px;
+  row-gap: 25px;
+  margin: 60px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  display: block;
+  height: 43px;
+  /* 12 rather than a round 16: the Figma chip clears "Nifty 50 Stocks
+     Overview" in full (it needs 168 of the 194 track) and only truncates from
+     the second label on. */
+  padding: 0 12px;
+  line-height: 41px;
+  border: 1px solid $line;
+  border-radius: 8px;
+  font-size: 14px;
+  color: $on-dark;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: border-color 0.18s ease;
+}
+
+.chip:hover {
+  border-color: #ffffff;
+}
+
+/* --- regulatory block ----------------------------------------------------- */
+
+.legal {
+  margin-top: 65px;
+}
+
+.legal p {
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 20px;
+  color: $muted;
+}
+
+.legal p:last-child {
+  margin-bottom: 0;
+}
+
+.legalTight {
+  margin-bottom: 20px;
+}
+
+/* --- tablet --------------------------------------------------------------- */
+
+@media (max-width: 1199px) {
+  .siteFooter {
+    --footer-rules: 100%;
+    --footer-inner: 100%;
+  }
+
+  .top {
+    flex-direction: column;
+  }
+
+  .contact {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .primaryGroups {
+    width: 100%;
+  }
+
+  .columns {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 40px;
+    margin-top: 48px;
+  }
+
+  .chips {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 20px;
+  }
+}
+
+/* --- mobile --------------------------------------------------------------- */
+
+@media (max-width: 767px) {
+  .siteFooter {
+    padding: 40px 16px 48px;
+  }
+
+  .primaryGroups,
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 16px;
+  }
+
+  .columns {
+    margin-top: 32px;
+  }
+
+  .group {
+    width: 100%;
+  }
+
+  .stocks {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .chips {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 12px;
+    row-gap: 12px;
+  }
+
+  .legal {
+    margin-top: 40px;
+  }
+
+  .legal p {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}

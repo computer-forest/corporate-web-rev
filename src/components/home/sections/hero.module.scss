@@ -428,8 +428,25 @@
     line-height: 44px;
   }
 
+  /* The window has to come down with the step: left at the 118 the desktop
+     sets, it stands 30 taller than the 88 claim and so shows the top of the
+     next one under the current headline. Two 44px lines is the whole claim. */
   .rotator {
     --rotator-step: 88px;
+    --rotator-window: 88px;
+  }
+}
+
+/* Between the two-column breakpoint and the mobile stack the copy column keeps
+   narrowing, and under roughly 815 it drops below the ~330 the longest claims
+   need to hold two lines (measured: 2 lines at a 331 column, 3 at 321). The
+   window and pitch take that third line here rather than clipping it; a claim
+   that still sets in two simply leaves the remainder blank, which keeps the
+   headline block a constant height as the claims rotate. */
+@media (max-width: 815px) {
+  .rotator {
+    --rotator-step: 132px;
+    --rotator-window: 132px;
   }
 }
 

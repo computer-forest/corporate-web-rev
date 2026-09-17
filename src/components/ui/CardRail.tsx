@@ -46,9 +46,13 @@ export default function CardRail({
   const pageRef = useRef(1);
 
   // Held in a ref so a caller passing an inline arrow does not resubscribe the
-  // scroll listener on every render.
+  // scroll listener on every render. Written in an effect rather than during
+  // render — a ref is not a render-time value (react-hooks/refs).
   const onPageChangeRef = useRef(onPageChange);
-  onPageChangeRef.current = onPageChange;
+
+  useEffect(() => {
+    onPageChangeRef.current = onPageChange;
+  }, [onPageChange]);
 
   const syncPage = useCallback(() => {
     const rail = railRef.current;
