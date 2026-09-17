@@ -144,17 +144,33 @@
   }
 }
 
+/* Bottom NAv 0:66329 — a 68-tall bar whose 328x36 content sits on 16 of
+   padding: the line at 14/20, then a 138x36 button. */
 @media (max-width: 767px) {
+  /* Testimonials 0:66330 — the mobile bar runs the full 360 rather than
+     sitting in the gutter, so the 16 is padding, not an inset. */
   .bar {
     flex-wrap: nowrap;
-    gap: 12px;
-    padding: 12px 16px;
+    gap: 8px;
+    width: 100%;
+    max-width: none;
+    padding: 16px;
   }
 
+  /* Bar Text 0:66332 — 182x20, set on one line. Letting it wrap is what took
+     the bar past the frame's 68. */
   .title {
     flex: 1 1 auto;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 14px;
+    line-height: 20px;
+    white-space: nowrap;
+  }
+
+  .bar > a,
+  .bar > button {
+    flex: 0 0 auto;
+    height: 36px;
+    min-height: 36px;
   }
 
   /* The mobile nudge is just the line and the button — Bottom Nav, 0:54437. */

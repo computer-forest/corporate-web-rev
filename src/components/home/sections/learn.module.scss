@@ -50,14 +50,24 @@
   color: var(--sb-text-hover);
 }
 
+.date {
+  display: none;
+  margin: 8px 0 0;
+  font-family: var(--sb-font-body);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-text-tertiary);
+}
+
 @media (max-width: 767px) {
   /* Learn & Educate 0:66064 — 40 of head room on mobile, not 24. */
   .inner {
     padding: 40px var(--sb-gutter);
   }
 
+  /* 0:66071 sits 24 under the heading and 24 above the rail, as on 1440. */
   .tabs {
-    margin: 16px 0;
+    margin: 24px 0;
   }
 
   /* Blogs card 0:66073 — 258x237: 145 of art, 16, then a 76 text block. */
@@ -71,5 +81,18 @@
 
   .link img {
     height: 145px;
+    margin-bottom: 16px;
+  }
+
+  /* 0:66076 / 0:66077 — a 16/21 title over a 14/20 date. */
+  .link h3 {
+    font-family: var(--sb-font-body);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21px;
+  }
+
+  .date {
+    display: block;
   }
 }

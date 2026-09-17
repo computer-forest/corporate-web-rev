@@ -109,14 +109,35 @@
 }
 
 @media (max-width: 767px) {
-  /* FAQ 0:66310 — 40 of head room on mobile, not 24. */
+  /* FAQ 0:66310 — 40 of head room on mobile, not 24, and the CTA moves from
+     beside the heading to under the questions, stretched to the 328 column. */
   .inner {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     padding: 40px var(--sb-gutter);
   }
 
+  .aside {
+    display: contents;
+  }
+
   .title {
-    font-size: 28px;
-    line-height: 36px;
+    order: 1;
+  }
+
+  .list {
+    order: 2;
+  }
+
+  .cta {
+    order: 3;
+    width: 100%;
+  }
+
+  .title {
+    font-size: 32px;
+    line-height: 42px;
   }
 
   .question {

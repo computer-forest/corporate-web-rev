@@ -121,6 +121,9 @@ export interface Ipo {
   minInvestmentUnit: string;
   listingNote: string;
   listingDate: string;
+  /** Frame 2147226080 0:58806 — the 360 card leads with the close deadline. */
+  closingNote: string;
+  closingDate: string;
 }
 
 export const IPOS: Ipo[] = Array.from({ length: 6 }, () => ({
@@ -133,6 +136,8 @@ export const IPOS: Ipo[] = Array.from({ length: 6 }, () => ({
   minInvestmentUnit: "/100 Shares",
   listingNote: "This IPO will list on",
   listingDate: "28 July 2026",
+  closingNote: "Application closes on",
+  closingDate: "26 July 2026",
 }));
 
 /* --- fund it, protect it ------------------------------------------------- */
@@ -443,15 +448,17 @@ export const LEARN_TABS = [
 export interface Lesson {
   title: string;
   duration: string;
+  /** Blogs card 0:66075 — the 360 frame sets a date under the title. */
+  date: string;
 }
 
 export const LESSONS: Lesson[] = [
-  { title: "Why our brain sees patterns that don't exist", duration: "12:45" },
-  { title: "Why stories influence investors more than numbers", duration: "12:28" },
-  { title: "You thought you had figured the market out.", duration: "12:28" },
-  { title: "Free advice is the most expensive advice", duration: "12:28" },
-  { title: "Why our brain sees patterns that don't exist", duration: "12:45" },
-  { title: "Why stories influence investors more than numbers", duration: "12:28" },
+  { title: "Why our brain sees patterns that don't exist", duration: "12:45", date: "02 July 2025" },
+  { title: "Why stories influence investors more than numbers", duration: "12:28", date: "02 July 2025" },
+  { title: "You thought you had figured the market out.", duration: "12:28", date: "02 July 2025" },
+  { title: "Free advice is the most expensive advice", duration: "12:28", date: "02 July 2025" },
+  { title: "Why our brain sees patterns that don't exist", duration: "12:45", date: "02 July 2025" },
+  { title: "Why stories influence investors more than numbers", duration: "12:28", date: "02 July 2025" },
 ];
 
 /* --- testimonials -------------------------------------------------------- */

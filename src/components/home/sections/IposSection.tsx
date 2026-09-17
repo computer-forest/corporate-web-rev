@@ -56,10 +56,16 @@ export default function IposSection() {
 
                 <div className={styles.actions}>
                   <SbButton block>Apply</SbButton>
-                  <SbButton variant="secondary" block>
+                  <SbButton variant="secondary" block className={styles.knowMore}>
                     Know More
                   </SbButton>
                 </div>
+
+                {/* Frame 2147226080 0:58806 — the 360 card closes on the
+                    deadline; the 1440 card has no room for it. */}
+                <p className={styles.closing}>
+                  {ipo.closingNote} {ipo.closingDate}
+                </p>
               </div>
 
               <p className={styles.listing}>

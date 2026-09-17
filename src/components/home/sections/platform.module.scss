@@ -156,11 +156,16 @@
     gap: 32px;
   }
 
+  /* The 425px column and the thirds that divide it belong to the two-column
+     frame. Once the column is the full width, the steps have to take their
+     height from their own copy — `flex: 1 1 0` against an auto-height column
+     resolves to nothing and stacks all three on the same line. */
   .steps {
     height: auto;
   }
 
   .steps li {
+    flex: 0 0 auto;
     overflow: visible;
   }
 
@@ -173,9 +178,11 @@
   }
 }
 
+/* Market news 0:59050 — 40 of head room, 24 under the heading and under the
+   tabs, then the panel above the steps rather than beside them. */
 @media (max-width: 767px) {
   .inner {
-    padding: 24px var(--sb-gutter);
+    padding: 40px var(--sb-gutter);
   }
 
   .head {
@@ -184,8 +191,8 @@
   }
 
   .title {
-    font-size: 28px;
-    line-height: 36px;
+    font-size: 32px;
+    line-height: 42px;
   }
 
   .subtext {
@@ -195,16 +202,33 @@
 
   .tabs {
     justify-content: flex-start;
-    margin: 16px 0;
+    margin: 24px 0;
   }
 
-  .stepTitle {
-    font-size: 18px;
-    line-height: 24px;
+  .body {
+    gap: 8px;
   }
 
-  .stepBody {
-    font-size: 14px;
-    line-height: 20px;
+  .panel {
+    order: 1;
+    /* Frame 2147226138 — 328x184.5. */
+    aspect-ratio: 328 / 184.5;
+  }
+
+  /* The frame sets its artwork inside that box rather than filling it, so the
+     panel keeps its gradient margin and nothing is cropped. */
+  .panelLayer {
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .steps {
+    order: 2;
+  }
+
+  /* Container 0:59763 — 32 above the title, 24 under the copy, 10 either
+     side, and the 1px rule on the showing step. */
+  .steps li {
+    padding: 32px 10px 24px;
   }
 }

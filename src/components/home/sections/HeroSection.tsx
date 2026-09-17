@@ -3,11 +3,16 @@
 import { useState } from "react";
 import SbButton from "@/components/ui/SbButton";
 import { HERO } from "@/constants/sbi-home";
+import useMediaQuery, { MOBILE_QUERY } from "@/utils/useMediaQuery";
 import styles from "./hero.module.scss";
 
 /** Hero Section Main — desktop 1:60070, mobile Hero 3 0:33295 + Hero 2 0:39885. */
 export default function HeroSection() {
   const [agreed, setAgreed] = useState(true);
+  /* Hero 2 relabels both fields and rewrites both placeholders; the labels
+     swap in CSS, but a placeholder is an attribute, so it swaps here. */
+  const isMobile = useMediaQuery(MOBILE_QUERY);
+  const form = isMobile ? { ...HERO.form, ...HERO.formMobile } : HERO.form;
 
   return (
     <section className={styles.hero} aria-labelledby="hero-title">
@@ -51,7 +56,7 @@ export default function HeroSection() {
               <span className={styles.desktopOnly}>{HERO.form.nameLabel}</span>
               <span className={styles.mobileOnly}>{HERO.formMobile.nameLabel}</span>
             </label>
-            <input id="hero-name" name="name" type="text" placeholder={HERO.form.namePlaceholder} />
+            <input id="hero-name" name="name" type="text" placeholder={form.namePlaceholder} />
           </div>
 
           <div className={`${styles.field} ${styles.fieldMobile}`}>
@@ -64,11 +69,19 @@ export default function HeroSection() {
               name="mobile"
               type="tel"
               inputMode="numeric"
-              placeholder={HERO.form.mobilePlaceholder}
+              placeholder={form.mobilePlaceholder}
             />
+            {/* Selection-List 0:43037 — Hero 2 sets the note as text alone,
+                without the note icon the 1440 frame puts in front of it. */}
             <p className={styles.help}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/figma/hero/info.svg" alt="" width={16} height={16} />
+              <img
+                className={styles.helpIcon}
+                src="/figma/hero/info.svg"
+                alt=""
+                width={16}
+                height={16}
+              />
               {HERO.form.mobileHelp}
             </p>
           </div>

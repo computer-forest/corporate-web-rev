@@ -398,39 +398,158 @@ $muted: #ccd9e8;
     padding: 40px 16px 48px;
   }
 
+  /* Frame 2147226064 — the nine groups run as one stacked accordion, so the
+     five-column grid and the gaps between columns both go. */
   .primaryGroups,
   .columns {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 32px 16px;
+    display: block;
   }
 
   .columns {
-    margin-top: 32px;
+    margin-top: 0;
   }
 
   .group {
     width: 100%;
   }
 
+  /* Footer accordian I0:66328;18333:22243 — 12 above the title and 13 under
+     it, closed on a dashed neutral/300 rule. */
+  .groupHeading {
+    padding: 0;
+  }
+
+  .groupToggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    padding: 12px 0 13px;
+    border: 0;
+    border-bottom: 1px dashed #97abc3;
+    background: none;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16.5px;
+    letter-spacing: 0.66px;
+    text-transform: uppercase;
+    text-align: left;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .chevron {
+    flex-shrink: 0;
+    display: block;
+    width: 18px;
+    height: 18px;
+    transform: rotate(180deg);
+    transition: transform 0.2s ease;
+  }
+
+  .groupClosed .chevron {
+    transform: none;
+  }
+
+  .groupClosed .groupLinks {
+    display: none;
+  }
+
+  .groupLinks {
+    padding: 8px 0 0;
+  }
+
+  /* The ten Trade & Invest labels are set two abreast rather than ten deep;
+     the six-link groups stay in one column. */
+  .groupLinksSplit {
+    /* Multi-column, not grid: the frame reads the ten labels down the first
+       column and then down the second, which is column order, not row order. */
+    column-count: 2;
+    column-gap: 16px;
+  }
+
+  .primaryGroups .groupLinks li,
+  .groupLinks li {
+    padding: 2px 0;
+  }
+
+  /* Open Demat Account leads the stack on mobile; the wide footer sets it
+     second, beside Trade & Invest. */
+  .primaryGroups {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .primaryGroups > .group:nth-child(2) {
+    order: -1;
+  }
+
+  /* The nine rows run back to back — every gap between them belongs to the
+     five-column band, and the divider they sit either side of is the dashed
+     rule each row already draws. */
+  .column {
+    gap: 0;
+  }
+
+  .ruleUpper {
+    display: none;
+  }
+
+  .ruleLower {
+    margin-top: 0;
+  }
+
   .stocks {
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 8px;
+    margin-top: 12px;
   }
 
+  /* Frame 2147226084 — 28 entries on a seven-wide grid of 46.857 squares,
+     boxed rather than strung along a single rule. */
+  .letters {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    width: 100%;
+    border-top: 1px solid $line;
+    border-left: 1px solid $line;
+  }
+
+  .letters li {
+    aspect-ratio: 1;
+    border-right: 1px solid $line;
+    border-bottom: 1px solid $line;
+    border-left: 0;
+  }
+
+  .letters li:last-child {
+    border-right: 1px solid $line;
+  }
+
+  .letter {
+    width: 100%;
+    padding: 0;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  /* The 360 footer goes straight from the stocks index to the legal block —
+     the keyword chips are a wide-footer band and are not in that frame. */
   .chips {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 12px;
-    row-gap: 12px;
+    display: none;
   }
 
   .legal {
     margin-top: 40px;
   }
 
+  /* Registration Info I0:66328;18333:22312 — 328x32 for two lines, so 16. */
   .legal p {
     font-size: 12px;
-    line-height: 18px;
+    line-height: 16px;
   }
 }

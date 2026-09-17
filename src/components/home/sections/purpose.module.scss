@@ -23,6 +23,39 @@
   flex-direction: column;
 }
 
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+/* Only the 360 frame collapses a goal, so the toggle only exists there. */
+.toggle {
+  display: none;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  max-height: 44px;
+  padding: 12px;
+  border: 0;
+  border-radius: var(--sb-radius-8);
+  background: none;
+  cursor: pointer;
+}
+
+.toggle img {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
 /* Art tile — 310x174 on surface/secondary, 16px radius, illustration 154 tall
    and centred rather than filling the tile. */
 .art {
@@ -38,6 +71,8 @@
 
 /* Pre Login/Sub-heading SH1 Med — 20/28, tight against the lede below. */
 .cardTitle {
+  flex: 1;
+  min-width: 0;
   margin: 0;
   font-family: var(--sb-font-subheading);
   font-weight: 500;
@@ -100,14 +135,79 @@
   }
 }
 
+/* Market news 0:58378 / Plan Your Future Listing 0:58385 — one column, 24
+   under the heading, and the goals separated by their own hairline rather
+   than by a gap. */
 @media (max-width: 767px) {
   .inner {
-    padding: 24px var(--sb-gutter);
+    padding: 40px var(--sb-gutter);
   }
 
   .grid {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 0;
     margin-top: 24px;
+  }
+
+  /* Retirement Planning 0:17872 — the open goal stacks at 6, closes on 12.5
+     of clearance and carries the rule; the last row drops the rule. */
+  .card {
+    gap: 6px;
+    padding-bottom: 12.5px;
+    border-bottom: 0.5px solid rgba(41, 32, 117, 0.4);
+  }
+
+  .card:last-child {
+    padding-bottom: 8px;
+    border-bottom: 0;
+  }
+
+  /* Wealth Creation 0:18179 — a closed goal is the title row alone, on 8
+     above and 8.5 below. */
+  .collapsed {
+    padding-top: 8px;
+    padding-bottom: 8.5px;
+  }
+
+  .collapsed .art,
+  .collapsed .body {
+    display: none;
+  }
+
+  /* Only a closed goal carries the plus — the open one has nothing to open,
+     since the listing always leaves exactly one of the four showing. */
+  .collapsed .toggle {
+    display: inline-flex;
+  }
+
+  /* Image & Icon 0:17873 — 384:216 on surface/tertiary, 12px radius. */
+  .art {
+    aspect-ratio: 384 / 216;
+    height: auto;
+    padding: 0;
+    border-radius: var(--sb-radius-12);
+    margin-bottom: 0;
+  }
+
+  /* 0:18168 / 0:18169 — the title drops to body size here and sits 4 above
+     the lede, both in the body family rather than the sub-heading one. */
+  .cardTitle {
+    font-family: var(--sb-font-body);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21px;
+  }
+
+  .body {
+    gap: 6px;
+  }
+
+  .lede {
+    margin: -2px 0 0;
+  }
+
+  .points {
+    gap: 6px;
+    margin: 0;
   }
 }

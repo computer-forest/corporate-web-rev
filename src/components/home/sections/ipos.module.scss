@@ -144,17 +144,66 @@
   color: var(--sb-text-display);
 }
 
+/* The deadline line is a 360-only part of the card. */
+.closing {
+  display: none;
+}
+
+/* IPO's 0:58747 — 40 of head room on mobile, not 24, the tabs and the rail
+   24 apart, and a 328 card. */
 @media (max-width: 767px) {
-  /* IPO's 0:58747 — 40 of head room on mobile, not 24. */
   .inner {
     padding: 40px var(--sb-gutter) 20px;
   }
 
   .tabs {
-    margin: 16px 0;
+    margin: 24px 0;
   }
 
   .card {
-    width: 300px;
+    width: 328px;
+  }
+
+  /* Buttons 0:58799 — one 296x36 Apply across the card. */
+  .actions {
+    grid-template-columns: 1fr;
+  }
+
+  .knowMore {
+    display: none;
+  }
+
+  .actions > * {
+    height: 36px;
+    min-height: 36px;
+  }
+
+  .closing {
+    display: block;
+    margin: 0;
+    padding: 4px 10px;
+    border: 1px solid var(--sb-primary-pink);
+    border-radius: var(--sb-radius-4);
+    font-family: var(--sb-font-data);
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--sb-primary-pink);
+    text-align: center;
+  }
+
+  .cardBody {
+    gap: 12px;
+  }
+
+  /* On mobile the listing note sits on the card rather than on the tinted
+     strip the 1440 card ends with. */
+  .listing {
+    padding: 0 16px 16px;
+    border: 0.5px solid var(--sb-stroke-default);
+    border-top: 0;
+    border-radius: 0 0 var(--sb-radius-16) var(--sb-radius-16);
+    background: var(--sb-surface-primary);
+    font-size: 12px;
+    line-height: 16px;
   }
 }

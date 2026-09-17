@@ -8,8 +8,8 @@ import {
   FOOTER_SECONDARY,
   STOCK_INDEX_LETTERS,
   STOCK_LINKS,
-  type FooterColumn,
 } from "@/constants/sbi-home";
+import FooterLinkGroup from "./FooterLinkGroup";
 import styles from "./Footer.module.scss";
 
 /* The footer renders on every marketing route, while the Poppins/Inter that
@@ -31,47 +31,6 @@ const poppins = Poppins({
   variable: "--footer-font-poppins",
 });
 
-/* The Figma lists every link by label only. Those with a route today point at
-   it; the rest take the slug their page will live at, which is the convention
-   the previous footer already used for /support and /open-account. */
-const ROUTES: Record<string, string> = {
-  "54EC Bonds": "/cgs-bond",
-  "SBI Realty": "/sso-realty",
-  Blogs: "/blogs",
-  "Open Demat Account": "/open-account",
-  "MF Returns Calculator": "/calculators",
-  "SIP Calculator": "/calculators",
-  "Lumpsum Calculator": "/calculators",
-  "Step-up SIP Calculator": "/calculators",
-  "SWP Calculator": "/calculators",
-  "FD Calculator": "/calculators",
-  "NPS Calculator": "/calculators",
-  "Home Loan EMI Calculator": "/calculators",
-  "Car Loan EMI Calculator": "/calculators",
-  "CAGR Calculator": "/calculators",
-  "Loan EMI Calculator": "/calculators",
-  "RD Calculator": "/calculators",
-  "Retirement Calculator": "/calculators",
-};
-
-function hrefFor(label: string, group: string): string {
-  const known = ROUTES[label];
-  if (known) return known;
-
-  const slug = label
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-
-  /* Loans and Insurances repeat the same three labels, so they are namespaced
-     by their heading to keep the two sets apart. */
-  if (group === "LOANS") return `/loans/${slug}`;
-  if (group === "INSURANCES") return `/insurance/${slug}`;
-  if (group === "MARKETS") return `/markets/${slug}`;
-  return `/${slug}`;
-}
-
 const SOCIALS = [
   { label: "Instagram", href: "https://www.instagram.com/", icon: "/figma/footer/social-1.svg" },
   { label: "X", href: "https://x.com/", icon: "/figma/footer/social-2.svg" },
@@ -79,23 +38,6 @@ const SOCIALS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/", icon: "/figma/footer/social-4.svg" },
   { label: "YouTube", href: "https://www.youtube.com/", icon: "/figma/footer/social-5.svg" },
 ];
-
-function LinkGroup({ group }: { group: FooterColumn }) {
-  return (
-    <div className={styles.group}>
-      <h2 className={styles.groupHeading}>{group.title}</h2>
-      <ul className={styles.groupLinks}>
-        {group.links.map((label) => (
-          <li key={`${group.title}-${label}`}>
-            <Link href={hrefFor(label, group.title)} className={styles.link}>
-              {label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
 
 /** Footer — Figma `Footer` 0:64968, Pre-Login Home Page Sprint 2. */
 export default function Footer() {
@@ -151,7 +93,12 @@ export default function Footer() {
 
             <div className={styles.primaryGroups}>
               {FOOTER_PRIMARY.map((group) => (
-                <LinkGroup key={group.title} group={group} />
+                <FooterLinkGroup
+                  key={group.title}
+                  group={group}
+
+                  defaultOpen
+                />
               ))}
             </div>
           </div>
@@ -164,7 +111,7 @@ export default function Footer() {
             {FOOTER_SECONDARY.map((column, i) => (
               <div className={styles.column} key={column[0]?.title ?? i}>
                 {column.map((group) => (
-                  <LinkGroup key={group.title} group={group} />
+                  <FooterLinkGroup key={group.title} group={group} />
                 ))}
               </div>
             ))}

@@ -1,39 +1,442 @@
+/* ---------------------------------------------------------------------------
+   Top Nav — Figma `Top Nav` 0:64969 (Pre-Login Home Page Sprint 2).
+
+   88 tall on a 1440 frame: a 48 logo with 20 above and below, 64 either side.
+
+   Literal hex rather than the `--sb-*` tokens, and local button styles rather
+   than SbButton, for the same reason the footer does it: those tokens live in
+   `sbi-home.scss`, which only reaches routes that render HomeComponent, while
+   this header is chrome for every marketing route.
+--------------------------------------------------------------------------- */
+
+$display: #292075;
+$icon: #101b34;
+$muted: #3b4c72;
+$stroke: #ccd9e8;
+
 .siteHeader {
   position: sticky;
   top: 0;
   z-index: 1030;
-  background-color: var(--color-body-bg);
-  border-bottom: 1px solid var(--color-border);
+  background: #ffffff;
+  font-family: var(--header-font-inter), "Segoe UI", -apple-system, sans-serif;
 }
 
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 20px 64px;
+}
+
+/* --- logo ----------------------------------------------------------------- */
+
+/* SSL-logo — 182x48. The frame insets place the wordmark at 175.416x41.673
+   from the bottom-left and the registered mark at 7.494 square in the top-right
+   corner; both are reproduced as percentages so the pair scales together. */
 .logo {
-  font-weight: 700;
-  color: var(--color-primary);
-  text-decoration: none;
-
-  &:hover,
-  &:focus {
-    color: var(--color-primary);
-    text-decoration: none;
-  }
+  position: relative;
+  flex-shrink: 0;
+  display: block;
+  width: 182px;
+  height: 48px;
 }
 
+.logoMain {
+  position: absolute;
+  left: 0;
+  right: 3.62%;
+  top: 13.18%;
+  bottom: 0;
+  width: auto;
+  height: auto;
+}
+
+.logoMark {
+  position: absolute;
+  left: 95.87%;
+  right: 0.01%;
+  top: 0;
+  bottom: 84.35%;
+  width: auto;
+  height: auto;
+}
+
+/* --- primary navigation --------------------------------------------------- */
+
+.nav {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Buttons 16599:43593 — label and caret 2 apart, on an 8px radius. */
 .navLink {
-  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  max-height: 44px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 21px;
+  color: $display;
+  text-decoration: none;
+  white-space: nowrap;
+}
 
-  &:hover,
-  &:focus {
-    color: var(--color-primary);
+.navLink:hover {
+  text-decoration: underline;
+}
+
+.caret {
+  flex-shrink: 0;
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+/* --- right-hand cluster --------------------------------------------------- */
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Input Field 18571:6304 — 199x40. Height is set rather than derived: the frame
+   draws its stroke inside the box, so its nominal 12 of vertical padding does
+   not add to the 40. */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 199px;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid $stroke;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.searchIcon {
+  flex-shrink: 0;
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.searchInput {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 21px;
+  color: $display;
+}
+
+.searchInput::placeholder {
+  color: $muted;
+  /* The frame clips the placeholder at 117 rather than wrapping it. */
+  text-overflow: ellipsis;
+}
+
+.searchInput:focus {
+  outline: none;
+}
+
+.search:focus-within {
+  border-color: #4f45e4;
+}
+
+/* Cancel the UA decorations on type="search" so the field matches the frame. */
+.searchInput::-webkit-search-decoration,
+.searchInput::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.shortcut {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+  font-size: 14px;
+  line-height: 21px;
+  color: $muted;
+}
+
+.shortcut img {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+/* Buttons 16599:43601 / 43602 — 16px glyph on 10 of padding, so 36 square. */
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 10px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: $icon;
+  cursor: pointer;
+}
+
+.iconButton:hover {
+  background: #f6f6ff;
+}
+
+/* Only the 360 frame trades the field for a glyph; above it the field is in
+   the bar and this button would duplicate it. */
+.searchToggle {
+  display: none;
+}
+
+/* Sized per icon rather than forced to a single value: the exports do not
+   share a viewBox, and rounding them all to 16 puts a fractional scale on the
+   ones that do not (see the accessibility icon in Header.tsx). */
+/* `src/styles/_base.scss` sets a site-wide `img { max-width: 100% }`, which on
+   a 36px button with 10 of padding caps a glyph at 16 — silently shrinking the
+   accessibility icon back to a fractional scale. Overridden here, along with
+   the flex-shrink that would otherwise do the same thing. */
+.iconButton img {
+  display: block;
+  flex-shrink: 0;
+  width: auto;
+  height: auto;
+  max-width: none;
+}
+
+/* Buttons 16599:43603 / 43604 — 36 tall, hugging their label at 10 of padding,
+   on the shared elevation. */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 36px;
+  height: 36px;
+  padding: 10px;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0 10px 20px 4px rgba(204, 217, 232, 0.2);
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: filter 0.18s ease;
+}
+
+.cta:hover {
+  filter: brightness(1.05);
+}
+
+.ctaSecondary {
+  background: linear-gradient(180deg, #f7fbff 20%, #dbdbfe 100%);
+  color: $display;
+}
+
+.ctaPrimary {
+  background: linear-gradient(
+    180deg,
+    #8d89f6 0%,
+    #6e67ee 12.5%,
+    #4f45e4 25%,
+    #3f35be 47.5%,
+    #2f2498 70%,
+    #292075 100%
+  );
+  color: #f6f6ff;
+}
+
+/* --- menu toggle ---------------------------------------------------------- */
+
+/* Not in the frame, which only specifies the 1440 layout. Hidden until the
+   nav can no longer sit beside the logo. */
+.menuToggle {
+  display: none;
+  position: relative;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  cursor: pointer;
+}
+
+.menuToggle img {
+  display: block;
+  width: 24px;
+  height: 24px;
+  max-width: none;
+}
+
+/* The bar carries one accessibility trigger with two exports: the 17 the
+   1440 frame draws and the 24 the 360 frame draws. Only one is ever shown. */
+.iconButton .iconNarrow {
+  display: none;
+}
+
+/* --- below the frame's 1440 ----------------------------------------------- */
+
+@media (max-width: 1279px) {
+  .inner {
+    padding: 20px 32px;
+  }
+
+  /* The search field is the first thing to go: the nav and the account actions
+     carry more of the page than a field with no destination yet. */
+  .search {
+    display: none;
   }
 }
 
-.activeNavLink {
-  color: var(--color-primary);
-  font-weight: 700;
+@media (max-width: 1023px) {
+  .inner {
+    flex-wrap: wrap;
+    padding: 16px 24px;
+  }
+
+  .menuToggle {
+    display: block;
+    order: 2;
+  }
+
+  .actions {
+    order: 1;
+    margin-left: auto;
+    margin-right: 8px;
+  }
+
+  .nav {
+    order: 3;
+    flex-basis: 100%;
+    display: none;
+  }
+
+  .navOpen {
+    display: block;
+    padding-top: 12px;
+  }
+
+  .navList {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  /* Block-level here so the divider runs the full column rather than stopping
+     at the end of the label, which inline-flex would do. */
+  .navLink {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    max-height: none;
+    padding: 12px 0;
+    border-top: 1px solid #edf4fc;
+  }
 }
 
-.accessibilityButton {
-  background: transparent;
-  border: 0;
-  cursor: pointer;
+/* --- the 360 frame -------------------------------------------------------- */
+
+/* Top Nav 0:43016 — 58 tall on a 1px #dcd9d9 rule, carrying a 121x32 logo at
+   13 from the top and three 24 glyphs at 240, 280 and 320. Nothing else: the
+   account buttons and the support glyph the 1440 bar shows are not in it. */
+@media (max-width: 767px) {
+  .siteHeader {
+    border-bottom: 1px solid #dcd9d9;
+  }
+
+  .inner {
+    gap: 0;
+    /* 13 + 32 + 12 + the 1px rule is the frame's 58. */
+    padding: 13px 16px 12px;
+  }
+
+  .logo {
+    width: 121px;
+    height: 32px;
+  }
+
+  .actions {
+    /* 24 + 16 puts the pair on the frame's 240 and 280, and the 16 to the
+       toggle puts that on 320 with 16 left to the edge. */
+    gap: 16px;
+    margin-right: 16px;
+  }
+
+  .searchToggle {
+    display: inline-flex;
+  }
+
+  .supportButton,
+  .cta {
+    display: none;
+  }
+
+  .iconButton,
+  .menuToggle {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .iconButton:hover {
+    background: none;
+  }
+
+  .iconButton .iconWide {
+    display: none;
+  }
+
+  .iconButton .iconNarrow {
+    display: block;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    max-width: none;
+  }
+
+  /* The field is not in the 360 bar, so it opens as a sheet under it rather
+     than squeezing into a row that has no space for it. */
+  .search {
+    display: none;
+  }
+
+  .searchOpen {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    top: calc(100% + 8px);
+    z-index: 1;
+    display: flex;
+    width: auto;
+    box-shadow: 0 10px 20px 4px rgba(204, 217, 232, 0.4);
+  }
+
+  .shortcut {
+    display: none;
+  }
 }

@@ -63,6 +63,9 @@ export default function LearnSection() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={`/figma/learn/lesson-${(i % 4) + 1}.png`} alt="" aria-hidden="true" />
                 <h3>{lesson.title}</h3>
+                {/* Frame 6 0:66075 — the 360 card carries the date; the 1440
+                    card is title only, so it is hidden above the breakpoint. */}
+                <p className={styles.date}>{lesson.date}</p>
                 <span className="sr-only">Watch, {lesson.duration}</span>
               </a>
             </article>
