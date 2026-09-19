@@ -163,6 +163,14 @@ export interface Offering {
   mobileOrder: number;
   /** Illustration exported from Figma, under /figma/offerings. */
   art: string;
+  /**
+   * Same illustration with the desktop frame's background plate stripped out.
+   * The wide export bakes a slice of Other Offerings' lilac-to-blush ground
+   * into the artboard, which lines up at 1440 and shows as a mismatched panel
+   * once the 328-wide mobile tile rescales it — below 767 the transparent copy
+   * lets the section's own gradient run straight through, as 0:97932 does.
+   */
+  artMobile?: string;
 }
 
 export const LOANS: Offering[] = [
@@ -170,6 +178,7 @@ export const LOANS: Offering[] = [
     slug: "home-loan",
     mobileOrder: 2,
     art: "/figma/offerings/home-loan.svg",
+    artMobile: "/figma/offerings/mobile/home-loan.svg",
     title: "Home Loan",
     lede: "Turn your dream home into reality.",
     highlightLead: "Interest starts from ",
@@ -181,6 +190,7 @@ export const LOANS: Offering[] = [
     slug: "education-loan",
     mobileOrder: 1,
     art: "/figma/offerings/education-loan.svg",
+    artMobile: "/figma/offerings/mobile/education-loan.svg",
     title: "Education Loan",
     lede: "Because your ambitions shouldn't wait.",
     highlightLead: "Study in ",
@@ -192,6 +202,7 @@ export const LOANS: Offering[] = [
     slug: "car-loan",
     mobileOrder: 3,
     art: "/figma/offerings/car-loan.svg",
+    artMobile: "/figma/offerings/mobile/car-loan.svg",
     title: "Car Loan",
     lede: "Drive home your dream car.",
     highlightLead: "Up to ",

@@ -79,6 +79,11 @@
   filter: brightness(1.04);
 }
 
+/* The authored heading break exists only under the mobile breakpoint. */
+.mobileBreak {
+  display: none;
+}
+
 /* The handset comes from node I0:64968;18563:5387;18563:5348, which is a chain
    rather than a plain image: a 724x651 window pinned to the card's bottom edge
    and reaching 260 above it, holding a 593.305x817.397 frame turned -4.78deg,
@@ -174,26 +179,52 @@
 }
 
 @media (max-width: 767px) {
+  /* Boiler Plate I0:21341;18563:5352 — a 360x659 block holding a 328x619 card
+     at 16/40 on a 20px radius. Everything inside the card is stated as a share
+     of it so the composition holds at 320 and 430 as well as at the 360 the
+     frame is drawn on. */
+  /* 40 above the card and 16 below it, which is the white the 360 frame keeps
+     between the card's foot and the footer's indigo. */
   .promo {
-    padding: 0 var(--sb-gutter) 32px;
+    padding: 40px var(--sb-gutter) 16px;
   }
 
   .card {
     height: auto;
-    padding: 32px 20px 250px;
-    border-radius: 24px;
+    aspect-ratio: 328 / 619;
+    padding: 27px 11.5px 0;
+    overflow: hidden;
+    border-radius: 20px;
+    /* The 360 card's ground is the radial the frame states — an ellipse
+       463.31 x 618.59 pinned to the bottom centre of the 328x619 card, running
+       magenta at its centre out to primary/1000 at its rim — rather than the
+       straight top-to-bottom ramp the 1440 card uses. */
+    background: radial-gradient(
+      ellipse 141.253% 99.934% at 50% 100%,
+      #b00a80 6.622%,
+      #801f64 31.813%,
+      #58227e 65.906%,
+      var(--sb-primary-900) 100%
+    );
   }
 
-  /* Boiler Plate I0:66328;18563:5440 — the 360 card centres its whole
-     column, heading, copy and button alike, over the phone below. */
+  /* Container I0:21341;18563:5353 — a 305 column centred on the card, its
+     heading and copy 6 apart and the button 16 under the pair. */
   .copy {
-    position: static;
+    position: relative;
+    z-index: 2;
+    top: auto;
+    left: auto;
     transform: none;
     align-items: center;
     width: 100%;
     max-width: none;
-    gap: 24px;
+    gap: 16px;
     text-align: center;
+  }
+
+  .mobileBreak {
+    display: inline;
   }
 
   .title {
@@ -202,24 +233,61 @@
   }
 
   .body {
-    margin-top: -16px;
+    margin-top: -10px;
+    color: var(--sb-primary-50);
   }
 
+  /* Buttons I0:21341;18563:5499 — 172x44. The chip's fill is the same
+     primary/50-to-primary/200 radial as the wide card's, but the 360 frame
+     sits it further down the ramp: it opens on primary/200 and is already
+     primary/300 by 88% of its height. */
   .cta {
-    width: auto;
+    width: 172px;
+    background: linear-gradient(
+      180deg,
+      #e1e1fe 0%,
+      #dfdffe 25%,
+      #dbdbfe 40%,
+      #cfcffc 60%,
+      #c4c3fc 88%
+    );
   }
 
+  /* I0:21341;18563:5356 — a 391x386 window at top 233, centred 37.5 left of
+     the card's middle, holding the same rotated-frame chain the 1440 card
+     uses at the 360 frame's own numbers. Stated in percentages of the card so
+     the handset scales with it. */
   .phoneWindow {
     right: auto;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%) scale(0.42);
-    transform-origin: bottom center;
+    bottom: auto;
+    left: calc(50% - 11.433%);
+    top: 37.641%;
+    width: 119.207%;
+    height: 62.359%;
+    transform: translateX(-50%);
   }
 
+  .phoneStage {
+    left: 3.343%;
+    top: calc(50% + 10.632%);
+    transform: translateY(-50%);
+    width: 97.851%;
+    height: 129.884%;
+  }
+
+  .phoneFrame {
+    width: 89.988%;
+    height: 94.610%;
+  }
+
+  /* Overlay I0:21341;18563:5358 — 428x47 hung off the card's foot. */
   .fade {
-    height: 48px;
-    border-bottom-left-radius: 24px;
-    border-bottom-right-radius: 24px;
+    left: -7.622%;
+    width: 130.488%;
+    max-width: none;
+    height: 47px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    background: linear-gradient(to top, #741f66 0%, rgba(116, 31, 102, 0) 100%);
   }
 }

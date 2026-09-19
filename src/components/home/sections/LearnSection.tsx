@@ -37,6 +37,7 @@ export default function LearnSection() {
           title="Learn before you invest"
           href={`#learn-${tabSlug}`}
           hrefLabel={`All lessons for ${tab}`}
+          titleBreakAfter={2}
         />
 
         <div className={styles.tabs}>

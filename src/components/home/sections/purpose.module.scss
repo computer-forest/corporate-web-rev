@@ -140,6 +140,9 @@
    than by a gap. */
 @media (max-width: 767px) {
   .inner {
+    /* Title + sutext 0:58380 — a 288 text column with the arrow hard against
+       it, not the 272/24 split the other 360 heads use. */
+    --sh-gap: 8px;
     padding: 40px var(--sb-gutter);
   }
 

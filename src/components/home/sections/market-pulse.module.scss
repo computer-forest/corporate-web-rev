@@ -181,8 +181,11 @@
     line-height: 42px;
   }
 
+  /* Frame 2147225980 0:56207 — the arrow is 32 tall in a 42-tall head row and
+     sits at its top, not centred on it. */
   .arrow {
     grid-area: arrow;
+    align-self: start;
   }
 
   .arrow svg {
@@ -194,12 +197,10 @@
     grid-area: ticker;
   }
 
+  /* Logo/01 keeps its 20 of horizontal padding on the 360 frame, so the first
+     quote opens at x=36 rather than on the 16 gutter. */
   .item {
     height: auto;
-    padding: 0 16px;
-  }
-
-  .item:first-child {
-    padding-left: 0;
+    padding: 0 20px;
   }
 }

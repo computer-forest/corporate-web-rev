@@ -394,8 +394,71 @@ $muted: #ccd9e8;
 /* --- mobile --------------------------------------------------------------- */
 
 @media (max-width: 767px) {
+  /* Footer 0:66328 on the 360 frame — the logo lands 66 below the band's top
+     edge and the legal block closes 48 above its foot. */
   .siteFooter {
-    padding: 40px 16px 48px;
+    padding: 66px 16px 48px;
+  }
+
+  /* The contact block and the two lead groups run back to back, with the
+     solid rule under Help & Support as the only thing between them. */
+  .top {
+    gap: 16px;
+  }
+
+  /* SSL-logo — 183 wide in the 360 footer against the 148 the wide band uses. */
+  .logo {
+    margin-bottom: 17px;
+  }
+
+  .logo img {
+    width: 183px;
+  }
+
+  /* The 360 frame sets the address in the footer's own Inter at neutral/200,
+     and flips the contact rows: the label is the white half, the number and
+     the address the muted one. */
+  .address {
+    margin-bottom: 13px;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 20px;
+    color: $muted;
+  }
+
+  .contactLine {
+    margin-bottom: 4px;
+  }
+
+  .contactLine a {
+    color: $muted;
+  }
+
+  .contactLabel {
+    color: #ffffff;
+  }
+
+  /* Divider I0:66328 — a solid neutral/200 rule 8 under the e-mail row, with
+     Connect with us 21 below it. */
+  .social {
+    gap: 16px;
+    margin-top: 4px;
+    padding-top: 19px;
+    border-top: 1px solid $muted;
+  }
+
+  /* The chip's fill sits further down the primary/50-to-primary/300 ramp on
+     the 360 frame than the wide band's, opening on primary/200. */
+  .support {
+    margin-top: 19px;
+    background: linear-gradient(
+      180deg,
+      #e1e1fe 0%,
+      #dfdffe 25%,
+      #dbdbfe 40%,
+      #cfcffc 60%,
+      #c4c3fc 88%
+    );
   }
 
   /* Frame 2147226064 — the nine groups run as one stacked accordion, so the
@@ -409,34 +472,55 @@ $muted: #ccd9e8;
     margin-top: 0;
   }
 
+  /* Footer accordian I0:66328;18333:22243 — the dashed rule closes each group
+     under its links, not between the title and them, so the nine rows read as
+     nine bands. An open group closes on neutral/200, a shut one on the dimmer
+     neutral/300, which is how the 360 frame separates the two states. The
+     2/2 dash is drawn as a gradient because `dashed` renders 3/2 in Blink. */
   .group {
     width: 100%;
+    background-image: repeating-linear-gradient(
+      to right,
+      #{$muted} 0 2px,
+      rgba(255, 255, 255, 0) 2px 4px
+    );
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    background-position: left bottom;
   }
 
-  /* Footer accordian I0:66328;18333:22243 — 12 above the title and 13 under
-     it, closed on a dashed neutral/300 rule. */
+  .groupClosed {
+    background-image: repeating-linear-gradient(
+      to right,
+      #{$line} 0 2px,
+      rgba(255, 255, 255, 0) 2px 4px
+    );
+  }
+
   .groupHeading {
     padding: 0;
   }
 
+  /* The title is Pre Login body, not the wide band's small caps: 15/20 regular,
+     17 clear of the rule above it. A shut row closes on 13 to make the 45 the
+     frame gives it; an open one hands its 8 to the link list instead. */
   .groupToggle {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
     width: 100%;
-    padding: 12px 0 13px;
+    padding: 12px 0 4px;
     border: 0;
-    border-bottom: 1px dashed #97abc3;
     background: none;
     font: inherit;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 16.5px;
-    letter-spacing: 0.66px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0;
     text-transform: uppercase;
     text-align: left;
-    color: inherit;
+    color: #ffffff;
     cursor: pointer;
   }
 
@@ -453,12 +537,17 @@ $muted: #ccd9e8;
     transform: none;
   }
 
+  .groupClosed .groupToggle {
+    padding-bottom: 13px;
+  }
+
   .groupClosed .groupLinks {
     display: none;
   }
 
+  /* Every group closes on 12 of clearance above its rule. */
   .groupLinks {
-    padding: 8px 0 0;
+    padding: 0 0 12px;
   }
 
   /* The ten Trade & Invest labels are set two abreast rather than ten deep;
@@ -470,9 +559,18 @@ $muted: #ccd9e8;
     column-gap: 16px;
   }
 
+  /* Link 0:66328 — the 360 frame sets the lists at 12/20 in a 24 row, where
+     the wide band runs 14/20. */
   .primaryGroups .groupLinks li,
   .groupLinks li {
     padding: 2px 0;
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  .link {
+    font-size: 12px;
+    line-height: 20px;
   }
 
   /* Open Demat Account leads the stack on mobile; the wide footer sets it
@@ -494,47 +592,57 @@ $muted: #ccd9e8;
     gap: 0;
   }
 
-  .ruleUpper {
+  /* Both band rules are the group rows' own dashed closers on this frame. */
+  .ruleUpper,
+  .ruleLower {
     display: none;
   }
 
-  .ruleLower {
-    margin-top: 0;
+  /* Divider I0:66328 — the solid neutral/200 rule between Help & Support and
+     the first accordion row, which opens 15 lower than the eight rules under
+     it because that first row carries the band's own head room. */
+  .primaryGroups {
+    padding-top: 15px;
+    border-top: 1px solid $muted;
   }
 
   .stocks {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 6px;
     margin-top: 12px;
   }
 
-  /* Frame 2147226084 — 28 entries on a seven-wide grid of 46.857 squares,
-     boxed rather than strung along a single rule. */
+  /* The index title is set like the accordion rows, not like the wide band's
+     medium 16. */
+  .stocksHeading {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+
+  /* Frame 2147226084 — 28 entries on a seven-wide grid of 46.857 squares. The
+     360 frame rules none of them: the letters are simply centred in their
+     cells, white rather than the link band's neutral/200. */
   .letters {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
     width: 100%;
-    border-top: 1px solid $line;
-    border-left: 1px solid $line;
+    border: 0;
   }
 
-  .letters li {
-    aspect-ratio: 1;
-    border-right: 1px solid $line;
-    border-bottom: 1px solid $line;
-    border-left: 0;
-  }
-
+  .letters li,
   .letters li:last-child {
-    border-right: 1px solid $line;
+    aspect-ratio: 1;
+    border: 0;
   }
 
   .letter {
     width: 100%;
     padding: 0;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 12px;
+    line-height: 20px;
+    color: #ffffff;
   }
 
   /* The 360 footer goes straight from the stocks index to the legal block —
@@ -544,12 +652,14 @@ $muted: #ccd9e8;
   }
 
   .legal {
-    margin-top: 40px;
+    margin-top: 32px;
   }
 
-  /* Registration Info I0:66328;18333:22312 — 328x32 for two lines, so 16. */
+  /* Registration Info I0:66328;18333:22312 — 328x32 for two lines, so 16, and
+     a dimmer neutral/200 than the link band above it. */
   .legal p {
     font-size: 12px;
     line-height: 16px;
+    color: rgba(204, 217, 232, 0.72);
   }
 }

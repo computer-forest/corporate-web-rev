@@ -1,7 +1,9 @@
 .wrap {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  /* Cards to pagination — 24 on the 360 frames, which Testimonials raises to
+     32 through --rail-gap. */
+  gap: var(--rail-gap, 24px);
   width: 100%;
 }
 
@@ -13,7 +15,7 @@
 
 .rail {
   display: flex;
-  column-gap: 24px;
+  column-gap: var(--rail-card-gap, 24px);
   flex: 1;
   min-width: 0;
   overflow-x: auto;
@@ -162,18 +164,18 @@
 }
 
 @media (max-width: 767px) {
-  .wrap {
-    gap: 16px;
-  }
-
   /* Learn and educate 0:66072 — the cards sit 16 apart on mobile (258 wide
-     at x0 / 274 / 548 / 822), not the 12 the rail used. */
+     at x0 / 274 / 548 / 822), not the 24 the 1440 rail uses. IPOs runs its
+     328 cards 8 apart and overrides --rail-card-gap for that. */
   .rail {
-    column-gap: 16px;
+    column-gap: var(--rail-card-gap, 16px);
   }
 
+  /* Pagination 0:66038 — 328x32: a 202 dotted rule, 4, then a 122 control
+     group of a 24x32 arrow, a 66x28 pill and a second arrow. */
   .footer {
-    gap: 8px;
+    gap: 4px;
+    min-height: 32px;
   }
 
   .arrow {
@@ -187,8 +189,9 @@
   }
 
   .pill {
-    padding: 4px 14px;
+    min-height: 28px;
+    padding: 0 12.5px;
     font-size: 16px;
-    line-height: 22px;
+    line-height: 20px;
   }
 }

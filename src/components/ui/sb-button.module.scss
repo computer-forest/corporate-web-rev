@@ -17,6 +17,14 @@
   filter: brightness(1.06);
 }
 
+/* A submit button held shut — either because the form is not valid yet or
+   because it is already in flight. */
+.button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: none;
+}
+
 .l {
   min-height: 44px;
   max-height: 44px;
@@ -64,8 +72,32 @@
    Button Set 0:56167 in the hero form and Buttons 0:58537 in Other offering
    both measure 45, and the 1px shows up as a card that misses its 344. */
 @media (max-width: 767px) {
+  /* The label is Typography/Family/Body (Inter) 14/21 on the 360 frames, not
+     the Poppins the marketing copy around the buttons uses. */
+  .button {
+    font-family: var(--sb-font-data);
+  }
+
   .l {
     min-height: 45px;
     max-height: 45px;
+    line-height: 21px;
+  }
+
+  /* button/primary/default/fill is a radial in Figma, and the 360 frames sit
+     the button near the middle of it rather than across the whole ramp: every
+     primary button on the mobile page opens on primary/800 and is flat
+     primary/1000 by 82% of its height, where the straight 1440 ramp is still
+     on primary/500 at its top. Sampled off the frame at 4px steps down the
+     hero, Other offering and FAQ buttons, which all agree. */
+  .primary {
+    background: linear-gradient(
+      180deg,
+      #3d33ba 0%,
+      #362baa 25%,
+      #2e2392 50%,
+      #2a207c 75%,
+      #292075 82.2%
+    );
   }
 }

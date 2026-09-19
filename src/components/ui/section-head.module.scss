@@ -63,9 +63,23 @@
   color: rgba(255, 255, 255, 0.82);
 }
 
+/* Only the 360 frames carry the authored heading break; above the breakpoint
+   the heading wraps to its column as before. A `<br>` set to display:none
+   makes no line break, so this is the whole switch. */
+.mobileBreak {
+  display: none;
+}
+
 @media (max-width: 767px) {
+  /* Frame 2147225993 0:59773 — a 272 text column, 24 clear of the 32px arrow,
+     across the 328 gutter. Invest with a purpose runs a wider 288 column
+     (0:58380) and sets --sh-gap to close the distance. */
   .head {
-    gap: 16px;
+    gap: var(--sh-gap, 24px);
+  }
+
+  .mobileBreak {
+    display: inline;
   }
 
   /* Pre Login/Heading H1 at the 360 frame — 32/42, tracking unchanged. */

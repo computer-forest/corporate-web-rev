@@ -159,7 +159,14 @@
 }
 
 @media (max-width: 767px) {
-  /* Pricing Plans 0:66157 — 40 of head room on mobile, not 24. */
+  /* Pricing Plans 0:66157 — the 360 frame runs the band from primary/50 at the
+     title down to a primary/200-deep floor under the third card, where the
+     wide page keeps one flat primary/50. */
+  .section {
+    background: linear-gradient(180deg, #f5f5fe 0%, #d6d5fc 100%);
+  }
+
+  /* 40 of head room on mobile, not 24. */
   .inner {
     padding: 40px var(--sb-gutter);
   }

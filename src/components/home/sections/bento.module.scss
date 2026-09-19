@@ -341,11 +341,38 @@
     display: contents;
   }
 
+  /* Margin Trdaing 0:43011 and its three siblings — 328x400 cards with a 12px
+     radius, a 1px primary/200 hairline, and a ground that holds white to 59%
+     before it runs to primary/300. The head sits at 23/23 in a 287 row, which
+     is the 18 of right padding below. */
   .card {
     position: sticky;
     top: calc(16px + var(--stack-index, 0) * 25px);
     height: 400px;
-    padding: 20px;
+    padding: 23px 18px 23px 23px;
+    border: 1px solid var(--sb-primary-200);
+    background-image: linear-gradient(
+      180deg,
+      #ffffff 59.06%,
+      var(--sb-primary-300) 100%
+    );
+  }
+
+  /* The 360 card's dot grid is not square: 19.8 across against 22.25 down. */
+  .dotted {
+    background-image: radial-gradient(
+        circle,
+        rgba(110, 103, 238, 0.28) 1px,
+        transparent 1px
+      ),
+      linear-gradient(180deg, #ffffff 59.06%, var(--sb-primary-300) 100%);
+    background-size: 19.8px 22.25px, 100% 100%;
+  }
+
+  /* Heading 6 0:3522 — Pre Login/Sub-heading SH2 Med, 18/24, no tracking, in
+     a 239 column 16 clear of the 32px arrow. */
+  .cardHead {
+    gap: 16px;
   }
 
   /* Each card triggers on its own arrival here, so the desktop wave's offsets
@@ -355,8 +382,11 @@
   }
 
   .cardTitle {
-    font-size: 20px;
-    line-height: 28px;
+    font-family: var(--sb-font-subheading);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: 0;
   }
 
   .arrow svg {

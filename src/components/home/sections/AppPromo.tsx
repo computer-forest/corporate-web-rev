@@ -14,8 +14,12 @@ export default function AppPromo() {
     <section className={styles.promo} aria-labelledby="app-promo-title">
       <div className={styles.card}>
         <div className={styles.copy}>
+          {/* The 360 card breaks the heading itself — "Stop Scrolling, /
+              Start investing!" — rather than letting it wrap. */}
           <h2 id="app-promo-title" className={styles.title}>
-            {FOOTER_CTA.title}
+            {FOOTER_CTA.title.split(" ").slice(0, 2).join(" ")}{" "}
+            <br className={styles.mobileBreak} />
+            {FOOTER_CTA.title.split(" ").slice(2).join(" ")}
           </h2>
           <p className={styles.body}>{FOOTER_CTA.body}</p>
           <Link href="/download-app" className={styles.cta}>

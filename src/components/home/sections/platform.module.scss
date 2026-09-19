@@ -41,6 +41,11 @@
   margin: 24px 0;
 }
 
+/* The authored heading break exists only under the mobile breakpoint. */
+.mobileBreak {
+  display: none;
+}
+
 .body {
   display: grid;
   grid-template-columns: 420fr 756fr;
@@ -205,6 +210,12 @@
     margin: 24px 0;
   }
 
+  .mobileBreak {
+    display: inline;
+  }
+
+  /* Plan Your Future Listing 0:59053 — a 184.5 visual over a 378 Tab List on
+     an 8 gap. */
   .body {
     gap: 8px;
   }
@@ -226,9 +237,27 @@
     order: 2;
   }
 
-  /* Container 0:59763 — 32 above the title, 24 under the copy, 10 either
-     side, and the 1px rule on the showing step. */
+  /* Tab List 0:59762 — three fixed 126-tall containers rather than the 425
+     column the 1440 frame splits three ways. Inside each, the title opens at
+     20 and the copy at 50, closing 16 above the next one. */
+  .steps {
+    height: auto;
+  }
+
   .steps li {
-    padding: 32px 10px 24px;
+    flex: none;
+    height: 126px;
+    padding: 20px 10px 16px;
+  }
+
+  .stepTitle {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 6px;
+  }
+
+  .stepBody {
+    font-size: 14px;
+    line-height: 20px;
   }
 }

@@ -153,6 +153,9 @@
    24 apart, and a 328 card. */
 @media (max-width: 767px) {
   .inner {
+    /* column 0:58755 — the 328 IPO cards sit 8 apart (x0 / 336), not the 16
+       the other 360 rails use. */
+    --rail-card-gap: 8px;
     padding: 40px var(--sb-gutter) 20px;
   }
 
@@ -160,8 +163,48 @@
     margin: 24px 0;
   }
 
+  /* IPO Card 0:58757 — a full 328 card, so the 82vw cap the wide rail uses to
+     let the next card peek has to come off; the rail's own bleed already
+     leaves the 8 of the next card showing. */
   .card {
     width: 328px;
+    max-width: none;
+  }
+
+  /* header 0:58758 is a 20-tall row that runs straight into the fact rows —
+     the 1440 card's rule under the name is not on the 360 one. */
+  .divider {
+    display: none;
+  }
+
+  /* header 0:58758 — a 20-tall row: the name sets 16/20 here rather than the
+     1440 card's 16/24, and the chip rides over it. */
+  .cardHead {
+    height: 20px;
+    align-items: center;
+  }
+
+  .name {
+    line-height: 20px;
+  }
+
+  .chip {
+    min-height: 23px;
+    padding: 2px 7px;
+  }
+
+  /* Frame 2147226082 0:58777 — two 40-tall rows 8 apart, each a 16-tall
+     subhead over a 20-tall title on a 4 gap. `dt` is bold in Bootstrap's
+     reboot, which the label is not. */
+  .facts > div {
+    height: 40px;
+    gap: 4px;
+  }
+
+  .facts dt {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
   }
 
   /* Buttons 0:58799 — one 296x36 Apply across the card. */
@@ -178,10 +221,12 @@
     min-height: 36px;
   }
 
+  /* Frame 2147226080 0:58806 — a 24-tall deadline over a 16-tall listing note
+     4 below it, the pair closing the card on its 16 of bottom padding. */
   .closing {
     display: block;
     margin: 0;
-    padding: 4px 10px;
+    padding: 1px 10px;
     border: 1px solid var(--sb-primary-pink);
     border-radius: var(--sb-radius-4);
     font-family: var(--sb-font-data);
@@ -193,12 +238,13 @@
 
   .cardBody {
     gap: 12px;
+    padding: 16px 16px 0;
   }
 
   /* On mobile the listing note sits on the card rather than on the tinted
      strip the 1440 card ends with. */
   .listing {
-    padding: 0 16px 16px;
+    padding: 4px 16px 16px;
     border: 0.5px solid var(--sb-stroke-default);
     border-top: 0;
     border-radius: 0 0 var(--sb-radius-16) var(--sb-radius-16);

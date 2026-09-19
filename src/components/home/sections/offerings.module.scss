@@ -37,6 +37,13 @@
   flex-direction: column;
 }
 
+/* The <picture> only exists to swap the mobile export in; it has to behave as
+   the block the card's column expects, not as an inline shrink-to-fit box. */
+.card picture {
+  display: block;
+  width: 100%;
+}
+
 /* The art tile clips to 12px; the illustration itself runs 220 square. */
 .art {
   display: block;

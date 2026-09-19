@@ -22,11 +22,6 @@ export default function StickyNudge() {
 
   return (
     <div className={`${styles.wrap} ${shown ? styles.shown : ""}`} aria-hidden={!shown}>
-      <button type="button" className={styles.thea} aria-label="Chat with THEA, our assistant">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/figma/sticky/thea.png" alt="" />
-      </button>
-
       <form className={styles.bar} onSubmit={(event) => event.preventDefault()}>
         <p className={styles.title}>{STICKY_NUDGE.title}</p>
         <input

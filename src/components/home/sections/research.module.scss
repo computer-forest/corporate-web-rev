@@ -110,10 +110,15 @@
     border-radius: 10px;
   }
 
-  /* Content 0:62768 — a 14/20 title 2 clear of a 12/16 date. */
+  /* Content 0:62768 — a 14/20 title 2 clear of a 12/16 date. The title keeps
+     both of its lines whether or not the copy fills them, which is what holds
+     every card's date on the frame's y423 and the card itself at 220:
+     154 + 8 + 40 + 2 + 16. */
   .title {
     flex: 0 0 auto;
+    min-height: 40px;
     margin-bottom: 2px;
+    overflow: hidden;
     font-size: 14px;
     line-height: 20px;
   }

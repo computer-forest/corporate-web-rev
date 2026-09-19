@@ -20,6 +20,7 @@ export default function OfferingsSection() {
           subtext="Financial solutions for more than just investing"
           href="#offerings"
           hrefLabel="All loans and insurance"
+          subtextBreakAfter={5}
         />
 
         <div className={styles.tabs}>
@@ -38,8 +39,12 @@ export default function OfferingsSection() {
               className={`${styles.card} ${card.mobileOrder === 1 ? styles.mobileFirst : ""}`}
               style={{ "--mobile-order": card.mobileOrder } as React.CSSProperties}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className={styles.art} src={card.art} alt="" aria-hidden="true" />
+              <picture>
+                {card.artMobile ? (
+                  <source media="(max-width: 767px)" srcSet={card.artMobile} />
+                ) : null}
+                <img className={styles.art} src={card.art} alt="" aria-hidden="true" />
+              </picture>
               <h3 className={styles.cardTitle}>{card.title}</h3>
               <p className={styles.cardBody}>
                 {card.lede}

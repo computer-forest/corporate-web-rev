@@ -230,6 +230,30 @@
   color: var(--sb-text-secondary);
 }
 
+/* Validation state. The frames carry no error styling of their own, so this
+   borrows the field's own stroke and the 12/16 of the help line: an invalid
+   input takes a red edge and the message sits where the help note does, which
+   is why the mobile note slot is a fixed 20 tall. */
+.field input[aria-invalid="true"] {
+  border-color: var(--sb-primary-pink);
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 20px;
+  margin: -4px 0 0;
+  font-family: var(--sb-font-body);
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--sb-primary-pink);
+}
+
+.helpError {
+  color: var(--sb-primary-pink);
+}
+
 /* Selection-List sits 8 below its FormField, not the 16 the stack uses. */
 .consent {
   display: flex;
@@ -362,6 +386,12 @@
   color: var(--sb-text-display);
 }
 
+/* Buttons 0:49629 — mobile-only arrow after the submit label. */
+.submitArrow {
+  display: none;
+  flex-shrink: 0;
+}
+
 .desktopOnly {
   display: inline;
 }
@@ -462,9 +492,11 @@
     align-items: stretch;
     /* Hero 3 0:43024 + Hero 2 0:49614 stack their blocks at their own
        offsets — the phone rides up under the headline and the watermark sits
-       over its foot — so the spacing is set per block, not by one gap. */
+       over its foot — so the spacing is set per block, not by one gap.
+       The 360 frame runs 148 (Hero 3 top) to 1202 (Hero 2 foot) = 1054, and
+       the form closes at 1024, which is the 30 of bottom padding here. */
     gap: 0;
-    padding: 24px var(--sb-gutter) 28px;
+    padding: 24px var(--sb-gutter) 30px;
     /* Faint dotted ground behind the mobile hero. */
     background-image: radial-gradient(circle, rgba(41, 32, 117, 0.06) 1px, transparent 1px);
     background-size: 16px 16px;
@@ -476,14 +508,22 @@
     gap: 8px;
   }
 
-  /* Hero Text 0:43024 — 328x124: a 40-tall lead, 4 clear of an 80 claim
-     window. Both are Heading H1 at 32/40, the lead Regular and the claims
-     SemiBold — not the 28/36 the rest of the mobile headings use. */
+  /* Hero Text 0:56202 — 328x124 on a 4 gap: a 40-tall lead over an 80 claim
+     window. Both set 32/40, but they are not the same face — the lead is
+     Typography/Family/Body (Inter) Regular and the claims are
+     Typography/Family/Pre Login/Heading (Poppins) SemiBold — and neither
+     carries the -1px tracking the desktop display sizes use. */
   .title {
     gap: 4px;
     font-size: 32px;
     line-height: 40px;
+    letter-spacing: 0;
     align-items: center;
+  }
+
+  .titleLead {
+    font-family: var(--sb-font-data);
+    font-weight: 400;
   }
 
   /* Claims are 80 tall (two 40 lines) on a 98 pitch, so the window is shorter
@@ -494,57 +534,102 @@
     --rotator-window: 80px;
   }
 
-  /* Mockup 0:49608 — a 360x500 box set at 121, against a headline that runs
-     to 148. The phone inside it is about 230 wide and stops well short of the
-     box's foot, which is where the watermark goes; this export is cropped to
-     the phone, so it is held to that width and the foot is the gap below. */
+  .rotatorItem {
+    letter-spacing: 0;
+  }
+
+  /* Mockup 0:49608 — the phone's dark bezel runs x 47..299 and y 174..517
+     inside the 360 frame. This export carries a small transparent margin of
+     its own (the bezel is 96.55% of its width, inset 1.72%, and 97.19% of its
+     height, inset 1.79%), so the box is sized and placed off those fractions
+     rather than off the bezel directly: 261.7 wide from x=42.5, opening at
+     y=167.7 — 19.7 under the 148 the headline closes at.
+
+     Held as percentages of the 328 column so the phone keeps its place in the
+     frame at every mobile width rather than pinning to the 360 canvas. */
   .mockup {
-    width: 100%;
-    max-width: 290px;
-    /* The frame's box starts at 121, under a headline that runs to 148, but
-       it opens with ~60 of clear space above the phone. This export is
-       cropped to the phone, so it starts where the headline ends. */
-    margin: 0 auto;
+    width: 79.8%;
+    max-width: none;
+    margin: 20px auto 0 8.1%;
   }
 
   .subtext {
     display: none;
   }
 
-  /* Form Section 0:56167 — 328x282 on a 16 gap. Inside each block the parts
-     sit 8 apart rather than the desktop's 12, and the type steps to 14/21,
-     which is also what takes the input from 44 to its 45 (21 + 22 + 2). */
+  /* Form Section 0:49616 — 328x282 on a 16 gap. Inside each block the parts
+     sit 8 apart rather than the desktop's 12, the type steps to 14/21 — which
+     is also what takes the input from 44 to its 45 (21 + 22 + 2) — and the
+     face is Typography/Family/Body (Inter), not the Poppins the marketing
+     copy around it uses. */
   .field {
     gap: 8px;
   }
 
   .field label,
-  .field input {
-    line-height: 21px;
-  }
-
-  /* Selection-List 0:56167 — a 20 checkbox, 10 clear of a 14/21 label. */
-  .consent {
+  .field input,
+  .field input::placeholder {
+    font-family: var(--sb-font-data);
     font-size: 14px;
     line-height: 21px;
   }
 
-  /* FormField is 102 — its 74 of title+input, 8, then a 20 help row. The
-     desktop pulls the help up 4 to close that gap; mobile does not. */
+  /* Selection-List 0:49627 — a 20 checkbox, 10 clear of a 14/21 label, and
+     the whole row sits 8 under FormField rather than the stack's 16. */
+  .consent {
+    font-family: var(--sb-font-data);
+    font-size: 14px;
+    line-height: 21px;
+    margin-top: -8px;
+  }
+
+  /* Help Container 0:49626 — 12/18 on text/tertiary, and Hero 2 sets it as
+     text alone: the note icon the 1440 frame puts in front of it is dropped. */
   .help {
     margin-top: 0;
+    font-family: var(--sb-font-data);
+    font-size: 12px;
+    line-height: 18px;
+    color: var(--sb-text-tertiary);
   }
 
-  /* TRADE & INVEST 0:49607 — one centred line, set just under the phone. */
+  .helpIcon {
+    display: none;
+  }
+
+  /* TRADE & INVEST 0:49607 — one 40/48 line of Post Login/Heading (Inter)
+     SemiBold at 20% opacity, 338 wide from x=11, opening at y=532 — 11 under
+     the foot of the mockup box. */
   .watermarks {
     justify-content: center;
-    gap: 10px;
-    margin-top: 0;
+    gap: 11px;
+    margin-top: 11px;
   }
 
+  /* TRADE & INVEST 0:49617 — 40/48 Inter across a 335 run. Figma paints the
+     ramp over the glyph box rather than the line box, so the same two stops
+     have to be pulled back past both of its edges to land the lettering on the
+     frame's lilac rather than the straight blush the line box gives it. */
   .watermark {
-    font-size: 40px;
+    font-family: var(--sb-font-data);
+    /* 40 on the 360 frame, where the pair runs 335 wide and bleeds 4 past the
+       gutter as the frame draws it. Narrower phones step it down so the bleed
+       stays that 4 rather than clipping letters off both ends. */
+    font-size: min(40px, 11.11vw);
     line-height: 48px;
+    background: linear-gradient(
+      0deg,
+      #d71e53 -69%,
+      var(--sb-primary-1000) 125%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  /* The ampersand stands 23 off TRADE and 15 off INVEST, not the single space
+     the concatenated label would set. */
+  .watermark:first-child {
+    word-spacing: 9px;
   }
 
   .watermark:first-child::after {
@@ -556,7 +641,10 @@
   }
 
   /* Stats 0:56185 — three 102x82 tiles 11 apart, opening 27 under the
-     watermark and closing 51 above the form. */
+     watermark and closing 53 above the form. Each tile is centred on 8 of
+     vertical padding with no gap: a 28.2 value over a 19.94 label, both
+     Typography/Family/Body (Inter), the label Regular — `dt` is bold in
+     Bootstrap's reboot, which this has to undo. */
   .kpis {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -569,19 +657,21 @@
   .kpi:nth-child(2),
   .kpi:nth-child(3) {
     min-width: 0;
-    height: auto;
-    padding: 12px 8px;
-    gap: 2px;
+    height: 82px;
+    padding: 8px 4px;
+    gap: 0;
     align-items: center;
     text-align: center;
   }
 
   .kpiValue {
-    height: auto;
+    height: 28.2px;
     font-size: 24px;
-    line-height: 32px;
+    line-height: 28.2px;
   }
 
+  /* Ratings 0:49621 — the 360 tile sets a 20px star 4 clear of the value,
+     where the 1440 row runs a 25.64 glyph hard against it. */
   .kpiRating {
     justify-content: center;
     gap: 4px;
@@ -594,18 +684,23 @@
 
   .kpiLogo {
     justify-content: center;
-    height: 32px;
+    height: 28.2px;
   }
 
+  /* The SBI mark is set to its own 19 here rather than the 28 the value row
+     gives it, which is the 51x18 the frame measures. */
   .kpiLogo img {
-    height: auto;
+    width: auto;
+    height: 33px;
     max-width: 100%;
   }
 
   .kpiLabel {
+    font-family: var(--sb-font-data);
+    font-weight: 400;
     white-space: normal;
     font-size: 12px;
-    line-height: 16px;
+    line-height: 19.94px;
   }
 
   .form {
@@ -613,11 +708,7 @@
     /* The desktop grid pins the form to the top of its track with align-self;
        on the mobile column that same rule keeps it at its content width. */
     align-self: stretch;
-    margin-top: 51px;
-  }
-
-  .consent {
-    margin-top: 0;
+    margin-top: 53px;
   }
 
   .fieldName {
@@ -634,5 +725,11 @@
 
   .mobileOnly {
     display: inline;
+  }
+
+  .submitArrow {
+    display: block;
+    width: 16px;
+    height: 16px;
   }
 }

@@ -140,6 +140,9 @@
     line-height: 42px;
   }
 
+  /* FAQ-item 0:66320 — a collapsed row is 16 either side of a 16/24 question;
+     0:66318 opens it to the 24 the expanded item uses, with the answer 16
+     under the question and the column held clear of the 24px toggle. */
   .question {
     padding: 16px 0;
     font-size: 16px;
@@ -147,15 +150,16 @@
   }
 
   .open .question {
-    padding: 16px 0 0;
+    padding: 24px 0 0;
   }
 
   .answer {
-    padding: 12px 0 16px;
+    padding: 16px 24px 24px 0;
   }
 
+  /* Pre Login/Body B2 Reg — 14/20 on text/secondary. */
   .answerText {
     font-size: 14px;
-    line-height: 22px;
+    line-height: 20px;
   }
 }

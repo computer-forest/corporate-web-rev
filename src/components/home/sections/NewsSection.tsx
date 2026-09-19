@@ -39,7 +39,13 @@ export default function NewsSection() {
       <div className={styles.inner}>
         <div className={styles.head}>
           <div>
-            <h2 className={styles.title}>{NEWS.title}</h2>
+            {/* The 360 frame breaks the heading itself — "Your daily /
+                market digest" — rather than letting it wrap to the column. */}
+            <h2 className={styles.title}>
+              {NEWS.title.split(" ").slice(0, 2).join(" ")}{" "}
+              <br className={styles.mobileBreak} />
+              {NEWS.title.split(" ").slice(2).join(" ")}
+            </h2>
             <p className={styles.subtext}>{NEWS.subtext}</p>
           </div>
           <Link href="#news" className={styles.arrow} aria-label="All market news">

@@ -28,6 +28,8 @@ export default function PurposeSection() {
           subtext={PURPOSE.subtext}
           href="#goals"
           hrefLabel="All investment goals"
+          titleBreakAfter={2}
+          subtextBreakAfter={7}
         />
 
         <ul className={styles.grid}>

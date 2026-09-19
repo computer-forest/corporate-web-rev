@@ -68,8 +68,19 @@ export default function PlatformSection() {
     <section className={styles.section}>
       <div className={styles.inner}>
         <header className={styles.head}>
-          <h2 className={styles.title}>{PLATFORM.title}</h2>
-          <p className={styles.subtext}>{PLATFORM.subtext}</p>
+          {/* Title + sutext 0:59051 — the 360 frame sets its own breaks,
+              "Next-gen / Investment Platform" over "Trade, invest, and grow —
+              all in / one place", rather than wrapping to the 328 column. */}
+          <h2 className={styles.title}>
+            {PLATFORM.title.split(" ")[0]}{" "}
+            <br className={styles.mobileBreak} />
+            {PLATFORM.title.split(" ").slice(1).join(" ")}
+          </h2>
+          <p className={styles.subtext}>
+            {PLATFORM.subtext.split(" ").slice(0, 7).join(" ")}{" "}
+            <br className={styles.mobileBreak} />
+            {PLATFORM.subtext.split(" ").slice(7).join(" ")}
+          </p>
         </header>
 
         <div className={styles.tabs}>

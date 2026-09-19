@@ -13,6 +13,8 @@ interface SbButtonProps {
   onClick?: () => void;
   /** Stretch to the width of the containing column. */
   block?: boolean;
+  /** Submit buttons hold themselves shut while their form is in flight. */
+  disabled?: boolean;
   className?: string;
 }
 
@@ -28,6 +30,7 @@ export default function SbButton({
   type = "button",
   onClick,
   block = false,
+  disabled = false,
   className,
 }: SbButtonProps) {
   const classes = [styles.button, styles[variant], styles[size]];
@@ -44,7 +47,13 @@ export default function SbButton({
   }
 
   return (
-    <button type={type} className={joined} onClick={onClick}>
+    <button
+      type={type}
+      className={joined}
+      onClick={onClick}
+      disabled={disabled}
+      aria-disabled={disabled || undefined}
+    >
       {children}
     </button>
   );

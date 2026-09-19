@@ -13,21 +13,22 @@ import ButtonLoader from "@/components/common/ButtonLoader/ButtonLoader";
 import CheckboxField from "@/components/forms/CheckboxField/CheckboxField";
 import InputField from "@/components/forms/InputField/InputField";
 
-import { getApiErrorMessage } from "@/services/api/apiErrorHandler";
-import { submitDematLead } from "@/services/demat/dematAccount.service";
-import { showErrorToast } from "@/services/toast/toast.service";
-import { getJunkNames } from "@/services/validation/validationData.service";
-
 import {
-    getDematAttributionData,
-    getDeviceType,
-} from "@/utils/dematAttribution.utils";
-import { buildDematRedirectUrl } from "@/utils/dematRedirect.utils";
+    normalizeFullNameInput,
+    normalizeMobileNumberInput,
+} from "@/utils/dematFormInput.utils";
+import { useDematLeadSubmit } from "@/utils/useDematLeadSubmit";
 
 import {
     dematAccountFormSchema,
     type DematAccountFormValues,
 } from "@/validations/forms/dematAccountForm.schema";
+
+const EMPTY_FORM: DematAccountFormValues = {
+    fullName: "",
+    mobileNumber: "",
+    consent: false,
+};
 
 export default function DematAccountForm() {
     const {
@@ -44,12 +45,16 @@ export default function DematAccountForm() {
         resolver: zodResolver(
             dematAccountFormSchema
         ),
-        defaultValues: {
-            fullName: "",
-            mobileNumber: "",
-            consent: false,
-        },
+        defaultValues: EMPTY_FORM,
         mode: "onTouched",
+    });
+
+    const onSubmit: SubmitHandler<
+        DematAccountFormValues
+    > = useDematLeadSubmit({
+        setError,
+        reset,
+        defaultValues: EMPTY_FORM,
     });
 
     const fullNameRegistration = register(
@@ -58,13 +63,11 @@ export default function DematAccountForm() {
             onChange: (
                 event: ChangeEvent<HTMLInputElement>
             ) => {
-                const normalizedValue = event.target.value
-                    .replace(/[^a-zA-Z\s]/g, "")
-                    .replace(/^\s+/, "")
-                    .replace(/\s+/g, " ")
-                    .toUpperCase();
+                event.target.value =
+                    normalizeFullNameInput(
+                        event.target.value
+                    );
 
-                event.target.value = normalizedValue;
                 clearErrors("fullName");
             },
         }
@@ -76,123 +79,13 @@ export default function DematAccountForm() {
             onChange: (
                 event: ChangeEvent<HTMLInputElement>
             ) => {
-                const normalizedValue = event.target.value
-                    .replace(/\D/g, "")
-                    .replace(/^[^6-9]+/, "")
-                    .slice(0, 10);
-
-                event.target.value = normalizedValue;
+                event.target.value =
+                    normalizeMobileNumberInput(
+                        event.target.value
+                    );
             },
         }
     );
-
-    const onSubmit: SubmitHandler<
-        DematAccountFormValues
-    > = async (formValues) => {
-        let popupReference: Window | null = null;
-
-        try {
-            /*
-             * Open the tab directly from the user's submit
-             * action so browsers do not block the redirect
-             * after the asynchronous API request.
-             */
-            popupReference = window.open("", "_blank");
-
-            if (popupReference) {
-                popupReference.opener = null;
-            }
-
-            const junkNames = await getJunkNames();
-
-            const normalizedFullName = formValues.fullName.trim().toLowerCase();
-
-            const isRestrictedName = junkNames.includes(normalizedFullName);
-
-            if (isRestrictedName) {
-                if (popupReference && !popupReference.closed) {
-                    popupReference.close();
-                }
-
-                setError(
-                    "fullName",
-                    {
-                        type: "validate",
-                        message:
-                            "Please enter a valid full name.",
-                    },
-                    {
-                        shouldFocus: true,
-                    }
-                );
-
-                return;
-            }
-
-            const attribution =
-                getDematAttributionData();
-
-            const result = await submitDematLead({
-                formValues,
-                attribution,
-                landingPageLink: window.location.href,
-                deviceType: getDeviceType(),
-            });
-
-            if (!result.success || !result.status) {
-                if (
-                    popupReference &&
-                    !popupReference.closed
-                ) {
-                    popupReference.close();
-                }
-
-                showErrorToast(result.message);
-                return;
-            }
-
-            const redirectUrl = buildDematRedirectUrl({
-                fullName: formValues.fullName,
-                mobileNumber:
-                    formValues.mobileNumber,
-                status: result.status,
-                attribution,
-            });
-
-            reset({
-                fullName: "",
-                mobileNumber: "",
-                consent: false,
-            });
-
-            if (
-                popupReference &&
-                !popupReference.closed
-            ) {
-                try {
-                    popupReference.location.href =
-                        redirectUrl;
-
-                    return;
-                } catch {
-                    popupReference.close();
-                }
-            }
-
-            window.location.assign(redirectUrl);
-        } catch (error: unknown) {
-            if (
-                popupReference &&
-                !popupReference.closed
-            ) {
-                popupReference.close();
-            }
-
-            showErrorToast(
-                getApiErrorMessage(error)
-            );
-        }
-    };
 
     return (
         <form

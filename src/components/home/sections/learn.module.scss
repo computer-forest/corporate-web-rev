@@ -60,7 +60,13 @@
 }
 
 @media (max-width: 767px) {
-  /* Learn & Educate 0:66064 — 40 of head room on mobile, not 24. */
+  /* Learn & Educate 0:66064 — the 360 frame grounds the band in primary/50
+     rather than the wide page's neutral/50. */
+  .section {
+    background: var(--sb-surface-tertiary);
+  }
+
+  /* 40 of head room on mobile, not 24. */
   .inner {
     padding: 40px var(--sb-gutter);
   }
@@ -84,12 +90,15 @@
     margin-bottom: 16px;
   }
 
-  /* 0:66076 / 0:66077 — a 16/21 title over a 14/20 date. */
+  /* 0:66076 / 0:66077 — Body B2 Reg 16/24 over a 14/20 date. B2 is the shared
+     Inter family, not the Poppins the pre-login headings use: at 16 the two
+     differ by about 6% of measure, which is the difference between "patterns
+     that" landing on the first line, as the frame sets it, and wrapping. */
   .link h3 {
-    font-family: var(--sb-font-body);
+    font-family: var(--sb-font-data);
     font-weight: 400;
     font-size: 16px;
-    line-height: 21px;
+    line-height: 24px;
   }
 
   .date {

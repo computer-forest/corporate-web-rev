@@ -59,6 +59,7 @@ export default function ResearchSection() {
           title="Analysis you can trust"
           href="#research-reports"
           hrefLabel="All research reports"
+          titleBreakAfter={2}
         />
 
         <div className={styles.tabs}>

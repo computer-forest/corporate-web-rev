@@ -399,6 +399,8 @@
     display: block;
   }
 
+  /* Testimonial card 0:66114 — the 360 frame drops the deck's white card and
+     hairline for a flat primary/50 tile, so the rail reads as one tone. */
   .card {
     position: relative;
     left: auto;
@@ -408,18 +410,35 @@
     height: 288px;
     padding: 24px;
     scroll-snap-align: start;
-    background: var(--sb-neutral-00);
-    border-width: 1px;
+    background: var(--sb-surface-tertiary);
+    border-width: 0;
     border-radius: var(--sb-radius-12);
     box-shadow: none;
     transition: none;
     z-index: auto;
   }
 
+  /* Paragraph 0:66115 — a fixed 211x168 measure of 14/21, so a longer quote
+     is clipped rather than pushing the rule and the author out through the
+     foot of the 288-tall card. */
+  .card blockquote {
+    height: 168px;
+    overflow: hidden;
+  }
+
+  /* Paragraph 0:66115 — Body B3 Reg 14/20 on text/primary, set in the shared
+     Inter rather than the deck's Poppins H5, and without its display indigo. */
   .card blockquote p {
-    font-size: 16px;
-    line-height: 24px;
+    font-family: var(--sb-font-data);
+    font-size: 14px;
+    line-height: 20px;
     letter-spacing: 0;
+    color: var(--sb-text-primary);
+  }
+
+  /* Line 0:66116 — 20 under the measure and 20 above Sub Container. */
+  .cardRule {
+    margin: 20px 0 19px;
   }
 
   /* Sub Container 0:66117 — a 32 avatar on a 12 gap, 211 wide. */

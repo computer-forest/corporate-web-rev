@@ -18,8 +18,7 @@
   transform: none;
 }
 
-.shown .bar,
-.shown .thea {
+.shown .bar {
   pointer-events: auto;
 }
 
@@ -78,43 +77,6 @@
   outline-offset: 1px;
 }
 
-/* Thea 0:64983 — 92 square, sitting on the top edge at the far right. A white
-   disc with a hairline and two offset shadows, one down-right and a larger,
-   softer one up-left, which is what gives it its raised look. */
-.thea {
-  position: absolute;
-  /* 19px inside the bar's right edge, so it overhangs it by 73 as in Figma. */
-  left: min(calc(50% + 604px), calc(100% - 108px));
-  bottom: calc(100% - 2px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 92px;
-  height: 92px;
-  padding: 0;
-  border: 0.89px solid var(--sb-card-stroke);
-  border-radius: 50%;
-  background: var(--sb-neutral-00);
-  overflow: hidden;
-  cursor: pointer;
-  box-shadow:
-    3.561px 3.561px 3.561px 0 rgba(0, 0, 0, 0.1),
-    -5.341px -5.341px 10.682px 0 rgba(0, 0, 0, 0.1);
-}
-
-/* image 170 — 71.214x77.445 inside the 92 box, so the mark sits within the
-   disc rather than being cropped by it. Stated in px, not percentages: those
-   resolve against the content box, which the 0.89 border has already shrunk.
-   Figma centres it, then lifts it 0.4px. */
-.thea img {
-  display: block;
-  width: 71.214px;
-  height: 77.445px;
-  transform: translateY(-0.4px);
-  object-fit: cover;
-  border-radius: 36.153px;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .wrap {
     transition: none;
@@ -151,24 +113,34 @@
      sitting in the gutter, so the 16 is padding, not an inset. */
   .bar {
     flex-wrap: nowrap;
+    justify-content: center;
     gap: 8px;
     width: 100%;
     max-width: none;
     padding: 16px;
+    /* The 360 bar is not the 1440 bar's straight indigo-to-pink sweep: it runs
+       out of indigo into a muted magenta that stops well short of
+       primary/pink, which is what the frame's own two-layer fill resolves to
+       across the 328 of content. */
+    background: linear-gradient(90deg, #292075 0%, #901f62 50%, #a61f5d 100%);
   }
 
-  /* Bar Text 0:66332 — 182x20, set on one line. Letting it wrap is what took
-     the bar past the frame's 68. */
+  /* Bar Text 0:66332 — Mobile/Body/B3 Med, 14/20 Inter, held on one line so
+     the 138 button beside it keeps its track. */
   .title {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
+    font-family: var(--sb-font-data);
+    font-weight: 500;
     font-size: 14px;
     line-height: 20px;
     white-space: nowrap;
   }
 
+  /* Buttons 0:66333 takes the rest of the 328 row — 138 beside the 182 line
+     and the 8 between them, not the width of its own label. */
   .bar > a,
   .bar > button {
-    flex: 0 0 auto;
+    flex: 1 0 0;
     height: 36px;
     min-height: 36px;
   }
@@ -176,20 +148,5 @@
   /* The mobile nudge is just the line and the button — Bottom Nav, 0:54437. */
   .bar input {
     display: none;
-  }
-
-  /* Bottom NAv 0:66329 — the badge is 58 square on mobile, not the 60 that was
-     guessed before the mobile file existed. */
-  .thea {
-    left: auto;
-    right: 16px;
-    width: 58px;
-    height: 58px;
-  }
-
-  /* The mark scales with the badge — 92:58 of each side. */
-  .thea img {
-    width: 44.89px;
-    height: 48.82px;
   }
 }
