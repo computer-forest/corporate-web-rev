@@ -29,6 +29,7 @@ export default function OfferingsSection() {
             active={tab}
             onChange={setTab}
             label="Loans or insurance"
+            onTint
           />
         </div>
 
@@ -49,8 +50,9 @@ export default function OfferingsSection() {
               <p className={styles.cardBody}>
                 {card.lede}
                 <br />
-                {card.highlightLead}
-                <strong>{card.highlight}</strong>
+                {card.detail.map((run, i) =>
+                  run.bold ? <strong key={i}>{run.text}</strong> : <span key={i}>{run.text}</span>,
+                )}
               </p>
               <SbButton block>
                 <span className={styles.desktopOnly}>{card.cta}</span>

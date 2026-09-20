@@ -21,7 +21,12 @@ export default function AppPromo() {
             <br className={styles.mobileBreak} />
             {FOOTER_CTA.title.split(" ").slice(2).join(" ")}
           </h2>
-          <p className={styles.body}>{FOOTER_CTA.body}</p>
+          {/* The 360 card words this line differently; swapped in CSS, as
+              Bento's sub-heading and the hero's field labels are. */}
+          <p className={styles.body}>
+            <span className={styles.desktopOnly}>{FOOTER_CTA.body}</span>
+            <span className={styles.mobileOnly}>{FOOTER_CTA.bodyMobile}</span>
+          </p>
           <Link href="/download-app" className={styles.cta}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/figma/footer/download.svg" alt="" width={16} height={16} />

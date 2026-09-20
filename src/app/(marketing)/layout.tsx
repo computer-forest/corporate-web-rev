@@ -4,32 +4,36 @@ import Footer from "@/components/layout/Footer/Footer";
 import Header from "@/components/layout/Header/Header";
 import ValidationDataInitializer from "@/components/common/ValidationDataInitializer/ValidationDataInitializer";
 import { isProduction } from "@/config/app.config";
-import { getHeaderContent } from "@/server/cms/siteChrome";
+import { getSiteChrome } from "@/server/cms/siteChrome";
 
 /**
- * Async, so the header's copy is read on the server and handed to the bar as
- * props. Header keeps its "use client" marker and all of its behaviour — the
- * menu, the search field, the ⌘K shortcut — it simply stops importing its own
- * copy. Nothing fetches in the browser.
+ * Async, so the chrome's copy is read on the server and handed to the header
+ * and footer as props. Both keep their "use client" markers and all of their
+ * behaviour — the dropdowns, the search field, the ⌘K shortcut, the mobile
+ * accordions — they simply stop importing their own copy. Nothing fetches in
+ * the browser.
  */
 export default async function MarketingLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const header = await getHeaderContent();
+  /* One read for both: the header and the footer come from the same
+     /api/public/site document, so fetching it twice per page would double
+     the CMS's load for nothing. */
+  const chrome = await getSiteChrome();
 
   return (
     <>
       <ValidationDataInitializer />
-      <Header content={header} />
+      <Header content={chrome.header} />
       <AccessibilitySidebar />
 
       <main id="main-content" tabIndex={-1}>
         {children}
       </main>
 
-      <Footer />
+      <Footer content={chrome.footer} />
       {isProduction && <SalesforceChatbot />}
     </>
   );

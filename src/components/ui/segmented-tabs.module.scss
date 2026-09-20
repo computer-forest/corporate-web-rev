@@ -61,11 +61,36 @@
      543 wide and scroll (0:66071), so the tabs grow to fill the column but
      never shrink below their labels, which lets that one overflow instead. */
   .track {
-    width: var(--tabs-width, 100%);
+    /* The column, not --tabs-width: that variable carries the desktop
+       instance's 370 and is always set, so reading it here left the track
+       stuck at 370 once the column outgrew it — from about 402 up the tabs
+       stopped short of the cards they head. Learn still overflows and
+       scrolls, since its four labels do not shrink to fit either width. */
+    width: 100%;
     max-width: 100%;
   }
 
   .tab {
     flex: 1 0 auto;
+  }
+
+  /* Fund It, Protect It sits on the lilac-to-blush ground rather than on
+     surface/secondary, and its Segmented Tabs instance answers by swapping
+     the two fills: sampling 0:58386 and 0:97262 across the track reads
+     #f7fbff either side of a #ffffff chip hairlined in #ccd9e8, where IPOs
+     0:58747 reads the default #ffffff track around an #f7fbff chip. */
+  .onTint {
+    background: var(--sb-surface-secondary);
+  }
+
+  .onTint .active {
+    background: var(--sb-neutral-00);
+  }
+
+  /* Its two segments also halve the track — 18..179 and 180..341 inside the
+     328 frame, 162 each — instead of taking their label's width and sharing
+     what is left, which is what leaves "Loans" 13px short of "Insurance". */
+  .onTint .tab {
+    flex: 1 1 0;
   }
 }

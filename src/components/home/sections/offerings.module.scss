@@ -55,21 +55,30 @@
   margin-bottom: 12px;
 }
 
-/* Pre Login/Sub-heading SH1 Med — 20/28, indigo. */
+/* Pre Login/Sub-heading SH1 Med — 20/28, indigo.
+
+   Typography/Family/Body, not Pre Login — so Inter, as sbi-home.scss records
+   for the shared Pre + Post library. Measured off the renders rather than
+   assumed: "Education Loan" inks 132 wide at 18/600 in Figma against 134.4
+   for Inter and 140.2 for Poppins, and the card bodies part the same way
+   (Figma 256 / Inter 259.2 / Poppins 272.5). The 6% Poppins carries is what
+   pushed Life Insurance 0:97397 and Term 0:97606 onto a line the Figma text
+   nodes do not have — 328.2 and 339.8 against a 328 column. */
 .cardTitle {
   margin: 0 0 12px;
-  font-family: var(--sb-font-subheading);
+  font-family: var(--sb-font-data);
   font-weight: 500;
   font-size: 20px;
   line-height: 28px;
   color: var(--sb-text-display);
 }
 
-/* Pre Login/Body B2 Reg — 16/24 on text/secondary. */
+/* Pre Login/Body B2 Reg — 16/24 on text/secondary. Inter, for the reason
+   .cardTitle above sets out. */
 .cardBody {
   flex: 1;
   margin: 0 0 12px;
-  font-family: var(--sb-font-body);
+  font-family: var(--sb-font-data);
   font-size: 16px;
   line-height: 24px;
   color: var(--sb-text-secondary);
@@ -117,9 +126,16 @@
   }
 
   /* Card 0:58396 — 344 tall: 205 of art, 12, a 70 text block, 12, a 45 button.
-     The text block is its own 22 + 8 + 40. */
+     The text block is its own 22 + 8 + 40.
+
+     The tile is 328x205 at the 360 frame, carried as the ratio rather than as
+     a flat 205 so it keeps that shape across the range: pinned, `contain`
+     letterboxes the illustration inside a tile that never narrows with the
+     column, which at 320 leaves it 25px shy of the tile it is drawn in. */
   .art {
-    height: 205px;
+    height: auto;
+    max-height: none;
+    aspect-ratio: 328 / 205;
     margin-bottom: 12px;
   }
 

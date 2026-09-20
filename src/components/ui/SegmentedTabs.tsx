@@ -10,6 +10,14 @@ interface SegmentedTabsProps {
   label: string;
   /** The track width the Figma instance is sized to — 370 on most sections. */
   width?: number;
+  /**
+   * The variant Figma uses on a tinted section ground. Below 767 it inverts
+   * the fills — track on surface/secondary, the active chip white — and
+   * splits the track into equal segments rather than sizing each to its
+   * label. Fund It, Protect It (Segmented Tabs 0:58394 / 0:97270) is the one
+   * instance that reads this way; IPOs 0:58757 keeps the default both ways.
+   */
+  onTint?: boolean;
 }
 
 /**
@@ -22,10 +30,11 @@ export default function SegmentedTabs({
   onChange,
   label,
   width = 370,
+  onTint = false,
 }: SegmentedTabsProps) {
   return (
     <div
-      className={styles.track}
+      className={`${styles.track} ${onTint ? styles.onTint : ""}`}
       role="tablist"
       aria-label={label}
       style={{ "--tabs-width": `${width}px` } as React.CSSProperties}

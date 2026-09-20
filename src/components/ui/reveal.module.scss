@@ -1,0 +1,35 @@
+/* The 0fr -> 1fr grid row is what carries the height: an `auto` row cannot be
+   transitioned, and a max-height stand-in has to guess a ceiling that then
+   drives the easing rather than the content doing it. */
+.reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 280ms ease,
+    opacity 180ms ease;
+}
+
+.open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+/* Both are needed: `overflow` clips the content the closed row no longer has
+   room for, and `min-height: 0` stops the grid item taking its min-content
+   height as a floor, which would hold the row open at the content's height. */
+.inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Ordered after .open so it wins over both states. */
+.instant {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+  }
+}

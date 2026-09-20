@@ -72,6 +72,19 @@
   color: var(--sb-text-display);
   text-align: left;
   cursor: pointer;
+  /* Matched to the answer's reveal, so the row grows as one movement rather
+     than snapping to its open padding ahead of the answer. */
+  transition: padding 280ms ease;
+}
+
+.question:focus-visible {
+  outline: 2px solid var(--sb-stroke-hover);
+  outline-offset: -2px;
+  border-radius: var(--sb-radius-8);
+}
+
+.questionText {
+  min-width: 0;
 }
 
 /* Opening the row lifts the padding to the 24 the expanded item uses. */
@@ -79,11 +92,43 @@
   padding: 24px 24px 0;
 }
 
+/* The two glyphs are stacked so neither reserves width from the other, and
+   the box keeps the 24 the Figma gives the toggle. */
 .sign {
+  position: relative;
   flex-shrink: 0;
   display: block;
   width: 24px;
   height: 24px;
+}
+
+.sign img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 24px;
+  height: 24px;
+  transition: opacity 180ms ease;
+}
+
+/* plus first, minus second — the open row shows the minus. */
+.sign img:last-child {
+  opacity: 0;
+}
+
+.open .sign img:first-child {
+  opacity: 0;
+}
+
+.open .sign img:last-child {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .question,
+  .sign img {
+    transition: none;
+  }
 }
 
 /* Pre Login/Body B2 Reg — 16/24, 16 below the question. The extra right inset

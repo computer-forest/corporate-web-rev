@@ -16,6 +16,9 @@
 
 $indigo: #292075;
 $line: #97abc3;
+/* stroke/default — the dash a shut accordion row and the stocks index close
+   on, against the #ccd9e8 text/secondary an open row uses. */
+$rule-shut: #61799b;
 $on-dark: #f7fbff;
 $muted: #ccd9e8;
 
@@ -394,10 +397,13 @@ $muted: #ccd9e8;
 /* --- mobile --------------------------------------------------------------- */
 
 @media (max-width: 767px) {
-  /* Footer 0:66328 on the 360 frame — the logo lands 66 below the band's top
-     edge and the legal block closes 48 above its foot. */
+  /* Footer 0:66328 on the 360 frame. The band's own top is y=675 — the 16
+     above that belongs to the rounded cap the frame draws over the promo
+     card, not to this element — so the logo's 735 is 60 down, and the legal
+     block's 2058.43 closes 40 above the band's 2098.43 foot. Measuring both
+     from the cap's 659 instead is what put them 6 and 8 out. */
   .siteFooter {
-    padding: 66px 16px 48px;
+    padding: 60px 16px 40px;
   }
 
   /* The contact block and the two lead groups run back to back, with the
@@ -441,10 +447,19 @@ $muted: #ccd9e8;
   /* Divider I0:66328 — a solid neutral/200 rule 8 under the e-mail row, with
      Connect with us 21 below it. */
   .social {
-    gap: 16px;
+    gap: 24px;
     margin-top: 4px;
     padding-top: 19px;
     border-top: 1px solid $muted;
+  }
+
+  /* Social media handles 0:21366 — a fixed 178 box spreading its five 24px
+     glyphs, so the run ends on the frame's 310 rather than on the column's
+     328 the way an even gap would leave it. */
+  .socialList {
+    justify-content: space-between;
+    width: 178px;
+    gap: 0;
   }
 
   /* The chip's fill sits further down the primary/50-to-primary/300 ramp on
@@ -463,13 +478,62 @@ $muted: #ccd9e8;
 
   /* Frame 2147226064 — the nine groups run as one stacked accordion, so the
      five-column grid and the gaps between columns both go. */
-  .primaryGroups,
-  .columns {
+  .primaryGroups {
     display: block;
   }
 
+  /* The stack does not read the wide band's columns top-to-bottom. Frame
+     2147226064 runs Calculators, Loans, Insurances, Markets, Learning Centre,
+     Support & Company, Useful Links — the two short groups pulled up behind
+     Calculators — where reading column by column gives Calculators, Markets,
+     Loans, Learning Centre, Insurances. `order` can only sort siblings, and
+     the groups are two levels down, so the columns hand their children
+     straight to this flex run and the run sorts them.
+
+     Keyed to the column shape rather than to the groups themselves, the way
+     .primaryGroups' own swap below is: the order lives in the five-column
+     layout the CMS returns, and a group carries nothing that states where the
+     360 frame wants it. Moving a group between columns means revisiting this. */
   .columns {
+    display: flex;
+    flex-direction: column;
+    /* The wide band's 24 between columns would become 24 between every row
+       once this is a single column; the rows run back to back here and are
+       separated by the dashed rule each one draws for itself. */
+    gap: 0;
     margin-top: 0;
+  }
+
+  .column {
+    display: contents;
+  }
+
+  .column:nth-child(1) > .group {
+    order: 1;
+  }
+
+  .column:nth-child(2) > .group:nth-child(1) {
+    order: 4;
+  }
+
+  .column:nth-child(2) > .group:nth-child(2) {
+    order: 2;
+  }
+
+  .column:nth-child(3) > .group:nth-child(1) {
+    order: 5;
+  }
+
+  .column:nth-child(3) > .group:nth-child(2) {
+    order: 3;
+  }
+
+  .column:nth-child(4) > .group {
+    order: 6;
+  }
+
+  .column:nth-child(5) > .group {
+    order: 7;
   }
 
   /* Footer accordian I0:66328;18333:22243 — the dashed rule closes each group
@@ -492,7 +556,7 @@ $muted: #ccd9e8;
   .groupClosed {
     background-image: repeating-linear-gradient(
       to right,
-      #{$line} 0 2px,
+      #{$rule-shut} 0 2px,
       rgba(255, 255, 255, 0) 2px 4px
     );
   }
@@ -515,7 +579,7 @@ $muted: #ccd9e8;
     background: none;
     font: inherit;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 20px;
     letter-spacing: 0;
     text-transform: uppercase;
@@ -545,9 +609,10 @@ $muted: #ccd9e8;
     display: none;
   }
 
-  /* Every group closes on 12 of clearance above its rule. */
+  /* Every group closes on the same 13 a shut row does — 0:21396 is 12/13
+     around its content, and taking 12 here left each open row 1px short. */
   .groupLinks {
-    padding: 0 0 12px;
+    padding: 0 0 13px;
   }
 
   /* The ten Trade & Invest labels are set two abreast rather than ten deep;
@@ -563,14 +628,14 @@ $muted: #ccd9e8;
      the wide band runs 14/20. */
   .primaryGroups .groupLinks li,
   .groupLinks li {
-    padding: 2px 0;
+    padding: 4px 0;
     font-size: 12px;
-    line-height: 20px;
+    line-height: 16px;
   }
 
   .link {
     font-size: 12px;
-    line-height: 20px;
+    line-height: 16px;
   }
 
   /* Open Demat Account leads the stack on mobile; the wide footer sets it
@@ -606,19 +671,34 @@ $muted: #ccd9e8;
     border-top: 1px solid $muted;
   }
 
+  /* The index is the tenth row of the accordion on this frame — Footer
+     accordian I0:66328;18333:22248, 240.43 tall — not a band of its own: the
+     same 12 above the title and 13 under the grid, running straight on from
+     Useful Links with no gap, and closing on the neutral/300 dash a shut row
+     draws. Its chevron is the one the frame hides. */
   .stocks {
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
-    margin-top: 12px;
+    gap: 8px;
+    margin-top: 0;
+    padding: 12px 0 13px;
+    background-image: repeating-linear-gradient(
+      to right,
+      #{$rule-shut} 0 2px,
+      rgba(255, 255, 255, 0) 2px 4px
+    );
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    background-position: left bottom;
   }
 
   /* The index title is set like the accordion rows, not like the wide band's
-     medium 16. */
+     medium 16 — Section Title is a 20-tall box, so the 24 leading the wide
+     band uses would push the grid under it 4 low. */
   .stocksHeading {
     font-size: 14px;
-    font-weight: 400;
-    line-height: 24px;
+    font-weight: 500;
+    line-height: 20px;
   }
 
   /* Frame 2147226084 — 28 entries on a seven-wide grid of 46.857 squares. The
@@ -641,7 +721,7 @@ $muted: #ccd9e8;
     width: 100%;
     padding: 0;
     font-size: 12px;
-    line-height: 20px;
+    line-height: 16px;
     color: #ffffff;
   }
 
@@ -651,15 +731,23 @@ $muted: #ccd9e8;
     display: none;
   }
 
+  /* Container I0:66328;18333:22311 opens 16 under the index's dashed closer,
+     the same clearance the rows keep between themselves, and sets its five
+     blocks 14 apart rather than on the wide band's 16/20 margins. */
   .legal {
-    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 16px;
   }
 
-  /* Registration Info I0:66328;18333:22312 — 328x32 for two lines, so 16, and
-     a dimmer neutral/200 than the link band above it. */
-  .legal p {
+  /* Registration Info I0:66328;18333:22312 — B4 12/16 throughout, every block
+     on the same neutral/200 at 70%, the registration pair included. */
+  .legal p,
+  .legalTight {
+    margin: 0;
     font-size: 12px;
     line-height: 16px;
-    color: rgba(204, 217, 232, 0.72);
+    color: rgba(204, 217, 232, 0.7);
   }
 }

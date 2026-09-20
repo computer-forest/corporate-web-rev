@@ -84,6 +84,14 @@
   display: none;
 }
 
+.desktopOnly {
+  display: inline;
+}
+
+.mobileOnly {
+  display: none;
+}
+
 /* The handset comes from node I0:64968;18563:5387;18563:5348, which is a chain
    rather than a plain image: a 724x651 window pinned to the card's bottom edge
    and reaching 260 above it, holding a 593.305x817.397 frame turned -4.78deg,
@@ -191,6 +199,11 @@
 
   .card {
     height: auto;
+    /* The card takes the gutter's column rather than --sb-content's flat 328.
+       Everything inside it is a share of the card, so it already scaled down
+       at 320 — the cap only bit going the other way, freezing the card at 328
+       from 360 up while the sections either side of it kept widening. */
+    max-width: none;
     aspect-ratio: 328 / 619;
     padding: 27px 11.5px 0;
     overflow: hidden;
@@ -204,7 +217,7 @@
       #b00a80 6.622%,
       #801f64 31.813%,
       #58227e 65.906%,
-      var(--sb-primary-900) 100%
+      var(--sb-primary-1000) 100%
     );
   }
 
@@ -227,9 +240,21 @@
     display: inline;
   }
 
+  .desktopOnly {
+    display: none;
+  }
+
+  .mobileOnly {
+    display: inline;
+  }
+
+  /* Both lines of copy are primary/50 on the 360 card, not the flat white the
+     wide one uses — the heading inks #f6f6ff in the render, the same as the
+     paragraph under it. */
   .title {
     font-size: 32px;
     line-height: 42px;
+    color: var(--sb-primary-50);
   }
 
   .body {

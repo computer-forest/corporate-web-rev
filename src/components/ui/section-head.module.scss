@@ -78,10 +78,6 @@
     gap: var(--sh-gap, 24px);
   }
 
-  .mobileBreak {
-    display: inline;
-  }
-
   /* Pre Login/Heading H1 at the 360 frame — 32/42, tracking unchanged. */
   .title {
     font-size: 32px;
@@ -96,5 +92,18 @@
   .arrow svg {
     width: 32px;
     height: 32px;
+  }
+}
+
+/* The authored breaks are measured against the 360 frame and its 272 text
+   column. Below that the line they hold together no longer fits, and forcing
+   it strands the overflow on a line of its own — Fund It, Protect It's
+   "Financial solutions for more than" wants 261 against the 232 a 320 screen
+   gives, so the break turns a clean two-line subtext into three with "than"
+   alone on the second. Under 360 the copy wraps to its column instead; from
+   360 up the frames' own breaks stand. */
+@media (min-width: 360px) and (max-width: 767px) {
+  .mobileBreak {
+    display: inline;
   }
 }

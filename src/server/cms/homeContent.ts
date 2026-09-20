@@ -150,10 +150,13 @@ export async function getHomeContent(): Promise<HomeContent> {
     const response = await fetch(`${url}/api/public/pages/home`, {
       headers: { authorization: `Bearer ${bearer}`, accept: "application/json" },
       signal: AbortSignal.timeout(TIMEOUT_MS),
-      /* No caching while this is a spike, so an edit in the dashboard shows
-         on the next refresh. The full integration replaces this with the
-         approved revalidate window and a cache tag the CMS can invalidate. */
-      cache: "no-store",
+      /* Not `no-store`. The header renders on every marketing route, and
+         no-store opts each one out of static rendering — at build time the
+         fetch then fails and the page is generated with the fallback copy
+         baked in, so a static route would ignore the CMS entirely.
+         Revalidating keeps the pages static and refreshes them on a window;
+         development uses 0 so an edit shows on the next refresh. */
+      next: { revalidate: process.env.NODE_ENV === "development" ? 0 : 60 },
     });
 
     if (!response.ok) {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Reveal from "@/components/ui/Reveal";
 import SbButton from "@/components/ui/SbButton";
 import { FAQS } from "@/constants/sbi-home";
 import styles from "./faq.module.scss";
@@ -39,20 +40,22 @@ export default function FaqSection() {
                   aria-controls={`faq-answer-${i}`}
                   onClick={() => setOpen(open === i ? -1 : i)}
                 >
-                  {faq.question}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    className={styles.sign}
-                    src={open === i ? "/figma/faq/minus.svg" : "/figma/faq/plus.svg"}
-                    alt=""
-                    width={24}
-                    height={24}
-                  />
+                  <span className={styles.questionText}>{faq.question}</span>
+                  {/* Both glyphs are drawn and cross-faded; swapping the src
+                      snaps the sign over while the answer is still opening. */}
+                  <span className={styles.sign} aria-hidden="true">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/figma/faq/plus.svg" alt="" width={24} height={24} />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/figma/faq/minus.svg" alt="" width={24} height={24} />
+                  </span>
                 </button>
               </h3>
-              <div id={`faq-answer-${i}`} className={styles.answer} hidden={open !== i}>
-                <p className={styles.answerText}>{faq.answer}</p>
-              </div>
+              <Reveal open={open === i} id={`faq-answer-${i}`}>
+                <div className={styles.answer}>
+                  <p className={styles.answerText}>{faq.answer}</p>
+                </div>
+              </Reveal>
             </li>
           ))}
         </ul>

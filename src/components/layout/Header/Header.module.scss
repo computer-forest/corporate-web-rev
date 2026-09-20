@@ -107,6 +107,108 @@ $stroke: #ccd9e8;
   height: 16px;
 }
 
+/* --- dropdown ------------------------------------------------------------- */
+
+/* Only rendered when the CMS gave this link children, so the caret finally
+   points at something. */
+.navItemWithMenu {
+  position: relative;
+}
+
+/* The label and the caret are separate targets: the label navigates, the
+   caret opens. A single control that did both would do neither predictably
+   on a phone, where there is no hover to open with. */
+.navLinkGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.navToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+.navToggle:hover .caret {
+  opacity: 0.7;
+}
+
+.caretOpen {
+  transform: rotate(180deg);
+}
+
+.caret {
+  transition: transform 140ms ease;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 40;
+  min-width: 216px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #edf4fc;
+  box-shadow: 0 16px 36px rgba(41, 32, 117, 0.18);
+}
+
+/* A hover bridge. Without it the 10px gap between the link and the menu is
+   a dead zone that closes the menu on the way down to it. */
+.dropdown::before {
+  content: "";
+  position: absolute;
+  inset: -12px 0 100% 0;
+}
+
+.dropdownLink {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 21px;
+  color: $icon;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.dropdownLink:hover,
+.dropdownLink:focus-visible {
+  background: #f6f6ff;
+  color: $display;
+  text-decoration: none;
+}
+
+/* Below 768 the bar becomes a drawer and there is no hover, so a dropdown
+   stops being an overlay and becomes an indented run inside the list. */
+@media (max-width: 767px) {
+  .dropdown {
+    position: static;
+    min-width: 0;
+    margin: 4px 0 4px 14px;
+    padding: 0 0 0 10px;
+    border: 0;
+    border-left: 1px solid #edf4fc;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  .dropdown::before {
+    display: none;
+  }
+}
+
 /* --- right-hand cluster --------------------------------------------------- */
 
 .actions {

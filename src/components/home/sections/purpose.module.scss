@@ -23,10 +23,46 @@
   flex-direction: column;
 }
 
+/* The wide frames open every goal, so the two reveals have nothing to do
+   there — and a grid wrapper around the art and the body would take them out
+   of .card's flex run, which is what gives .body its `flex: 1` and squares the
+   four columns off. `display: contents` hands them straight back to it. */
+@media (min-width: 768px) {
+  .artReveal,
+  .artReveal > *,
+  .bodyReveal,
+  .bodyReveal > * {
+    display: contents;
+  }
+}
+
+/* The toggle row. A button rather than a plain div so the whole row answers to
+   the keyboard and to assistive tech, reset to inherit the heading's type. */
 .cardHead {
   display: flex;
   align-items: center;
   gap: 6px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  /* Nothing collapses above the breakpoint, so the row is not a control. */
+  cursor: default;
+}
+
+.cardHead:focus-visible {
+  outline: 2px solid var(--sb-stroke-hover);
+  outline-offset: 2px;
+  border-radius: var(--sb-radius-4);
+}
+
+.titleText {
+  flex: 1;
+  min-width: 0;
 }
 
 .body {
@@ -44,10 +80,7 @@
   width: 40px;
   max-height: 44px;
   padding: 12px;
-  border: 0;
   border-radius: var(--sb-radius-8);
-  background: none;
-  cursor: pointer;
 }
 
 .toggle img {
@@ -71,8 +104,6 @@
 
 /* Pre Login/Sub-heading SH1 Med — 20/28, tight against the lede below. */
 .cardTitle {
-  flex: 1;
-  min-width: 0;
   margin: 0;
   font-family: var(--sb-font-subheading);
   font-weight: 500;
@@ -153,9 +184,15 @@
   }
 
   /* Retirement Planning 0:17872 — the open goal stacks at 6, closes on 12.5
-     of clearance and carries the rule; the last row drops the rule. */
+     of clearance and carries the rule; the last row drops the rule.
+
+     The 6 is carried by the art and the body rather than by a gap here: a gap
+     is paid whether or not the collapsed row has any height, so a closed goal
+     would keep 12px of it and never shut all the way. It sits on the content
+     and not on the reveal's clipping box either — that box is sized by the
+     grid track, so padding on it is paid on top of a closed row's 0 and
+     leaves the goal 6px short of shut. */
   .card {
-    gap: 6px;
     padding-bottom: 12.5px;
     border-bottom: 0.5px solid rgba(41, 32, 117, 0.4);
   }
@@ -172,15 +209,23 @@
     padding-bottom: 8.5px;
   }
 
-  .collapsed .art,
-  .collapsed .body {
-    display: none;
+  /* The row is the control here, so it takes the pointer and the plus. */
+  .cardHead {
+    cursor: pointer;
+  }
+
+  .toggle {
+    display: inline-flex;
+    transition: opacity 180ms ease;
   }
 
   /* Only a closed goal carries the plus — the open one has nothing to open,
-     since the listing always leaves exactly one of the four showing. */
-  .collapsed .toggle {
-    display: inline-flex;
+     since the listing always leaves exactly one of the four showing. It fades
+     with the row it opened rather than vanishing, and keeps its 40px so the
+     title does not shift sideways while the reveal is still running. */
+  .card:not(.collapsed) .toggle {
+    opacity: 0;
+    pointer-events: none;
   }
 
   /* Image & Icon 0:17873 — 384:216 on surface/tertiary, 12px radius. */
@@ -189,7 +234,7 @@
     height: auto;
     padding: 0;
     border-radius: var(--sb-radius-12);
-    margin-bottom: 0;
+    margin-bottom: 6px;
   }
 
   /* 0:18168 / 0:18169 — the title drops to body size here and sits 4 above
@@ -203,6 +248,7 @@
 
   .body {
     gap: 6px;
+    margin-top: 6px;
   }
 
   .lede {

@@ -5,13 +5,12 @@ import Link from "next/link";
 import { Inter } from "next/font/google";
 
 import { SEARCH_PLACEHOLDER, TOP_NAV } from "@/constants/sbi-home";
-import styles from "./Header.module.scss";
+/* Type-only, so nothing from the server module reaches the client bundle —
+   the import is erased at build. One definition of the shape, shared. */
+import type { HeaderLink } from "@/server/cms/siteChrome";
 
-export interface HeaderLink {
-  label: string;
-  href: string;
-  newTab: boolean;
-}
+import NavItem from "./NavItem";
+import styles from "./Header.module.scss";
 
 interface HeaderProps {
   /**
@@ -31,7 +30,12 @@ const HEADER_FALLBACK = {
   brandName: "SBI Securities",
   logoUrl: "/figma/header/logo-main.svg",
   searchPlaceholder: SEARCH_PLACEHOLDER,
-  nav: TOP_NAV.map((item) => ({ label: item.label, href: item.href, newTab: false })),
+  nav: TOP_NAV.map((item) => ({
+    label: item.label,
+    href: item.href,
+    newTab: false,
+    children: [] as HeaderLink[],
+  })),
 };
 
 /* The header renders on every marketing route, while the Inter that
@@ -107,25 +111,11 @@ export default function Header({ content = HEADER_FALLBACK }: HeaderProps) {
         >
           <ul className={styles.navList}>
             {content.nav.map((item) => (
-              <li key={`${item.href}-${item.label}`}>
-                <Link
-                  href={item.href}
-                  className={styles.navLink}
-                  target={item.newTab ? "_blank" : undefined}
-                  rel={item.newTab ? "noopener noreferrer" : undefined}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {item.label}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    className={styles.caret}
-                    src="/figma/header/caret-down.svg"
-                    alt=""
-                    width={16}
-                    height={16}
-                  />
-                </Link>
-              </li>
+              <NavItem
+                key={`${item.href}-${item.label}`}
+                item={item}
+                onNavigate={() => setMenuOpen(false)}
+              />
             ))}
           </ul>
         </nav>

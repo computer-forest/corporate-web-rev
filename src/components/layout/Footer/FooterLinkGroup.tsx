@@ -3,53 +3,16 @@
 import { useState } from "react";
 import Link from "next/link";
 
-import type { FooterColumn } from "@/constants/sbi-home";
+import type { FooterGroup } from "@/server/cms/siteChrome";
 import useMediaQuery, { MOBILE_QUERY } from "@/utils/useMediaQuery";
 import styles from "./Footer.module.scss";
 
-/* The Figma lists every link by label only. Those with a route today point at
-   it; the rest take the slug their page will live at, which is the convention
-   the previous footer already used for /support and /open-account. */
-const ROUTES: Record<string, string> = {
-  "54EC Bonds": "/cgs-bond",
-  "SBI Realty": "/sso-realty",
-  Blogs: "/blogs",
-  "Open Demat Account": "/open-account",
-  "MF Returns Calculator": "/calculators",
-  "SIP Calculator": "/calculators",
-  "Lumpsum Calculator": "/calculators",
-  "Step-up SIP Calculator": "/calculators",
-  "SWP Calculator": "/calculators",
-  "FD Calculator": "/calculators",
-  "NPS Calculator": "/calculators",
-  "Home Loan EMI Calculator": "/calculators",
-  "Car Loan EMI Calculator": "/calculators",
-  "CAGR Calculator": "/calculators",
-  "Loan EMI Calculator": "/calculators",
-  "RD Calculator": "/calculators",
-  "Retirement Calculator": "/calculators",
-};
-
-function hrefFor(label: string, group: string): string {
-  const known = ROUTES[label];
-  if (known) return known;
-
-  const slug = label
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-
-  /* Loans and Insurances repeat the same three labels, so they are namespaced
-     by their heading to keep the two sets apart. */
-  if (group === "LOANS") return `/loans/${slug}`;
-  if (group === "INSURANCES") return `/insurance/${slug}`;
-  if (group === "MARKETS") return `/markets/${slug}`;
-  return `/${slug}`;
-}
-
 interface FooterLinkGroupProps {
-  group: FooterColumn;
+  /* Links now arrive with their hrefs. This component used to derive them
+     from the label, because the constants listed labels only; the CMS
+     stores both, so the rule moved to the fallback in siteChrome.ts and
+     this file simply renders what it is handed. */
+  group: FooterGroup;
   /** `Footer accordian` keeps the first two groups open in the 360 frame. */
   defaultOpen?: boolean;
 }
@@ -103,10 +66,15 @@ export default function FooterLinkGroup({
         id={id}
         className={`${styles.groupLinks} ${group.links.length > 6 ? styles.groupLinksSplit : ""}`}
       >
-        {group.links.map((label) => (
-          <li key={`${group.title}-${label}`}>
-            <Link href={hrefFor(label, group.title)} className={styles.link}>
-              {label}
+        {group.links.map((link) => (
+          <li key={`${group.title}-${link.label}`}>
+            <Link
+              href={link.href}
+              className={styles.link}
+              target={link.newTab ? "_blank" : undefined}
+              rel={link.newTab ? "noopener noreferrer" : undefined}
+            >
+              {link.label}
             </Link>
           </li>
         ))}

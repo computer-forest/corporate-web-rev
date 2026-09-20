@@ -1,14 +1,8 @@
 import Link from "next/link";
 import { Inter, Poppins } from "next/font/google";
 
-import {
-  BRAND,
-  FOOTER_LEGAL,
-  FOOTER_PRIMARY,
-  FOOTER_SECONDARY,
-  STOCK_INDEX_LETTERS,
-  STOCK_LINKS,
-} from "@/constants/sbi-home";
+import type { FooterContent } from "@/server/cms/siteChrome";
+
 import FooterLinkGroup from "./FooterLinkGroup";
 import styles from "./Footer.module.scss";
 
@@ -31,43 +25,41 @@ const poppins = Poppins({
   variable: "--footer-font-poppins",
 });
 
-const SOCIALS = [
-  { label: "Instagram", href: "https://www.instagram.com/", icon: "/figma/footer/social-1.svg" },
-  { label: "X", href: "https://x.com/", icon: "/figma/footer/social-2.svg" },
-  { label: "Facebook", href: "https://www.facebook.com/", icon: "/figma/footer/social-3.svg" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/", icon: "/figma/footer/social-4.svg" },
-  { label: "YouTube", href: "https://www.youtube.com/", icon: "/figma/footer/social-5.svg" },
-];
+
+interface FooterProps {
+  /** Content for the band. Supplied by the marketing layout. */
+  content: FooterContent;
+}
 
 /** Footer — Figma `Footer` 0:64968, Pre-Login Home Page Sprint 2. */
-export default function Footer() {
+export default function Footer({ content }: FooterProps) {
   return (
     <footer className={`${styles.siteFooter} ${inter.variable} ${poppins.variable}`}>
       <div className={styles.inner}>
         <div className={styles.band}>
           <div className={styles.top}>
             <div className={styles.contact}>
-            <Link href="/" className={styles.logo} aria-label={`${BRAND.name} home`}>
+            <Link href="/" className={styles.logo} aria-label={`${content.brandName} home`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/figma/footer/logo-a.svg" alt={BRAND.name} />
+              <img src={content.logoUrl} alt={content.brandName} />
             </Link>
 
-            <address className={styles.address}>{BRAND.address}</address>
+            <address className={styles.address}>{content.address}</address>
 
             <p className={styles.contactLine}>
               <span className={styles.contactLabel}>Call:</span>
-              <a href={`tel:${BRAND.phone.split("/")[0].replace(/\s/g, "")}`}>{BRAND.phone}</a>
+              <a href={`tel:${content.phone.split("/")[0].replace(/\s/g, "")}`}>{content.phone}</a>
             </p>
 
             <p className={styles.contactLine}>
               <span className={styles.contactLabel}>E-mail:</span>
-              <a href={`mailto:${BRAND.email}`}>{BRAND.email}</a>
+              <a href={`mailto:${content.email}`}>{content.email}</a>
             </p>
 
             <div className={styles.social}>
-              <span className={styles.contactLabel}>Connect with us</span>
+              <span className={styles.contactLabel}>{content.connectLabel}</span>
               <ul className={styles.socialList}>
-                {SOCIALS.map((s) => (
+                {content.socials.map((s) => (
                   <li key={s.label}>
                     <a
                       href={s.href}
@@ -77,22 +69,24 @@ export default function Footer() {
                       aria-label={s.label}
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={s.icon} alt="" width={24} height={24} />
+                      <img src={s.iconUrl} alt="" width={24} height={24} />
                     </a>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <Link href="/support" className={styles.support}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/figma/footer/headset.svg" alt="" width={16} height={16} />
-              Help &amp; Support
-            </Link>
+            {content.support ? (
+              <Link href={content.support.href} className={styles.support}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/figma/footer/headset.svg" alt="" width={16} height={16} />
+                {content.support.label}
+              </Link>
+            ) : null}
           </div>
 
             <div className={styles.primaryGroups}>
-              {FOOTER_PRIMARY.map((group) => (
+              {content.primary.map((group) => (
                 <FooterLinkGroup
                   key={group.title}
                   group={group}
@@ -108,7 +102,7 @@ export default function Footer() {
 
         <div className={styles.band}>
           <div className={styles.columns}>
-            {FOOTER_SECONDARY.map((column, i) => (
+            {content.columns.map((column, i) => (
               <div className={styles.column} key={column[0]?.title ?? i}>
                 {column.map((group) => (
                   <FooterLinkGroup key={group.title} group={group} />
@@ -122,16 +116,16 @@ export default function Footer() {
 
         <div className={styles.band}>
           <div className={styles.stocks}>
-            <h2 className={styles.stocksHeading}>Stocks</h2>
+            <h2 className={styles.stocksHeading}>{content.stocksHeading}</h2>
           <ul className={styles.letters}>
-            {STOCK_INDEX_LETTERS.map((letter) => (
-              <li key={letter}>
+            {content.letters.map((entry) => (
+              <li key={entry.label}>
                 <Link
-                  href={`/stocks/${letter.toLowerCase()}`}
+                  href={entry.href}
                   className={styles.letter}
-                  aria-label={`Stocks starting with ${letter}`}
+                  aria-label={`Stocks starting with ${entry.label}`}
                 >
-                  {letter}
+                  {entry.label}
                 </Link>
               </li>
             ))}
@@ -139,10 +133,10 @@ export default function Footer() {
         </div>
 
         <ul className={styles.chips}>
-          {STOCK_LINKS.map((label, i) => (
-            <li key={`${label}-${i}`}>
-              <Link href="/stocks" className={styles.chip} title={label}>
-                {label}
+          {content.chips.map((chip, i) => (
+            <li key={`${chip.label}-${i}`}>
+              <Link href={chip.href} className={styles.chip} title={chip.label}>
+                {chip.label}
               </Link>
             </li>
           ))}
@@ -150,14 +144,14 @@ export default function Footer() {
 
         <div className={styles.legal}>
           <p className={styles.legalTight}>
-            {FOOTER_LEGAL.registration[0]}
+            {content.legal.registration[0]}
             <br />
-            {FOOTER_LEGAL.registration[1]}
+            {content.legal.registration[1]}
           </p>
-          <p>{FOOTER_LEGAL.trading}</p>
-          <p>{FOOTER_LEGAL.authorization}</p>
-          <p>{FOOTER_LEGAL.warning}</p>
-          <p>{FOOTER_LEGAL.copyright}</p>
+          <p>{content.legal.trading}</p>
+          <p>{content.legal.authorization}</p>
+          <p>{content.legal.warning}</p>
+          <p>{content.legal.copyright}</p>
           </div>
         </div>
       </div>

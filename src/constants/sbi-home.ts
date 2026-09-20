@@ -144,13 +144,23 @@ export const IPOS: Ipo[] = Array.from({ length: 6 }, () => ({
 
 export const OFFERINGS_TABS = ["Loans", "Insurance"] as const;
 
+/**
+ * One run of the card's second line. Figma emphasises more than a single
+ * trailing claim — Health Insurance 0:97507 bolds both "Cashless" and
+ * "individual & family plans" around a regular middle — so the line is
+ * carried as its runs rather than as a lead/highlight pair.
+ */
+export interface OfferingRun {
+  text: string;
+  bold?: boolean;
+}
+
 export interface Offering {
   slug: string;
   title: string;
   lede: string;
-  /** Regular run that opens the second line, ahead of the emphasised claim. */
-  highlightLead?: string;
-  highlight: string;
+  /** The second line, in source order. */
+  detail: OfferingRun[];
   cta: string;
   /** The mobile frames label the same button differently — 0:58537 reads
       "Explore" where the desktop card (0:63417) reads "Get Started". */
@@ -181,8 +191,7 @@ export const LOANS: Offering[] = [
     artMobile: "/figma/offerings/mobile/home-loan.svg",
     title: "Home Loan",
     lede: "Turn your dream home into reality.",
-    highlightLead: "Interest starts from ",
-    highlight: "7.25% p.a.",
+    detail: [{ text: "Interest starts from " }, { text: "7.25% p.a.", bold: true }],
     cta: "Get Started",
     ctaMobile: "Explore",
   },
@@ -193,8 +202,7 @@ export const LOANS: Offering[] = [
     artMobile: "/figma/offerings/mobile/education-loan.svg",
     title: "Education Loan",
     lede: "Because your ambitions shouldn't wait.",
-    highlightLead: "Study in ",
-    highlight: "India and abroad.",
+    detail: [{ text: "Study in " }, { text: "India and abroad", bold: true }],
     cta: "Get Started",
     ctaMobile: "Explore",
   },
@@ -204,9 +212,8 @@ export const LOANS: Offering[] = [
     art: "/figma/offerings/car-loan.svg",
     artMobile: "/figma/offerings/mobile/car-loan.svg",
     title: "Car Loan",
-    lede: "Drive home your dream car.",
-    highlightLead: "Up to ",
-    highlight: "100% financing.",
+    lede: "Drive home your dream car",
+    detail: [{ text: "Up to " }, { text: "100% financing", bold: true }],
     cta: "Get Started",
     ctaMobile: "Explore",
   },
@@ -217,9 +224,10 @@ export const INSURANCE: Offering[] = [
     slug: "life-insurance",
     mobileOrder: 1,
     art: "/figma/offerings/life-insurance.png",
+    artMobile: "/figma/offerings/mobile/life-insurance.svg",
     title: "Life Insurance",
-    lede: "Protect what matters most.",
-    highlight: "Cover your family's future.",
+    lede: "Protect your family's future with life cover plans",
+    detail: [{ text: "Cover up to " }, { text: "₹1 crore and beyond", bold: true }],
     cta: "Get Started",
     ctaMobile: "Explore",
   },
@@ -227,9 +235,14 @@ export const INSURANCE: Offering[] = [
     slug: "health-insurance",
     mobileOrder: 2,
     art: "/figma/offerings/health-insurance.png",
+    artMobile: "/figma/offerings/mobile/health-insurance.svg",
     title: "Health Insurance",
-    lede: "Care without the cost worry.",
-    highlight: "Cashless hospital network.",
+    lede: "Get cashless treatment at 10,000+ hospitals",
+    detail: [
+      { text: "Cashless", bold: true },
+      { text: " hospital coverage with " },
+      { text: "individual & family plans", bold: true },
+    ],
     cta: "Get Started",
     ctaMobile: "Explore",
   },
@@ -237,9 +250,13 @@ export const INSURANCE: Offering[] = [
     slug: "term-insurance",
     mobileOrder: 3,
     art: "/figma/offerings/term-insurance.png",
+    artMobile: "/figma/offerings/mobile/term-insurance.svg",
     title: "Term Insurance",
-    lede: "High cover, low premium.",
-    highlight: "Secure them for the long run.",
+    lede: "Safeguard what matters — home, car, and travel",
+    detail: [
+      { text: "Home, motor, and travel coverage with " },
+      { text: "fast claim processing.", bold: true },
+    ],
     cta: "Get Started",
     ctaMobile: "Explore",
   },
@@ -588,6 +605,13 @@ export const STICKY_NUDGE = {
 export const FOOTER_CTA = {
   title: "Stop Scrolling, Start investing!",
   body: "Watch your money grow. Download the app now and start taking control of your money today.",
+  /**
+   * The 360 card carries a shorter line — Boiler Plate I0:66328;18563:5440.
+   * The wide copy runs to three lines in the mobile card's 305 column, which
+   * pushes the button and the handset below it 24px down and stretches the
+   * card past the 619 the frame gives it.
+   */
+  bodyMobile: "Grow your money! Download the app now and take control today.",
   cta: "Download Now",
 };
 
@@ -615,7 +639,7 @@ export const FOOTER_PRIMARY: FooterColumn[] = [
   {
     title: "OPEN DEMAT ACCOUNT",
     links: [
-      "Open Demat Account",
+      "Open Demat & Trading Account",
       "NRI Demat Account",
       "Corporate Demat Account",
       "Women's Demat Account",

@@ -118,11 +118,34 @@
     width: 100%;
     max-width: none;
     padding: 16px;
-    /* The 360 bar is not the 1440 bar's straight indigo-to-pink sweep: it runs
-       out of indigo into a muted magenta that stops well short of
-       primary/pink, which is what the frame's own two-layer fill resolves to
-       across the 328 of content. */
-    background: linear-gradient(90deg, #292075 0%, #901f62 50%, #a61f5d 100%);
+    /* The 360 bar is not the 1440 bar's straight indigo-to-pink sweep. Its
+       fill is two stacked gradients — a radial off the top edge and a
+       mirrored quad whose crimson centre sits at x=302 — which resolve to a
+       ramp that holds primary/1000 through the first tenth, peaks near 78%
+       and eases back into the right corner rather than running hottest at
+       the edge. A straight ramp to the corner left the right third 40 short
+       on red.
+
+       Fitted to the strip above the button, not to the bar's full height:
+       the button's own 0 10px 20px 4px shadow washes the ground beneath it,
+       and reading that as gradient pulls the right half 20 too dark. */
+    background: linear-gradient(
+      90deg,
+      #292075 0%,
+      #292075 11%,
+      #491f6e 25%,
+      #6a1e67 39%,
+      #861d62 50%,
+      #a71e5b 64%,
+      #ca1f56 78%,
+      #c81e56 89%,
+      #af1f5a 100%
+    );
+    /* The frame clips the bar, which is what keeps the glow behind the button
+       and the ramp inside the 20px corners. */
+    overflow: hidden;
+    /* Only the wide bar is lifted off the page; the 360 one sits flat. */
+    box-shadow: none;
   }
 
   /* Bar Text 0:66332 — Mobile/Body/B3 Med, 14/20 Inter, held on one line so
@@ -137,12 +160,27 @@
   }
 
   /* Buttons 0:66333 takes the rest of the 328 row — 138 beside the 182 line
-     and the 8 between them, not the width of its own label. */
+     and the 8 between them, not the width of its own label. It is the design
+     system's M rather than the L the wide bar uses: 36 tall on 10 of padding
+     with a 12/18 label, where L gives 45 and 14/21. */
   .bar > a,
   .bar > button {
     flex: 1 0 0;
     height: 36px;
     min-height: 36px;
+    max-height: 36px;
+    padding: 10px;
+    font-size: 12px;
+    line-height: 18px;
+    /* button/secondary/fill is a radial off the button's top edge, not the
+       straight vertical ramp --sb-gradient-secondary carries for the wide
+       frames — an ellipse 115.23% x 100% centred on the top, which is why the
+       chip is brightest across its middle and dips at the two ends. */
+    background: radial-gradient(
+      ellipse 115.23% 100% at 50% 0%,
+      #f7fbff 20%,
+      #dbdbfe 100%
+    );
   }
 
   /* The mobile nudge is just the line and the button — Bottom Nav, 0:54437. */
