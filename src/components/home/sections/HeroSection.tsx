@@ -26,12 +26,21 @@ const HERO_FORM_DEFAULTS: DematAccountFormValues = {
   consent: true,
 };
 
+interface HeroSectionProps {
+  /**
+   * Copy for this fold. Defaults to the shipped constants, so the component
+   * still renders standalone and every other caller is unaffected — only the
+   * home page passes anything.
+   */
+  content?: typeof HERO;
+}
+
 /** Hero Section Main — desktop 1:60070, mobile Hero 3 0:33295 + Hero 2 0:39885. */
-export default function HeroSection() {
+export default function HeroSection({ content = HERO }: HeroSectionProps) {
   /* Hero 2 relabels both fields and rewrites both placeholders; the labels
      swap in CSS, but a placeholder is an attribute, so it swaps here. */
   const isMobile = useMediaQuery(MOBILE_QUERY);
-  const form = isMobile ? { ...HERO.form, ...HERO.formMobile } : HERO.form;
+  const form = isMobile ? { ...content.form, ...content.formMobile } : content.form;
 
   /* The same schema and the same journey the /open-account form runs, so a
      lead started from the hero reaches the DIY flow on identical terms. */
@@ -72,11 +81,11 @@ export default function HeroSection() {
       <div className={styles.inner}>
         <div className={styles.copy}>
           <h1 id="hero-title" className={styles.title}>
-            <span className={styles.titleLead}>{HERO.titleLead}</span>
+            <span className={styles.titleLead}>{content.titleLead}</span>
             {/* The headline cycles in place inside a fixed two-line window. */}
             <span className={styles.rotator}>
               <span className={styles.rotatorTrack}>
-                {[...HERO.rotatingLines, HERO.rotatingLines[0]].map((lines, i) => (
+                {[...content.rotatingLines, content.rotatingLines[0]].map((lines, i) => (
                   <span className={styles.rotatorItem} key={i} aria-hidden={i === 3}>
                     {lines[0]}
                     <br />
@@ -87,9 +96,9 @@ export default function HeroSection() {
             </span>
           </h1>
           <p className={styles.subtext}>
-            {HERO.subtext[0]}
+            {content.subtext[0]}
             <br />
-            {HERO.subtext[1]}
+            {content.subtext[1]}
           </p>
         </div>
 
@@ -99,15 +108,15 @@ export default function HeroSection() {
         </div>
 
         <div className={styles.watermarks} aria-hidden="true">
-          <p className={styles.watermark}>{HERO.watermarkLeft}</p>
-          <p className={styles.watermark}>{HERO.watermarkRight}</p>
+          <p className={styles.watermark}>{content.watermarkLeft}</p>
+          <p className={styles.watermark}>{content.watermarkRight}</p>
         </div>
 
         <form className={styles.form} noValidate onSubmit={handleSubmit(onSubmit)}>
           <div className={`${styles.field} ${styles.fieldName}`}>
             <label htmlFor="hero-name">
-              <span className={styles.desktopOnly}>{HERO.form.nameLabel}</span>
-              <span className={styles.mobileOnly}>{HERO.formMobile.nameLabel}</span>
+              <span className={styles.desktopOnly}>{content.form.nameLabel}</span>
+              <span className={styles.mobileOnly}>{content.formMobile.nameLabel}</span>
             </label>
             <input
               id="hero-name"
@@ -128,8 +137,8 @@ export default function HeroSection() {
 
           <div className={`${styles.field} ${styles.fieldMobile}`}>
             <label htmlFor="hero-mobile">
-              <span className={styles.desktopOnly}>{HERO.form.mobileLabel}</span>
-              <span className={styles.mobileOnly}>{HERO.formMobile.mobileLabel}</span>
+              <span className={styles.desktopOnly}>{content.form.mobileLabel}</span>
+              <span className={styles.mobileOnly}>{content.formMobile.mobileLabel}</span>
             </label>
             <input
               id="hero-mobile"
@@ -159,7 +168,7 @@ export default function HeroSection() {
                 width={16}
                 height={16}
               />
-              {errors.mobileNumber?.message ?? HERO.form.mobileHelp}
+              {errors.mobileNumber?.message ?? content.form.mobileHelp}
             </p>
           </div>
 
@@ -174,7 +183,7 @@ export default function HeroSection() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/figma/hero/check.svg" alt="" width={12} height={12} />
             </span>
-            {HERO.form.consent}
+            {content.form.consent}
           </label>
 
           {errors.consent ? (
@@ -187,7 +196,7 @@ export default function HeroSection() {
               fields report themselves on blur, so what is still missing is
               readable without pressing it. */}
           <SbButton type="submit" block disabled={!isValid || isSubmitting}>
-            {isSubmitting ? "Please wait..." : HERO.form.submit}
+            {isSubmitting ? "Please wait..." : content.form.submit}
             {/* Buttons 0:49629 — the 360 frame carries a 16px arrow after the
                 label that the 1440 one does not, so it is mobile-only. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -203,23 +212,23 @@ export default function HeroSection() {
 
         <dl className={styles.kpis}>
           <div className={styles.kpi}>
-            <dd className={styles.kpiValue}>{HERO.kpis.downloads.value}</dd>
-            <dt className={styles.kpiLabel}>{HERO.kpis.downloads.label}</dt>
+            <dd className={styles.kpiValue}>{content.kpis.downloads.value}</dd>
+            <dt className={styles.kpiLabel}>{content.kpis.downloads.label}</dt>
           </div>
           <div className={styles.kpi}>
             <dd className={`${styles.kpiValue} ${styles.kpiRating}`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/figma/hero/star.svg" alt="" />
-              <span>{HERO.kpis.rating.value}</span>
+              <span>{content.kpis.rating.value}</span>
             </dd>
-            <dt className={styles.kpiLabel}>{HERO.kpis.rating.label}</dt>
+            <dt className={styles.kpiLabel}>{content.kpis.rating.label}</dt>
           </div>
           <div className={styles.kpi}>
             <dd className={styles.kpiLogo}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/figma/hero/backed-by-sbi.png" alt="" />
             </dd>
-            <dt className={styles.kpiLabel}>{HERO.kpis.backing.label}</dt>
+            <dt className={styles.kpiLabel}>{content.kpis.backing.label}</dt>
           </div>
         </dl>
       </div>

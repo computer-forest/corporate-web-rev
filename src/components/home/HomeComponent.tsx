@@ -16,6 +16,8 @@ import FaqSection from "./sections/FaqSection";
 import AppPromo from "./sections/AppPromo";
 import StickyNudge from "./sections/StickyNudge";
 
+import { getHomeContent } from "@/server/cms/homeContent";
+
 import "./sbi-home.scss";
 
 /* Typography/Family/Pre Login/* is Poppins; Typography/Family/Body, the
@@ -38,11 +40,21 @@ const inter = Inter({
 /**
  * SBI Securities pre-login home page, in the section order of the Figma
  * sources — HomePage - Desktop 1:56197 and HomePage - Mobile 0:33273.
+ *
+ * Async, and a Server Component: the CMS read happens here, on the server,
+ * and each fold receives its copy as props. The folds keep their "use client"
+ * markers and their interactivity — nothing fetches in the browser, and the
+ * content is in the HTML the crawler is served.
+ *
+ * Only the hero reads from the CMS so far. The rest still take their copy
+ * from the constants directly, which is why they are passed nothing.
  */
-export default function HomeComponent() {
+export default async function HomeComponent() {
+  const content = await getHomeContent();
+
   return (
     <div className={`sb-scope ${poppins.variable} ${inter.variable}`}>
-      <HeroSection />
+      <HeroSection content={content.hero} />
       <MarketPulse />
       <BentoSection />
       <IposSection />
