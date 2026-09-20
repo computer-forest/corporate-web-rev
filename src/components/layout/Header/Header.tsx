@@ -7,6 +7,33 @@ import { Inter } from "next/font/google";
 import { SEARCH_PLACEHOLDER, TOP_NAV } from "@/constants/sbi-home";
 import styles from "./Header.module.scss";
 
+export interface HeaderLink {
+  label: string;
+  href: string;
+  newTab: boolean;
+}
+
+interface HeaderProps {
+  /**
+   * Content for the bar. Defaults to the shipped constants, so a route that
+   * renders <Header /> with no props is unaffected — only the marketing
+   * layout passes anything.
+   */
+  content?: {
+    brandName: string;
+    logoUrl: string;
+    searchPlaceholder: string;
+    nav: HeaderLink[];
+  };
+}
+
+const HEADER_FALLBACK = {
+  brandName: "SBI Securities",
+  logoUrl: "/figma/header/logo-main.svg",
+  searchPlaceholder: SEARCH_PLACEHOLDER,
+  nav: TOP_NAV.map((item) => ({ label: item.label, href: item.href, newTab: false })),
+};
+
 /* The header renders on every marketing route, while the Inter that
    `sbi-home.scss` loads reaches only the routes rendering HomeComponent. It
    therefore carries its own copy rather than inheriting the root layout's Open
@@ -20,7 +47,7 @@ const inter = Inter({
 });
 
 /** Top Nav — Figma `Top Nav` 0:64969, Pre-Login Home Page Sprint 2. */
-export default function Header() {
+export default function Header({ content = HEADER_FALLBACK }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   /* Below 768 the frame keeps only the search glyph in the bar, so the field
      itself drops to a row that the glyph opens. Above it the field is always
@@ -49,9 +76,9 @@ export default function Header() {
         {/* SSL-logo — a 182x48 box holding the wordmark and, set against its
             top-right corner, the registered mark, exactly as the frame nests
             the two exports. */}
-        <Link href="/" className={styles.logo} aria-label="SBI Securities home">
+        <Link href="/" className={styles.logo} aria-label={`${content.brandName} home`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className={styles.logoMain} src="/figma/header/logo-main.svg" alt="SBI Securities" />
+          <img className={styles.logoMain} src={content.logoUrl} alt={content.brandName} />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className={styles.logoMark} src="/figma/header/logo-mark.svg" alt="" aria-hidden="true" />
         </Link>
@@ -79,9 +106,15 @@ export default function Header() {
           aria-label="Primary navigation"
         >
           <ul className={styles.navList}>
-            {TOP_NAV.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className={styles.navLink} onClick={() => setMenuOpen(false)}>
+            {content.nav.map((item) => (
+              <li key={`${item.href}-${item.label}`}>
+                <Link
+                  href={item.href}
+                  className={styles.navLink}
+                  target={item.newTab ? "_blank" : undefined}
+                  rel={item.newTab ? "noopener noreferrer" : undefined}
+                  onClick={() => setMenuOpen(false)}
+                >
                   {item.label}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -138,7 +171,7 @@ export default function Header() {
               ref={searchRef}
               type="search"
               className={styles.searchInput}
-              placeholder={SEARCH_PLACEHOLDER}
+              placeholder={content.searchPlaceholder}
             />
             <span className={styles.shortcut} aria-hidden="true">
               {/* eslint-disable-next-line @next/next/no-img-element */}
