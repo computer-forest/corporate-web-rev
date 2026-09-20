@@ -1,5 +1,7 @@
 import { SEARCH_PLACEHOLDER, TOP_NAV } from "@/constants/sbi-home";
 
+import { safeHref, safeImageSrc } from "./safeUrl";
+
 /**
  * The header's content, read server-side from the CMS.
  *
@@ -86,14 +88,19 @@ export async function getHeaderContent(): Promise<HeaderContent> {
       .filter(isRecord)
       .map((item) => ({
         label: str(item.label, ""),
-        href: str(item.href, "#"),
+        /* Scheme-checked: a stored `javascript:` href would otherwise render
+           into every marketing page's navigation. See safeUrl.ts. */
+        href: safeHref(str(item.href, "#")),
         newTab: item.newTab === true,
       }))
       .filter((item) => item.label !== "");
 
     return {
       brandName: str(settings.brandName, FALLBACK.brandName),
-      logoUrl: str(isRecord(settings.logo) ? settings.logo.url : undefined, FALLBACK.logoUrl),
+      logoUrl: safeImageSrc(
+        str(isRecord(settings.logo) ? settings.logo.url : undefined, FALLBACK.logoUrl),
+        FALLBACK.logoUrl,
+      ),
       searchPlaceholder: str(settings.searchPlaceholder, FALLBACK.searchPlaceholder),
       /* An empty menu is a header with no navigation, which is more likely a
          mistake in the dashboard than an intention. Keep the shipped links. */
