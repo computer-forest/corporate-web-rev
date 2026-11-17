@@ -3,14 +3,23 @@
 import { useEffect, useState } from "react";
 import SbButton from "@/components/ui/SbButton";
 import { STICKY_NUDGE } from "@/constants/sbi-home";
+import type { NudgeContent } from "@/types/pages";
 import styles from "./sticky-nudge.module.scss";
+
+const DEFAULT_CONTENT: NudgeContent = {
+  title: STICKY_NUDGE.title,
+  mobilePlaceholder: STICKY_NUDGE.mobilePlaceholder,
+  namePlaceholder: STICKY_NUDGE.namePlaceholder,
+  cta: STICKY_NUDGE.cta,
+};
 
 /**
  * Sticky — 1:60071. The Figma note asks for this to stay pinned to the bottom
  * once the first fold has been passed, so it appears on scroll rather than
- * sitting in the flow.
+ * sitting in the flow. Its copy comes from `content` (the CMS, on pages that
+ * read it).
  */
-export default function StickyNudge() {
+export default function StickyNudge({ content = DEFAULT_CONTENT }: { content?: NudgeContent }) {
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
@@ -23,22 +32,22 @@ export default function StickyNudge() {
   return (
     <div className={`${styles.wrap} ${shown ? styles.shown : ""}`} aria-hidden={!shown}>
       <form className={styles.bar} onSubmit={(event) => event.preventDefault()}>
-        <p className={styles.title}>{STICKY_NUDGE.title}</p>
+        <p className={styles.title}>{content.title}</p>
         <input
           type="tel"
           inputMode="numeric"
-          placeholder={STICKY_NUDGE.mobilePlaceholder}
-          aria-label={STICKY_NUDGE.mobilePlaceholder}
+          placeholder={content.mobilePlaceholder}
+          aria-label={content.mobilePlaceholder}
           tabIndex={shown ? undefined : -1}
         />
         <input
           type="text"
-          placeholder={STICKY_NUDGE.namePlaceholder}
-          aria-label={STICKY_NUDGE.namePlaceholder}
+          placeholder={content.namePlaceholder}
+          aria-label={content.namePlaceholder}
           tabIndex={shown ? undefined : -1}
         />
         <SbButton variant="secondary" type="submit">
-          {STICKY_NUDGE.cta}
+          {content.cta}
           {/* Buttons 0:64981 pairs the label with a 16px ArrowRight at the
               button's own 6px gap, not a "→" glyph. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}

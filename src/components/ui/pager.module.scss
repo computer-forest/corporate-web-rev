@@ -1,0 +1,90 @@
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.arrow {
+  display: inline-flex;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.arrow img {
+  display: block;
+}
+
+/* Pill — 1.43px #ccd9e8 border, 43px radius, Inter 20/28.6. */
+.pill {
+  margin: 0;
+  padding: 5.7px 20px;
+  background: var(--sb-surface-secondary);
+  border: 1.43px solid var(--sb-neutral-200);
+  border-radius: 43px;
+  font-family: var(--sb-font-data);
+  font-size: 20px;
+  line-height: 28.6px;
+  white-space: nowrap;
+}
+
+.current {
+  color: var(--sb-text-hover);
+}
+
+.total {
+  color: var(--sb-text-secondary);
+}
+
+/* Dotted rules — Figma draws these as 2.5px round dots every 5.026px
+   (Vector 898/899, stroke #AAA7FF); the Awards rail leads with a 57px run in
+   #4437D8 as its progress mark. Drawn as a pattern so they stretch by length,
+   not by scaling the dots. */
+.ruleSolid,
+.ruleDotted {
+  display: block;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 2.5px;
+  background-image: radial-gradient(circle at 1.25px 1.25px, var(--rule, #aaa7ff) 1.2px, transparent 1.4px);
+  background-size: 5.026px 2.5px;
+  background-repeat: repeat-x;
+}
+
+.ruleSolid {
+  --rule: #4437d8;
+  flex: 0 0 57px;
+}
+
+.prev img {
+  transform: scaleX(-1);
+}
+
+/* Awards rail: a short progress rule, a dotted rule, then the controls. */
+.end .ruleDotted {
+  margin-right: 4px;
+}
+
+@media (max-width: 767px) {
+  .arrow img {
+    width: 24px;
+    height: 32px;
+  }
+
+  .pill {
+    padding: 4px 14px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+}

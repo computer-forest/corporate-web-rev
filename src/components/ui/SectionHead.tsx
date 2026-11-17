@@ -10,6 +10,10 @@ interface SectionHeadProps {
   /** Accessible name for that arrow, since the glyph carries no text. */
   hrefLabel?: string;
   align?: "start" | "center";
+  /** The 360 frame left-aligns this centred heading (Awards, CSR). */
+  mobileStart?: boolean;
+  /** "h2" is the 40/48 heading Awards and CSR use; the default is the 48/56 H1. */
+  size?: "h1" | "h2";
   tone?: "light" | "dark";
   /**
    * Words on the first line at the 360 frame. The mobile frames set their own
@@ -46,16 +50,18 @@ export default function SectionHead({
   href,
   hrefLabel,
   align = "start",
+  mobileStart = false,
+  size = "h1",
   tone = "light",
   titleBreakAfter,
   subtextBreakAfter,
 }: SectionHeadProps) {
   return (
     <div
-      className={`${styles.head} ${styles[align]} ${tone === "dark" ? styles.dark : ""}`}
+      className={`${styles.head} ${styles[align]} ${tone === "dark" ? styles.dark : ""} ${mobileStart ? styles.mobileStart : ""}`}
     >
       <div className={styles.text}>
-        <h2 className={styles.title}>{withMobileBreak(title, titleBreakAfter)}</h2>
+        <h2 className={`${styles.title} ${size === "h2" ? styles.h2 : ""}`}>{withMobileBreak(title, titleBreakAfter)}</h2>
         {subtext ? (
           <p className={styles.subtext}>{withMobileBreak(subtext, subtextBreakAfter)}</p>
         ) : null}

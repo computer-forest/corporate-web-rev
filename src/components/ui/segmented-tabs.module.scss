@@ -55,6 +55,14 @@
   filter: drop-shadow(0 10px 10px var(--sb-elevation-01));
 }
 
+.onWhite {
+  background: var(--sb-surface-secondary);
+}
+
+.onWhite .active {
+  background: var(--sb-surface-primary);
+}
+
 @media (max-width: 767px) {
   /* The mobile frames size the track to the full 328 column — Segmented Tabs
      0:58394 and its counterparts. Learn is the exception: its four tabs are

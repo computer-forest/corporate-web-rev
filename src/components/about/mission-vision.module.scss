@@ -1,0 +1,117 @@
+/* Mission & Vision 4:127276 — 382 tall frame over a 636 column starting 80px
+   down; the column's overflow is 334px, which is the scroll travel. */
+.mv {
+  --travel: 334px;
+  /* Extra scroll spent on the letter-by-letter highlight (see MissionVision). */
+  --reveal-run: 666px;
+  --pin-top: 88px;
+  position: relative;
+  height: calc(382px + var(--travel) + var(--reveal-run));
+  background: var(--sb-surface-secondary);
+}
+
+.pin {
+  position: sticky;
+  top: var(--pin-top);
+  height: 382px;
+  overflow: hidden;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 136px;
+  max-width: 916px;
+  margin: 0 auto;
+  padding-top: 80px;
+  will-change: transform;
+}
+
+.statement {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  outline: none;
+}
+
+/* Post Login/Heading/H5 Reg — 24/30, -1px, tertiary. */
+.label {
+  margin: 0;
+  font-family: var(--sb-font-data);
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: -1px;
+  color: var(--sb-text-tertiary);
+}
+
+/* Pre Login/Heading/H1 SB — 48/56. */
+.text {
+  position: relative;
+  margin: 0;
+  font-family: var(--sb-font-heading);
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 56px;
+}
+
+.base {
+  color: var(--sb-neutral-300);
+}
+
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* One span per letter: Text Disabled until the scroll position reaches it. */
+.letter {
+  color: var(--sb-neutral-300);
+  transition: color 0.15s linear;
+}
+
+.letter.on {
+  color: var(--sb-text-display);
+}
+
+/* MOUSE_ENTER -> the statement's other variant: smart animate, ease-out, 0.5s. */
+.statement:hover .letter,
+.statement:focus-visible .letter {
+  color: var(--sb-text-display);
+  transition-duration: 0.5s;
+  transition-timing-function: ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .letter {
+    transition: none;
+  }
+}
+
+/* 360 frames 1:72639 / 1:72640 — two 540 screens, line one in Text Display. */
+@media (max-width: 767px) {
+  .mv {
+    height: auto;
+  }
+
+  .pin {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  .column {
+    gap: 0;
+    padding-top: 0;
+  }
+
+  .statement {
+    justify-content: center;
+    min-height: 540px;
+    padding: 40px var(--sb-gutter);
+  }
+
+  .text {
+    font-size: 40px;
+    line-height: 48px;
+  }
+}

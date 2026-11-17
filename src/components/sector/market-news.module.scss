@@ -1,0 +1,146 @@
+.section {
+  background: var(--sb-surface-primary);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 32px var(--sb-gutter);
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+/* H3 Reg — 32/40, -1px. */
+.title {
+  flex: 1 1 0;
+  margin: 0;
+  font-family: var(--sb-font-heading);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -1px;
+  color: var(--sb-text-display);
+}
+
+.arrow {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--sb-primary-1000);
+}
+
+/* Four 310px cards, 24px apart — a rail once they stop fitting. */
+.rail {
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  flex: 0 0 310px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scroll-snap-align: start;
+}
+
+.thumb {
+  display: block;
+  height: 174px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Body/B1 Med 18/24. */
+.name {
+  margin: 0;
+  font-family: var(--sb-font-body);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--sb-text-primary);
+}
+
+/* Body/B3 Reg 14/20, tertiary. */
+.stamp {
+  display: flex;
+  gap: 4px;
+  margin: 0;
+  font-family: var(--sb-font-body);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-text-tertiary);
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--sb-font-body);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-text-display);
+  text-decoration: none;
+}
+
+.pager {
+  width: 100%;
+}
+
+/* 360 frame — 242px cards 16px apart, 16/24 titles, a 32px heading arrow. */
+@media (max-width: 767px) {
+  .inner {
+    gap: 24px;
+    padding-block: 40px;
+  }
+
+  .arrow svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .rail {
+    gap: 16px;
+    margin-right: calc(var(--sb-gutter) * -1);
+  }
+
+  .card {
+    flex-basis: 242px;
+  }
+
+  .thumb {
+    height: 136px;
+  }
+
+  .name {
+    font-size: 16px;
+  }
+}

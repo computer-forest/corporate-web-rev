@@ -1,0 +1,125 @@
+.section {
+  background: var(--sb-surface-tertiary);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 40px var(--sb-gutter);
+}
+
+/* Bento 1312 — three 421px cards over two halves, 24px gutters, 340 tall. */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 340px;
+  padding: 24px;
+  border-radius: var(--sb-radius-12);
+}
+
+.service,
+.transparency,
+.ethics {
+  grid-column: span 2;
+}
+
+.politeness,
+.sustainability {
+  grid-column: span 3;
+  padding-inline: 18px;
+}
+
+.service { background: var(--sb-primary-200); }
+.transparency { background: var(--sb-primary-300); }
+.ethics { background: var(--sb-primary-400); }
+.politeness { background: var(--sb-primary-500); }
+.sustainability { background: var(--sb-primary-600); }
+
+.icon {
+  display: block;
+  width: 60px;
+  height: 60px;
+}
+
+/* Pre Login/Heading/H5 SB — 24/30. */
+.title {
+  margin: 0;
+  font-family: var(--sb-font-heading);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 30px;
+  color: var(--sb-text-display);
+}
+
+/* Pre Login/Body/B1 Reg — 18/24. */
+.body {
+  margin: 0;
+  font-family: var(--sb-font-body);
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--sb-text-secondary);
+}
+
+/* The two darkest cards carry white copy. */
+.politeness .title,
+.sustainability .title {
+  color: #fff;
+}
+
+.politeness .body,
+.sustainability .body {
+  color: var(--sb-neutral-200);
+}
+
+@media (max-width: 1023px) {
+  .service,
+  .transparency,
+  .ethics,
+  .politeness,
+  .sustainability {
+    grid-column: span 6;
+  }
+}
+
+/* 360 frame — five 328-wide cards, one per row, with a 40px icon. */
+@media (max-width: 767px) {
+  .bento {
+    gap: 16px;
+  }
+
+  /* Interaction note: the cards stack on top of one another as the user
+     scrolls — each sticks while the next slides over it. */
+  .bento {
+    gap: 24px;
+  }
+
+  .card {
+    position: sticky;
+    top: 96px;
+    min-height: 406px;
+    padding: 24px 18px;
+  }
+
+  .body {
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  .icon {
+    width: 40px;
+    height: 40px;
+  }
+}

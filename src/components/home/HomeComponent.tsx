@@ -1,4 +1,4 @@
-import { Inter, Poppins } from "next/font/google";
+import { inter, poppins } from "@/components/ui/sb-fonts";
 
 import HeroSection from "./sections/HeroSection";
 import MarketPulse from "./sections/MarketPulse";
@@ -17,23 +17,6 @@ import AppPromo from "./sections/AppPromo";
 import StickyNudge from "./sections/StickyNudge";
 
 import "./sbi-home.scss";
-
-/* Typography/Family/Pre Login/* is Poppins; Typography/Family/Body, the
-   shared Pre + Post library, is Inter. Both are attached to the .sb-scope
-   wrapper rather than the document, so no other route loads them. */
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-  variable: "--font-poppins",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-  variable: "--font-inter",
-});
 
 /**
  * SBI Securities pre-login home page, in the section order of the Figma

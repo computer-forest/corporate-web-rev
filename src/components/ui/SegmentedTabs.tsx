@@ -10,6 +10,9 @@ interface SegmentedTabsProps {
   label: string;
   /** The track width the Figma instance is sized to — 370 on most sections. */
   width?: number;
+  /** "onWhite": the track is the tinted surface and the active tab the white chip
+   *  (Leadership frames sit on a white ground). */
+  tone?: "default" | "onWhite";
 }
 
 /**
@@ -22,10 +25,11 @@ export default function SegmentedTabs({
   onChange,
   label,
   width = 370,
+  tone = "default",
 }: SegmentedTabsProps) {
   return (
     <div
-      className={styles.track}
+      className={`${styles.track} ${tone === "onWhite" ? styles.onWhite : ""}`}
       role="tablist"
       aria-label={label}
       style={{ "--tabs-width": `${width}px` } as React.CSSProperties}

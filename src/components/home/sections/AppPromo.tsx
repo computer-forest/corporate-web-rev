@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { FOOTER_CTA } from "@/constants/sbi-home";
+import type { PromoContent } from "@/types/pages";
 import styles from "./app-promo.module.scss";
 
 /**
@@ -9,7 +10,14 @@ import styles from "./app-promo.module.scss";
  * component is chrome for every marketing route, and the card would otherwise
  * follow it onto /blogs, /calculators and the rest.
  */
-export default function AppPromo() {
+const DEFAULT_CONTENT: PromoContent = {
+  title: FOOTER_CTA.title,
+  body: FOOTER_CTA.body,
+  cta: FOOTER_CTA.cta,
+  ctaHref: "/download-app",
+};
+
+export default function AppPromo({ content = DEFAULT_CONTENT }: { content?: PromoContent }) {
   return (
     <section className={styles.promo} aria-labelledby="app-promo-title">
       <div className={styles.card}>
@@ -17,15 +25,15 @@ export default function AppPromo() {
           {/* The 360 card breaks the heading itself — "Stop Scrolling, /
               Start investing!" — rather than letting it wrap. */}
           <h2 id="app-promo-title" className={styles.title}>
-            {FOOTER_CTA.title.split(" ").slice(0, 2).join(" ")}{" "}
+            {content.title.split(" ").slice(0, 2).join(" ")}{" "}
             <br className={styles.mobileBreak} />
-            {FOOTER_CTA.title.split(" ").slice(2).join(" ")}
+            {content.title.split(" ").slice(2).join(" ")}
           </h2>
-          <p className={styles.body}>{FOOTER_CTA.body}</p>
-          <Link href="/download-app" className={styles.cta}>
+          <p className={styles.body}>{content.body}</p>
+          <Link href={content.ctaHref} className={styles.cta}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/figma/footer/download.svg" alt="" width={16} height={16} />
-            {FOOTER_CTA.cta}
+            {content.cta}
           </Link>
         </div>
 

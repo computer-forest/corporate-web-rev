@@ -1,0 +1,228 @@
+.section {
+  background: var(--sb-surface-tertiary);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 40px var(--sb-gutter);
+}
+
+/* CSR list 1312 x 462 — a 644 active card between two 322 neighbours. */
+.stage {
+  display: grid;
+  grid-template-columns: 322px 644px 322px;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(100% + 60px);
+  margin-inline: -30px;
+  min-height: 462px;
+}
+
+/* CSR Card click -> next variant: smart animate, linear, 0.3s (4:94639). */
+@keyframes csr-from-next {
+  from {
+    transform: translateX(364px);
+    opacity: 0.4;
+  }
+}
+
+@keyframes csr-from-prev {
+  from {
+    transform: translateX(-364px);
+    opacity: 0.4;
+  }
+}
+
+.stage[data-dir="1"] .card {
+  animation: csr-from-next 0.3s linear;
+}
+
+.stage[data-dir="-1"] .card {
+  animation: csr-from-prev 0.3s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage .card {
+    animation: none !important;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  font: inherit;
+}
+
+button.card {
+  cursor: pointer;
+}
+
+.media {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: var(--sb-radius-16);
+}
+
+.prev .media,
+.next .media {
+  width: 322px;
+  height: 181px;
+}
+
+.active .media {
+  width: 644px;
+  height: 362px;
+}
+
+.media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--sb-radius-16);
+}
+
+/* Shadow — a 5.97deg-tilted 0 -> 60% black band, centred a little left of the
+   card and sunk below its bottom edge (4:94622 / 4:94628). */
+.shade {
+  position: absolute;
+  bottom: -37.22px;
+  left: calc(50% - 2.36px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 341.656px;
+  height: 112.93px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.shadeBand {
+  flex: none;
+  width: 335.312px;
+  height: 78.465px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
+  transform: rotate(5.97deg);
+}
+
+.active .shade {
+  bottom: -85.12px;
+  left: calc(50% - 22.04px);
+  width: 706.894px;
+  height: 214.37px;
+}
+
+.active .shadeBand {
+  width: 695.818px;
+  height: 142.742px;
+}
+
+.name {
+  position: absolute;
+  color: #fff;
+}
+
+/* SH2 Med 18/24 on the neighbours, H5 SB 24/30 on the active card. */
+.prev .name,
+.next .name {
+  left: 12px;
+  bottom: 12px;
+  font-family: var(--sb-font-subheading);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.active .name {
+  left: 24px;
+  bottom: 24px;
+  font-family: var(--sb-font-heading);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 30px;
+}
+
+/* Body/B2 Reg — 16/24, centered under the card. */
+.text {
+  max-width: 644px;
+  min-height: 60px;
+  font-family: var(--sb-font-body);
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: var(--sb-text-secondary);
+}
+
+.pager {
+  width: 100%;
+  max-width: 774px;
+}
+
+.pagerMobile {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .stage {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    width: 100%;
+    margin-inline: 0;
+  }
+
+  .prev,
+  .next {
+    display: none;
+  }
+
+  .active .media {
+    width: min(644px, 100%);
+    height: auto;
+    aspect-ratio: 644 / 362;
+  }
+}
+
+/* 360 frame — the active card only, 328 wide, with the pager beneath. */
+@media (max-width: 767px) {
+  .inner {
+    gap: 24px;
+  }
+
+  .stage {
+    min-height: 0;
+  }
+
+  .active .name {
+    left: 16px;
+    bottom: 16px;
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .text {
+    font-size: 14px;
+    line-height: 20px;
+    text-align: left;
+  }
+
+  .pagerDesktop {
+    display: none;
+  }
+
+  .pagerMobile {
+    display: block;
+    max-width: none;
+  }
+}

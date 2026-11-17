@@ -3,10 +3,22 @@
 import { useState } from "react";
 import SbButton from "@/components/ui/SbButton";
 import { FAQS } from "@/constants/sbi-home";
+import type { FaqContent } from "@/types/pages";
 import styles from "./faq.module.scss";
 
-/** Frequently Asked Questions — desktop 1:60054, mobile 0:54418. */
-export default function FaqSection() {
+/** What the section prints when no content is passed — the built-in copy. */
+const DEFAULT_CONTENT: FaqContent = {
+  title: "Frequently Asked Questions",
+  ctaLabel: "View All FAQs",
+  ctaHref: "#faqs",
+  items: FAQS.map((f) => ({ question: f.question, answer: f.answer })),
+};
+
+/**
+ * Frequently Asked Questions — desktop 1:60054, mobile 0:54418. The heading,
+ * button and questions come from `content` (the CMS, on pages that read it).
+ */
+export default function FaqSection({ content = DEFAULT_CONTENT }: { content?: FaqContent }) {
   const [open, setOpen] = useState(0);
 
   return (
@@ -14,19 +26,19 @@ export default function FaqSection() {
       <div className={styles.inner}>
         <div className={styles.aside}>
           <h2 className={styles.title}>
-            Frequently Asked
+            {content.title.split(" ").slice(0, 2).join(" ")}
             <br />
-            Questions
+            {content.title.split(" ").slice(2).join(" ")}
           </h2>
-          <SbButton href="#faqs" className={styles.cta}>
-            View All FAQs
+          <SbButton href={content.ctaHref} className={styles.cta}>
+            {content.ctaLabel}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/figma/faq/arrow-right.svg" alt="" width={16} height={16} />
           </SbButton>
         </div>
 
         <ul className={styles.list}>
-          {FAQS.map((faq, i) => (
+          {content.items.map((faq, i) => (
             <li
               key={faq.question}
               className={`${styles.row} ${open === i ? styles.open : ""}`}

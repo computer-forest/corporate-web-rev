@@ -1,0 +1,504 @@
+.section {
+  background: var(--sb-surface-tertiary);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 20px var(--sb-gutter) 40px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* H2 Reg — 40/48, -1px. */
+.title {
+  margin: 0;
+  font-family: var(--sb-font-heading);
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -1px;
+  color: var(--sb-text-display);
+}
+
+/* Segmented view toggle — #f7fbff track, white 6px-radius active tab. */
+.views {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 2px;
+  background: var(--sb-surface-secondary);
+  border-radius: var(--sb-radius-8);
+}
+
+.viewButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--sb-radius-6);
+  background: none;
+  cursor: pointer;
+}
+
+.viewActive {
+  background: var(--sb-surface-primary);
+  border-color: var(--sb-stroke-default);
+  box-shadow: 0 10px 10px var(--sb-elevation-01);
+}
+
+.viewActiveMobile {
+  /* Mobile has no table; the card toggle carries the highlight instead. */
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* Tags+Icon — 80 x 40 pills; the selected one has the focus stroke. */
+.tags {
+  display: flex;
+  gap: 8px;
+}
+
+.tag {
+  min-width: 80px;
+  min-height: 40px;
+  padding: 8px 12px;
+  background: var(--sb-neutral-50);
+  border: 1px solid var(--sb-stroke-default);
+  border-radius: var(--sb-radius-20);
+  font-family: var(--sb-font-body);
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--sb-text-primary);
+  cursor: pointer;
+}
+
+.tagActive {
+  border-color: var(--sb-text-secondary);
+  color: var(--sb-text-secondary);
+}
+
+.desktopOnly {
+  display: block;
+}
+
+.mobileOnly {
+  display: none;
+}
+
+/* Table 1312 — #f7fbff header row, 64px body rows, tabular figures. */
+.tableWrap {
+  overflow-x: auto;
+  background: var(--sb-surface-primary);
+  border-radius: var(--sb-radius-8);
+}
+
+.table {
+  width: 100%;
+  min-width: 960px;
+  border-collapse: collapse;
+  font-family: var(--sb-font-body);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.table th,
+.table td {
+  padding: 8px 24px;
+  text-align: right;
+  color: var(--sb-text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.table thead th {
+  height: 56px;
+  padding-block: 8px;
+  background: var(--sb-surface-secondary);
+  border-bottom: 1px solid var(--sb-stroke-default);
+  font-weight: 400;
+  color: var(--sb-text-tertiary);
+}
+
+.table tbody tr {
+  height: 64px;
+}
+
+.table th.name {
+  width: 100%;
+  padding-left: 20px;
+  text-align: left;
+  color: #253040;
+}
+
+.table thead th.name {
+  color: var(--sb-text-tertiary);
+}
+
+.up {
+  color: #28a872;
+}
+
+.down {
+  color: #e95d5d;
+}
+
+.advDec {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 104px;
+}
+
+.bar {
+  display: flex;
+  gap: 2px;
+  width: 100%;
+}
+
+.barUp,
+.barDown {
+  flex-basis: 0;
+  height: 2px;
+  border-radius: 8px;
+}
+
+.barUp {
+  background: #28a872;
+}
+
+.barDown {
+  background: #e95d5d;
+}
+
+.counts {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Fundamentals card — 328 wide. */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(304px, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Sector card — white, 1px #edf4fc hairline, 20px radius, 16px padding. */
+.sectorCard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 16px;
+  background: var(--sb-surface-primary);
+  border: 1px solid var(--sb-neutral-100, #edf4fc);
+  border-radius: 20px;
+}
+
+/* Poppins Medium 14/20, #253040, one line with an ellipsis. */
+.cardTitle {
+  margin: 0;
+  overflow: hidden;
+  font-family: var(--sb-font-body);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #253040;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dayChange {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: -8px 0 0;
+  font-family: var(--sb-font-body);
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--sb-text-tertiary);
+}
+
+.dayChange strong {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.cardBar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Advance / Decline badges — 12/16, 4px 8px, 6px radius. */
+.cardCounts {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  font-family: var(--sb-font-body);
+}
+
+.badgeUp,
+.badgeDown {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.badgeUp {
+  background: #e0fff2;
+  color: #0a5f3c;
+}
+
+.badgeDown {
+  background: #fff3f3;
+  color: #a80d0d;
+}
+
+/* 2px split line, 2px apart: #28a872 / #e95d5d. */
+.cardLine {
+  display: flex;
+  gap: 2px;
+  height: 2px;
+}
+
+.cardLine .barUp,
+.cardLine .barDown {
+  height: 2px;
+  border-radius: 8px;
+}
+
+.cardLine .barUp {
+  background: #28a872;
+}
+
+.cardLine .barDown {
+  background: #e95d5d;
+}
+
+/* Inter Medium 14/21 — count, ratio, count. */
+.cardRatio {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  font-family: var(--sb-font-data);
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
+  text-align: center;
+  color: var(--sb-text-secondary);
+}
+
+.cardRatio .up {
+  color: #0a5f3c;
+}
+
+.cardRatio .down {
+  color: #a80d0d;
+}
+
+/* Four equal columns — Inter 14/21 label over a Poppins Medium 14/20 value. */
+.facts {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+}
+
+.facts > div {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.facts dt {
+  font-family: var(--sb-font-data);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--sb-text-secondary);
+}
+
+.facts dd {
+  margin: 0;
+  font-family: var(--sb-font-body);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--sb-text-primary);
+}
+
+/* Heatmap — a placeholder grid, per the Figma note. */
+.heatmap {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 112px;
+  padding: 12px;
+  border-radius: var(--sb-radius-8);
+  font-family: var(--sb-font-body);
+  color: var(--sb-neutral-1000);
+}
+
+/* Long names ("Telecommunications Equipment") must stay inside the tile: they
+   hyphenate at a word break, or break mid-word as a last resort. */
+.tile {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.tileName {
+  min-width: 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.tileValue {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+/* Pagination 328 x 44 — active page is the primary gradient button. */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pageButton {
+  min-width: 44px;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--sb-stroke-default);
+  border-radius: var(--sb-radius-8);
+  background: var(--sb-surface-primary);
+  font-family: var(--sb-font-body);
+  font-size: 14px;
+  color: var(--sb-text-secondary);
+  cursor: pointer;
+}
+
+.pageActive {
+  border-color: transparent;
+  background: var(--sb-gradient-primary);
+  box-shadow: 0 3px 8px 1px var(--sb-elevation-01);
+  color: var(--sb-primary-50);
+}
+
+/* 360 frame — title and view toggle share a row, table gives way to cards. */
+@media (max-width: 767px) {
+  .inner {
+    padding: 20px var(--sb-gutter) 32px;
+  }
+
+  .title {
+    font-size: 28px;
+    line-height: 36px;
+    white-space: nowrap;
+  }
+
+  /* Figma leaves 82px between the trail and the title row — the Line Tabs
+     frame (Indices / Sector & Industry, fixed to the top) sits in it, empty
+     in the frame. */
+  .header {
+    align-items: center;
+    margin-top: 58px;
+  }
+
+  .cardTitle {
+    min-height: 47px;
+  }
+
+  .facts {
+    margin-top: -4px;
+  }
+
+  .view_table {
+    display: none;
+  }
+
+  .viewActiveMobile {
+    background: var(--sb-surface-primary);
+    border-color: var(--sb-stroke-default);
+    box-shadow: 0 10px 10px var(--sb-elevation-01);
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tags {
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    min-width: 74px;
+    min-height: 32px;
+    padding: 4px 12px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .desktopOnly {
+    display: none;
+  }
+
+  .mobileOnly {
+    display: block;
+  }
+
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .heatmap {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Tiles are ~104px wide here, so the names step down to 12/16 to keep a
+     long word like "Telecommunications" on as few lines as possible. */
+  .tile {
+    padding: 8px;
+  }
+
+  .tileName {
+    font-size: 12px;
+    line-height: 16px;
+  }
+}

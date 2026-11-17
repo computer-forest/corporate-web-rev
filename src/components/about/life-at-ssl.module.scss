@@ -1,0 +1,302 @@
+.section {
+  background: var(--sb-surface-primary);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 40px 100px;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+/* H2 Reg — 40/48, -1px. */
+.title {
+  margin: 0;
+  font-family: var(--sb-font-heading);
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -1px;
+  color: var(--sb-text-display);
+}
+
+/* SH3 Reg — 20/28. */
+.subtext {
+  margin: 0;
+  font-family: var(--sb-font-subheading);
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--sb-text-secondary);
+}
+
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+.story {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 0 0 497px;
+  max-width: 497px;
+}
+
+/* H3 Reg — 32/40, -1px. */
+.storyTitle {
+  margin: 0 0 6px;
+  font-family: var(--sb-font-heading);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -1px;
+  color: var(--sb-text-display);
+}
+
+/* B3 Reg — 14/20, clamped to the 139px the design shows (seven lines). */
+.storyText {
+  margin: 0;
+  max-height: 139px;
+  overflow: hidden;
+  font-family: var(--sb-font-body);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-text-secondary);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
+  transition: max-height 0.3s ease;
+}
+
+.storyText.expanded {
+  display: block;
+  max-height: 600px;
+}
+
+.more {
+  margin: 8px 0 40px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--sb-font-body);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-text-hover);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.caret {
+  display: none;
+}
+
+.cta {
+  width: 228px;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Images 606 x 412 — a front frame over two tilted ones. Each frame is a
+   554 x 312 border-box with a 7.4px white border, 16px radius and a 14.8px
+   shadow; its centre and the photo shown tween between variants. */
+.stack {
+  position: relative;
+  width: 606px;
+  height: 412px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.stackInner {
+  position: absolute;
+  inset: 0;
+}
+
+.photo {
+  position: absolute;
+  box-sizing: border-box;
+  width: 554px;
+  height: 312px;
+  overflow: hidden;
+  border: 7.402px solid #fff;
+  border-radius: 16px;
+  box-shadow: 0 0 14.805px rgba(0, 0, 0, 0.25);
+  /* Smart animate, linear, 0.3s (variant change 4:95015). */
+  transition: left 0.3s linear, top 0.3s linear;
+}
+
+.img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s linear;
+}
+
+.img.shown {
+  opacity: 1;
+}
+
+/* Heading and paragraph swap with the variant. */
+@keyframes life-story-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.story {
+  animation: life-story-in 0.3s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story,
+  .photo,
+  .img {
+    animation: none;
+    transition: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .inner {
+    padding-inline: var(--sb-gutter);
+  }
+
+  .body {
+    flex-direction: column;
+  }
+
+  .story {
+    flex-basis: auto;
+    max-width: none;
+  }
+}
+
+/* 360 frame — copy above, the photo stack scaled to the 328 column. */
+@media (max-width: 767px) {
+  /* 1:72674 — heading, the image stack, then the story and the CTA, with no
+     pager; the story's children join the column so the CTA can sit last. */
+  .inner {
+    gap: 24px;
+    padding: 40px var(--sb-gutter);
+  }
+
+  .head {
+    gap: 8px;
+  }
+
+  .title {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: 0;
+  }
+
+  .subtext {
+    max-width: 240px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .body {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .story {
+    display: contents;
+    animation: none;
+  }
+
+  .gallery {
+    order: 1;
+    margin-bottom: 24px;
+  }
+
+  .pager {
+    display: none;
+  }
+
+  .storyTitle {
+    order: 2;
+    margin: 0 0 8px;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: 0;
+    text-align: center;
+    animation: life-story-in 0.3s linear;
+  }
+
+  .storyText {
+    order: 3;
+    width: 288px;
+    text-align: center;
+    animation: life-story-in 0.3s linear;
+  }
+
+  /* Figma "Read More" — a plain 14/20 label with a CaretDown, not a link. */
+  .more {
+    order: 4;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 8px 0 24px;
+    color: var(--sb-text-hover);
+    text-decoration: none;
+  }
+
+  .caret {
+    display: block;
+    transform: rotate(90deg);
+  }
+
+  .more[aria-expanded="true"] .caret {
+    transform: rotate(-90deg);
+  }
+
+  .cta {
+    order: 5;
+    width: 210px;
+    min-width: 0;
+    font-weight: 400;
+    box-shadow: none;
+  }
+
+  /* The same 606 x 412 stack scaled to the 328 column (300 x 169 frames). */
+  .stack {
+    width: 328px;
+    height: 222px;
+  }
+
+  .stackInner {
+    inset: auto;
+    top: 0;
+    left: 0;
+    width: 606px;
+    height: 412px;
+    transform: scale(0.5413);
+    transform-origin: top left;
+  }
+}

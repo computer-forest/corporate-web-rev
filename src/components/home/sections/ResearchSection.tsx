@@ -5,15 +5,32 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@/components/ui/SbIcons";
 import SectionHead from "@/components/ui/SectionHead";
 import SegmentedTabs from "@/components/ui/SegmentedTabs";
 import { RESEARCH, RESEARCH_TABS } from "@/constants/sbi-home";
+import type { ResearchContent } from "@/types/pages";
 import styles from "./research.module.scss";
 
-/** Analysis you can trust — desktop 1:59599, mobile 0:47880. */
 function pad(n: number) {
   return String(n).padStart(2, "0");
 }
 
-export default function ResearchSection() {
-  const [tab, setTab] = useState<string>(RESEARCH_TABS[0]);
+/** What the section prints when no content is passed — the built-in copy. */
+const DEFAULT_CONTENT: ResearchContent = {
+  title: "Analysis you can trust",
+  tabs: RESEARCH_TABS.map((label) => ({
+    label,
+    reports: RESEARCH.map((r, i) => ({ ...r, cover: `/figma/research/report-${i + 1}.png` })),
+  })),
+};
+
+/**
+ * Analysis you can trust — desktop 1:59599, mobile 0:47880. The heading, tabs
+ * and reports come from `content` (the CMS, on pages that read it). A tab with
+ * no reports of its own shows the first tab's, as the design's placeholder does.
+ */
+export default function ResearchSection({ content = DEFAULT_CONTENT }: { content?: ResearchContent }) {
+  const tabLabels = content.tabs.map((t) => t.label);
+  const [tab, setTab] = useState<string>(tabLabels[0] ?? "");
+  const activeTab = content.tabs.find((t) => t.label === tab);
+  const reports = activeTab && activeTab.reports.length > 0 ? activeTab.reports : (content.tabs[0]?.reports ?? [])
 
   /**
    * Research cards 0:59780 — mobile lays the cards out as an 806-wide rail
@@ -56,7 +73,7 @@ export default function ResearchSection() {
     <section className={styles.section} id="research">
       <div className={styles.inner}>
         <SectionHead
-          title="Analysis you can trust"
+          title={content.title}
           href="#research-reports"
           hrefLabel="All research reports"
           titleBreakAfter={2}
@@ -64,7 +81,7 @@ export default function ResearchSection() {
 
         <div className={styles.tabs}>
           <SegmentedTabs
-            tabs={RESEARCH_TABS}
+            tabs={tabLabels}
             active={tab}
             onChange={setTab}
             label="Research type"
@@ -72,14 +89,14 @@ export default function ResearchSection() {
         </div>
 
         <ul className={styles.grid} ref={railRef}>
-          {RESEARCH.map((report, i) => (
-            <li key={report.title} className={styles.card}>
+          {reports.map((report, i) => (
+            <li key={`${report.title}-${i}`} className={styles.card}>
               {/* The report kind is set inside the artwork, so it is repeated
                   here for assistive tech rather than drawn twice. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 className={styles.cover}
-                src={`/figma/research/report-${i + 1}.png`}
+                src={report.cover}
                 alt=""
                 aria-hidden="true"
               />
@@ -107,7 +124,7 @@ export default function ResearchSection() {
             </button>
             <p className={styles.pill} aria-live="polite">
               <span className={styles.current}>{pad(railIndex + 1)}</span>
-              <span className={styles.total}>/{pad(RESEARCH.length)}</span>
+              <span className={styles.total}>/{pad(reports.length)}</span>
             </p>
             <button
               type="button"

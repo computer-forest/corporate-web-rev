@@ -1,0 +1,396 @@
+/* Hero Banner 4:127270 — 1440 x 524 on desktop; the 360 frame (1:72561)
+   stacks title, phone and form, since a 3-column row cannot fit 328px. */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--sb-surface-primary);
+}
+
+.dots {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 670px;
+  pointer-events: none;
+}
+
+/* Dots 572 x 670 — each a clip over the same texture, cropped by the
+   243.8% / -71.94% offsets the frame carries. */
+.dotBox {
+  position: absolute;
+  bottom: 0;
+  width: 572px;
+  height: 670px;
+  overflow: hidden;
+}
+
+.dot {
+  position: absolute;
+  top: 0;
+  left: -71.94%;
+  width: 243.8%;
+  height: 100.87%;
+  max-width: none;
+}
+
+.shadow {
+  position: absolute;
+  left: 50%;
+  top: 368px;
+  width: 1518px;
+  height: 567px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* Bg Shadow — the SVG overscans its 1518 x 567 box by -52.91% / -19.76%. */
+.shadow img {
+  position: absolute;
+  inset: -52.91% -19.76%;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: none;
+}
+
+.inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 338px 1fr 338px;
+  align-items: center;
+  column-gap: 24px;
+  max-width: var(--sb-page);
+  height: 524px;
+  margin: 0 auto;
+  padding: 0 var(--sb-gutter);
+}
+
+.crumbs {
+  position: absolute;
+  top: 20px;
+  left: var(--sb-gutter);
+}
+
+.copy {
+  width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Pre Login - 2/Heading/H2 Reg — 40/48, -1px. */
+.title {
+  margin: 0;
+  font-family: var(--sb-font-heading);
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -1px;
+  color: var(--sb-text-display);
+}
+
+/* Post Login/Sub-Heading/SH1 — 20/28. */
+.subtext {
+  margin: 0;
+  font-family: var(--sb-font-data);
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--sb-text-secondary);
+}
+
+/* Slot 396 x 476, clipped. The phone is 335 x 693 and cut off by the slot. */
+.visual {
+  position: relative;
+  justify-self: center;
+  align-self: end;
+  width: 396px;
+  height: 476px;
+  overflow: hidden;
+}
+
+.phone {
+  position: absolute;
+  left: 39px;
+  top: 0;
+  width: 335px;
+  height: 693px;
+  max-width: none;
+  object-fit: cover;
+}
+
+.products {
+  position: absolute;
+  left: 4px;
+  top: 142px;
+  width: 404px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 19.6px;
+  margin: 0;
+  padding: 16.3px;
+  list-style: none;
+  background: var(--sb-surface-primary);
+  border: 1.63px solid var(--sb-stroke-default);
+  border-radius: 19.6px;
+  box-shadow: 0 0 13px rgba(0, 0, 0, 0.25);
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12.2px;
+  min-height: 77px;
+  padding: 8.1px;
+  background: var(--sb-surface-secondary);
+  border-radius: 8.1px;
+  font-family: var(--font-open-sans), "Open Sans", sans-serif;
+  font-variation-settings: "wdth" 100;
+  font-size: 11.2px;
+  line-height: normal;
+  color: #222;
+  text-align: center;
+}
+
+.label {
+  /* Figma sets these on one line; only Exchange Traded Funds wraps. */
+  white-space: nowrap;
+}
+
+.product:nth-child(5) .label {
+  white-space: pre-line;
+}
+
+.line {
+  display: block;
+}
+
+.product:nth-child(-n + 3) {
+  min-height: 92.03px;
+}
+
+.iconWrap {
+  position: relative;
+  display: flex;
+  padding: 8.1px;
+  border-radius: 6.1px;
+}
+
+.badge {
+  position: absolute;
+  top: 0;
+  left: 27px;
+  padding: 2px 4px;
+  border-radius: 16px;
+  background: linear-gradient(119deg, rgba(40, 0, 113, 0.7) 6%, rgba(216, 32, 83, 0.7) 95%);
+  font-family: var(--font-open-sans), "Open Sans", sans-serif;
+  font-size: 8.1px;
+  font-weight: 600;
+  line-height: normal;
+  color: #fff;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 338px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Body/B3 — 14/20. */
+.field label,
+.agree,
+.field input {
+  font-family: var(--sb-font-body);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.field label {
+  color: var(--sb-text-primary);
+}
+
+.field input {
+  width: 100%;
+  padding: 11px 12px;
+  background: var(--sb-surface-primary);
+  border: 1px solid var(--sb-stroke-default);
+  border-radius: var(--sb-radius-8);
+  color: var(--sb-text-secondary);
+}
+
+.field input::placeholder {
+  color: var(--sb-text-secondary);
+  opacity: 1;
+}
+
+.field input:focus-visible {
+  outline: 2px solid var(--sb-stroke-hover);
+  outline-offset: 1px;
+}
+
+.help {
+  display: flex;
+  align-items: center;
+  height: 20px;
+  gap: 4px;
+  margin: -4px 0 0;
+  font-family: var(--sb-font-body);
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--sb-text-secondary);
+}
+
+.agree {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--sb-text-secondary);
+  cursor: pointer;
+}
+
+.agree input {
+  position: absolute;
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #61799b;
+  border-radius: 4px;
+}
+
+.box img {
+  opacity: 0;
+}
+
+.agree input:checked + .box img {
+  opacity: 1;
+}
+
+.agree input:focus-visible + .box {
+  outline: 2px solid var(--sb-stroke-hover);
+  outline-offset: 2px;
+}
+
+.submit {
+  height: 44px;
+  border: 0;
+  border-radius: var(--sb-radius-8);
+  background: var(--sb-gradient-primary);
+  box-shadow: 0 3px 8px 1px var(--sb-elevation-01);
+  font-family: var(--sb-font-body);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-primary-50);
+  cursor: pointer;
+}
+
+@media (max-width: 1100px) {
+  .inner {
+    grid-template-columns: 1fr 338px;
+    height: auto;
+    padding-top: 64px;
+    padding-bottom: 48px;
+    row-gap: 32px;
+  }
+
+  .visual {
+    display: none;
+  }
+}
+
+/* 360 frame — breadcrumbs, title, then the phone, with the form beneath. */
+@media (max-width: 767px) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr);
+    height: 540px;
+    grid-template-rows: 84px auto;
+    align-content: start;
+    padding: 64px var(--sb-gutter) 0;
+    row-gap: 48px;
+  }
+
+  .crumbs {
+    left: var(--sb-gutter);
+    top: 20px;
+  }
+
+  /* The 360 frame carries no form: centred title and subtext over the phone. */
+  .line {
+    display: inline;
+  }
+
+  .copy {
+    width: 100%;
+    max-width: none;
+    align-items: center;
+    text-align: center;
+  }
+
+  .form {
+    display: none;
+  }
+
+  .title {
+    font-size: 32px;
+    line-height: 42px;
+  }
+
+  .subtext {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .visual {
+    display: block;
+    justify-self: center;
+    width: 328px;
+    height: 344px;
+    max-width: 100%;
+    transform-origin: top center;
+  }
+
+  .phone {
+    left: 58px;
+    width: 212px;
+    height: 438px;
+  }
+
+  .products {
+    left: 40px;
+    top: 92px;
+    width: 248px;
+    gap: 12px;
+    padding: 11px;
+  }
+
+  .product {
+    min-height: 47px;
+    font-size: 7px;
+    gap: 6px;
+  }
+
+  .product img {
+    width: 15px;
+    height: 15px;
+  }
+
+  .form {
+    width: 100%;
+  }
+}

@@ -1,0 +1,303 @@
+/* Hero Banner 4:127616 — #f6f6ff, 20px above the trail, 32 below the title. */
+.banner {
+  background: var(--sb-surface-tertiary);
+}
+
+.bannerInner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 20px var(--sb-gutter) 32px;
+}
+
+/* H2 Reg — 40/48, -1px. */
+.stop {
+  display: inline;
+}
+
+.heading {
+  margin: 0;
+  font-family: var(--sb-font-heading);
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -1px;
+  color: var(--sb-text-display);
+}
+
+.listing {
+  background: var(--sb-surface-primary);
+}
+
+.listingInner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 24px var(--sb-gutter) 40px;
+}
+
+/* Three 421px cards across, 24px column gap and 40px between rows. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.portrait {
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: var(--sb-radius-16);
+  background: #fff;
+}
+
+.portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Pre Login - 2/Heading/H5 SB — 24/30. */
+.name {
+  font-family: var(--sb-font-heading);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 30px;
+  color: var(--sb-text-primary);
+}
+
+/* Pre Login/Body/B1 Reg — 18/24. */
+.role {
+  font-family: var(--sb-font-body);
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--sb-text-secondary);
+}
+
+.card:hover .name,
+.card:focus-visible .name {
+  color: var(--sb-text-hover);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--sb-stroke-hover);
+  outline-offset: 4px;
+  border-radius: var(--sb-radius-16);
+}
+
+.mobileHead {
+  display: none;
+}
+
+/* Detail page — 421px portrait left, 867px biography right, 24px between. */
+.detail {
+  background: var(--sb-surface-primary);
+}
+
+.detailInner {
+  display: grid;
+  grid-template-columns: 421px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 32px var(--sb-gutter);
+}
+
+.detailCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detailRole {
+  margin: 0;
+  font-family: var(--sb-font-body);
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--sb-text-secondary);
+}
+
+/* Pre Login/Body/B2 Reg — 16/24, a blank line between paragraphs. */
+.bio {
+  min-height: 400px;
+  font-family: var(--sb-font-body);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--sb-text-secondary);
+}
+
+/* A class on the paragraph keeps `.sb-scope p:not([class])` (1.1em margin) off it. */
+.bio .para {
+  margin: 0 0 24px;
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .detailInner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .detailCard {
+    max-width: 421px;
+  }
+}
+
+/* 360 frame 1:72949 — a centred 28/36 title over a lavender banner, tabs on the
+   328 column, then two 156px cards per row (16px / 24px gaps). */
+@media (max-width: 767px) {
+  .bannerInner {
+    gap: 40px;
+    padding: 20px var(--sb-gutter) 40px;
+  }
+
+  .heading {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -1px;
+    text-align: center;
+  }
+
+  .stop {
+    display: none;
+  }
+
+  .listingInner {
+    gap: 40px;
+    padding: 20px var(--sb-gutter) 40px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 16px;
+    align-items: start;
+  }
+
+  .card {
+    gap: 16px;
+  }
+
+  .text {
+    align-items: center;
+    gap: 0;
+    text-align: center;
+  }
+
+  .name {
+    font-family: var(--sb-font-body);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .role {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .desktopOnly {
+    display: none;
+  }
+
+  /* Leader card 1:79374 — a 156px portrait beside a left-aligned name (24/30)
+     and role (14/20), 16px apart, 42px under the breadcrumbs. */
+  .bannerInner:has(.mobileHead) {
+    gap: 42px;
+    padding-bottom: 32px;
+  }
+
+  .mobileHead {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .mobilePortrait {
+    flex: 0 0 156px;
+    width: 156px;
+    height: 156px;
+    overflow: hidden;
+    border-radius: var(--sb-radius-16);
+    background: #fff;
+  }
+
+  .mobilePortrait img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .mobileText {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .mobileName {
+    margin: 0;
+    font-family: var(--sb-font-heading);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: -1px;
+    color: var(--sb-text-primary);
+  }
+
+  .mobileRole {
+    margin: 0;
+    font-family: var(--sb-font-body);
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--sb-text-secondary);
+  }
+
+  /* Container:margin 1:79375 — 16px gutters, 10px above and below, copy in
+     Text Primary. */
+  .detailInner {
+    padding: 10px var(--sb-gutter);
+  }
+
+  .bio {
+    min-height: 0;
+    color: var(--sb-text-primary);
+  }
+
+  .bio .para:last-child {
+    margin-bottom: 0;
+  }
+
+  .detailCard {
+    max-width: none;
+  }
+}

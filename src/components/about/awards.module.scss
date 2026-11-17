@@ -1,0 +1,152 @@
+.section {
+  background: var(--sb-surface-primary);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: var(--sb-page);
+  margin: 0 auto;
+  padding: 40px var(--sb-gutter);
+}
+
+/* Four 421 x 258 cards, 24px apart — wider than the 1312 column, so a rail. */
+.rail {
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  position: relative;
+  flex: 0 0 421px;
+  height: 258px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  border-radius: var(--sb-radius-12);
+  background: radial-gradient(circle at 100% 100%, #fff 0%, var(--sb-primary-300) 100%);
+}
+
+.copy {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 188px;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.logo {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.logo img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.line {
+  display: block;
+  white-space: nowrap;
+}
+
+/* Pre Login/Body/B2 Med — 16/24. */
+.title {
+  margin: 0;
+  font-family: var(--sb-font-body);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--sb-text-display);
+}
+
+/* Pre Login/Body/B3 Reg — 14/20. */
+.text {
+  margin: 0;
+  font-family: var(--sb-font-body);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-text-secondary);
+}
+
+.pattern {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.patternImage {
+  flex: none;
+  display: block;
+}
+
+.pattern img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+/* Post Login/Body/B4 Reg — Inter 12/16, on the NSDL card. */
+.small {
+  white-space: pre-line;
+  font-family: var(--sb-font-data);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.pager {
+  width: 100%;
+  max-width: 1312px;
+}
+
+/* 360 frame — the cards stack at 328 x 258 and the pager is dropped. */
+@media (max-width: 767px) {
+  .inner {
+    gap: 24px;
+    padding-block: 40px;
+  }
+
+  .rail {
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .card {
+    flex-basis: auto;
+    width: 100%;
+  }
+
+  .copy {
+    left: 16px;
+    width: 164px;
+  }
+
+  .pager {
+    display: none;
+  }
+}

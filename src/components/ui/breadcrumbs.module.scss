@@ -1,0 +1,54 @@
+.nav {
+  display: block;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Post Login/Body/B3 Med — 14/20, tertiary. */
+.crumb {
+  font-family: var(--sb-font-body);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sb-text-tertiary);
+  text-decoration: none;
+}
+
+a.crumb:hover {
+  color: var(--sb-text-hover);
+}
+
+/* Pre Login - 2/Body/B2 Med — 16/24, primary. */
+.current {
+  font-family: var(--sb-font-body);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--sb-text-primary);
+}
+
+.caret {
+  display: block;
+  flex-shrink: 0;
+}
+
+@media (max-width: 767px) {
+  .current {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
