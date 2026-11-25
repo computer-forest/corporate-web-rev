@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "./SbIcons";
 import { scrollRail } from "@/utils/scrollRail.utils";
+import useCarouselAutoplay, { useRailOverflow } from "@/utils/useCarouselAutoplay";
+import PlayPauseButton from "./PlayPauseButton";
 import styles from "./card-rail.module.scss";
 
 interface CardRailProps {
@@ -83,6 +85,15 @@ export default function CardRail({
   // grey out.
   const move = (direction: -1 | 1) => scrollRail(railRef.current, direction);
 
+  // Advances on its own while there is anything to page, with pause / play.
+  const overflows = useRailOverflow(railRef);
+  const autoplay = useCarouselAutoplay({
+    advance: () => move(1),
+    enabled: overflows,
+    resetKey: page,
+    hoverTarget: railRef,
+  });
+
   const controls = (
     <div className={styles.controls}>
       <button
@@ -105,6 +116,15 @@ export default function CardRail({
       >
         <ChevronRightIcon />
       </button>
+      {overflows ? (
+        <PlayPauseButton
+          playing={autoplay.playing}
+          onToggle={autoplay.toggle}
+          label={`${label} carousel`}
+          tone={tone}
+          mobileSize={32}
+        />
+      ) : null}
     </div>
   );
 

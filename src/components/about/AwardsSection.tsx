@@ -5,6 +5,7 @@ import Pager from "@/components/ui/Pager";
 import SectionHead from "@/components/ui/SectionHead";
 import type { AboutContent } from "@/types/pages";
 import { scrollRail } from "@/utils/scrollRail.utils";
+import useCarouselAutoplay, { useRailOverflow } from "@/utils/useCarouselAutoplay";
 import styles from "./awards.module.scss";
 
 /**
@@ -32,6 +33,15 @@ export default function AwardsSection({ awards }: { awards: AboutContent["awards
   }, []);
 
   const page = (delta: -1 | 1) => scrollRail(railRef.current, delta, 421);
+
+  // Advances on its own while the rail overflows, with pause / play.
+  const overflows = useRailOverflow(railRef);
+  const autoplay = useCarouselAutoplay({
+    advance: () => page(1),
+    enabled: overflows,
+    resetKey: index,
+    hoverTarget: railRef,
+  });
 
   return (
     <section className={styles.section}>
@@ -104,6 +114,8 @@ export default function AwardsSection({ awards }: { awards: AboutContent["awards
           <Pager
             index={Math.min(index, AWARDS.length - 1)}
             total={AWARDS.length}
+            playing={overflows ? autoplay.playing : undefined}
+            onTogglePlay={overflows ? autoplay.toggle : undefined}
             onPrev={() => page(-1)}
             onNext={() => page(1)}
             label="award"

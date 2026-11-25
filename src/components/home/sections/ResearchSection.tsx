@@ -7,6 +7,8 @@ import SegmentedTabs from "@/components/ui/SegmentedTabs";
 import { RESEARCH, RESEARCH_TABS } from "@/constants/sbi-home";
 import type { ResearchContent } from "@/types/pages";
 import { scrollRail } from "@/utils/scrollRail.utils";
+import useCarouselAutoplay from "@/utils/useCarouselAutoplay";
+import PlayPauseButton from "@/components/ui/PlayPauseButton";
 import styles from "./research.module.scss";
 
 function pad(n: number) {
@@ -65,6 +67,14 @@ export default function ResearchSection({ content = DEFAULT_CONTENT }: { content
 
   const page = (delta: -1 | 1) => scrollRail(railRef.current, delta, 258);
 
+  // The rail only exists on mobile; on desktop the grid has nothing to move.
+  const autoplay = useCarouselAutoplay({
+    advance: () => page(1),
+    enabled: isRail,
+    resetKey: railIndex,
+    hoverTarget: railRef,
+  });
+
   return (
     <section className={styles.section} id="research">
       <div className={styles.inner}>
@@ -118,7 +128,7 @@ export default function ResearchSection({ content = DEFAULT_CONTENT }: { content
             >
               <ChevronLeftIcon />
             </button>
-            <p className={styles.pill} aria-live="polite">
+            <p className={styles.pill} aria-live={autoplay.playing ? "off" : "polite"}>
               <span className={styles.current}>{pad(railIndex + 1)}</span>
               <span className={styles.total}>/{pad(reports.length)}</span>
             </p>
@@ -130,6 +140,14 @@ export default function ResearchSection({ content = DEFAULT_CONTENT }: { content
             >
               <ChevronRightIcon />
             </button>
+            {isRail ? (
+              <PlayPauseButton
+                playing={autoplay.playing}
+                onToggle={autoplay.toggle}
+                label="reports carousel"
+                mobileSize={32}
+              />
+            ) : null}
           </div>
         </div>
       </div>
