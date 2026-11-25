@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Pager from "@/components/ui/Pager";
 import SectionHead from "@/components/ui/SectionHead";
 import type { AboutContent } from "@/types/pages";
+import { scrollRail } from "@/utils/scrollRail.utils";
 import styles from "./awards.module.scss";
 
 /**
@@ -30,12 +31,7 @@ export default function AwardsSection({ awards }: { awards: AboutContent["awards
     return () => rail.removeEventListener("scroll", onScroll);
   }, []);
 
-  const page = (delta: -1 | 1) => {
-    const rail = railRef.current;
-    if (!rail) return;
-    const card = rail.firstElementChild as HTMLElement | null;
-    rail.scrollBy({ left: delta * ((card?.clientWidth ?? 421) + railGap(rail)), behavior: "smooth" });
-  };
+  const page = (delta: -1 | 1) => scrollRail(railRef.current, delta, 421);
 
   return (
     <section className={styles.section}>

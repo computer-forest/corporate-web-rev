@@ -6,6 +6,7 @@ import SectionHead from "@/components/ui/SectionHead";
 import SegmentedTabs from "@/components/ui/SegmentedTabs";
 import { RESEARCH, RESEARCH_TABS } from "@/constants/sbi-home";
 import type { ResearchContent } from "@/types/pages";
+import { scrollRail } from "@/utils/scrollRail.utils";
 import styles from "./research.module.scss";
 
 function pad(n: number) {
@@ -62,12 +63,7 @@ export default function ResearchSection({ content = DEFAULT_CONTENT }: { content
     };
   }, []);
 
-  const page = (delta: -1 | 1) => {
-    const rail = railRef.current;
-    if (!rail) return;
-    const card = rail.firstElementChild as HTMLElement | null;
-    rail.scrollBy({ left: delta * ((card?.clientWidth ?? 258) + 16), behavior: "smooth" });
-  };
+  const page = (delta: -1 | 1) => scrollRail(railRef.current, delta, 258);
 
   return (
     <section className={styles.section} id="research">

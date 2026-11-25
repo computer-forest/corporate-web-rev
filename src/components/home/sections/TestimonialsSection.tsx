@@ -8,6 +8,7 @@ import {
   LargeChevronRightIcon,
 } from "@/components/ui/SbIcons";
 import { TESTIMONIALS } from "@/constants/sbi-home";
+import { scrollRail } from "@/utils/scrollRail.utils";
 import styles from "./testimonials.module.scss";
 
 function pad(n: number) {
@@ -86,11 +87,8 @@ export default function TestimonialsSection() {
   const move = (delta: -1 | 1) => {
     const rail = stackRef.current;
     if (isRail && rail) {
-      const card = rail.firstElementChild as HTMLElement | null;
-      rail.scrollBy({
-        left: delta * ((card?.clientWidth ?? 259) + 16),
-        behavior: "smooth",
-      });
+      // The mobile rail loops at its ends, as the desktop deck does.
+      scrollRail(rail, delta, 259);
       return;
     }
     setStep((current) => current + delta);
